@@ -3,18 +3,20 @@ using UnityEngine;
 
 public class DynamicDifficulty : MonoBehaviour
 {
-    [SerializeField] private UpgradeArea _upgradeArea;
-    [SerializeField] private NPCSpawner _spawner;
     [SerializeField] private Difficulty _difficulty;
 
     private ModelBuilder _allyModel;
+    private UpgradeArea _upgradeArea;
+    private NPCSpawner _spawner;
     private Queue<int> _valueToAdd = new();
     private Queue<int> _improveValues = new();
     private int _counter;
 
-    public void Init(ModelBuilder allyModel)
+    public void Init(ModelBuilder allyModel, UpgradeArea upgradeArea, NPCSpawner spawner)
     {
         _allyModel = allyModel;
+        _upgradeArea = upgradeArea;
+        _spawner = spawner;
 
         for (int i = 0; i < _difficulty.SnowValuesToAddNpc.Count; i++)
             _valueToAdd.Enqueue(_difficulty.SnowValuesToAddNpc[i]);
@@ -51,6 +53,9 @@ public class DynamicDifficulty : MonoBehaviour
 
     private void OnCharacterUpgrade(int points)
     {
+        if (_improveValues.Count <= 0)
+            return;
+
         _counter += points;
 
         if (_counter >= _improveValues.Peek())

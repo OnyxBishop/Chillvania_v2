@@ -1,65 +1,57 @@
 using Agava.YandexGames;
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelStarter : MonoBehaviour
 {
+    [SerializeField] private GameplayEntryPoint _entryPoint;
     [SerializeField] private PlayerFabric _playerFabric;
-    [SerializeField] private NPCSpawner _npcSpawner;
+    [SerializeField] private UIEnableSwitcher _uiEnableSwitcher;
+    [SerializeField] private InputSetter _inputSetter;
+    [SerializeField] private InputView _inputView;
     [SerializeField] private EntryMenu _entryMenu;
-    [SerializeField] private RestartButton _restartButton;
-    [SerializeField] private CameraSwitcher _cameraSwitcher;
-    [SerializeField] private BehavioursEnableSwitcher _behavioursEnableSwitcher;
-    [SerializeField] private VideoAd _videoAd;
-    [SerializeField] private LevelInitialiser _levelInitialiser;
 
+    private Map _map;
     private Character _character;
 
-    public event Action<Character> CharacterSpawned;
-
-    private void Awake()
-    {
-        CreateCharacter();
-        _levelInitialiser.InitAll();
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-        YandexGamesSdk.GameReady();
-#endif        
-    }
+    public event Action GameStarting;
 
     private void Start()
     {
-        _behavioursEnableSwitcher.Init(_character);
-        _behavioursEnableSwitcher.Disable();
-        _entryMenu.GameStarting += OnGameStarting;
-        _restartButton.Clicked += OnRestartClicked;
+        _entryPoint.GameReady += OnGameReadyToStart;
+        _entryMenu.PlayClicked += OnPlayButtonClicked;
     }
 
     private void OnDestroy()
     {
-        _entryMenu.GameStarting -= OnGameStarting;
-        _restartButton.Clicked -= OnRestartClicked;
+        _entryPoint.GameReady -= OnGameReadyToStart;
+        _entryMenu.PlayClicked -= OnPlayButtonClicked;
     }
 
-    private void OnGameStarting()
+    public void Init(Map map)
     {
-        _cameraSwitcher.FollowToCharacter(_character);
-        _behavioursEnableSwitcher.Enable();
-        _npcSpawner.Spawn(NpcType.Enemy);
+        _map = map;
     }
 
-    private void CreateCharacter()
-    {
-        _character = _playerFabric.Create();
-        CharacterSpawned?.Invoke(_character);
-    }
-
-    private void OnRestartClicked()
+    public void OnGameReadyToStart()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        _videoAd.ShowInterstitial();
-#endif
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        YandexGamesSdk.GameReady();
+#endif 
+
+        _character = _playerFabric.Create(_map.PlayerSpawnPoint);
+        _inputSetter.Set(_character);
+        _inputView.Init(_inputSetter);
+        _uiEnableSwitcher.Disable();
+    }
+
+    private void OnPlayButtonClicked()
+    {
+        GameStarting?.Invoke();
+        _map.CameraSwitcher.FollowToCharacter(_character);
+        _character.EnableMovement();
+        _uiEnableSwitcher.Enable(_character);
+        _inputView.ShowHint();
+        _map.NPCSpawner.Spawn(NpcType.Enemy);
     }
 }

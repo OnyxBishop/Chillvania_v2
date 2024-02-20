@@ -6,7 +6,8 @@ public class UpgradeBar : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
     [SerializeField] private TMP_Text _upgradePoints;
-    [SerializeField] private UpgradeArea _upgradeArea;
+
+    private UpgradeArea _upgradeArea;   
 
     private void Start()
     {
@@ -23,7 +24,12 @@ public class UpgradeBar : MonoBehaviour
     private void OnDisable()
     {
         _upgradeArea.PointsChanged -= OnPointsChanged;
-         _upgradeArea.ProgressChanged += OnValueChanged;
+        _upgradeArea.ProgressChanged += OnValueChanged;
+    }
+
+    public void Init(UpgradeArea upgradeArea)
+    {
+        _upgradeArea = upgradeArea;
     }
 
     private void OnPointsChanged(int points)

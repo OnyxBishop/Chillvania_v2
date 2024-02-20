@@ -4,7 +4,7 @@ using UnityEngine;
 public class BuildProgress : MonoBehaviour
 {
     [SerializeField] private TMP_Text _progress;
-    
+
     private ModelBuilder _model;
 
     public void Init(ModelBuilder model)

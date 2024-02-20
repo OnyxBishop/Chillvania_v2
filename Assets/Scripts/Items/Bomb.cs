@@ -12,7 +12,7 @@ public class Bomb : BoostItem
 
     private void Awake()
     {
-        Power = 1f;
+        Power = 3f;
         _audioSource = GetComponent<AudioSource>();
     }
 

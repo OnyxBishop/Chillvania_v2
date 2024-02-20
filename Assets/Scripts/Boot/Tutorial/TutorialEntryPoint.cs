@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class TutorialEntryPoint : MonoBehaviour
 {
-    [SerializeField] private Character _character;
     [SerializeField] private GameHelper _gameHelper;
+    [SerializeField] private PlayerFabric _playerFabric;
+    [SerializeField] private InputSetter _inputSetter;
     [SerializeField] private InputView _inputView;
+    [SerializeField] private Transform _spawnPoint;
+
+    private Character _character;
 
     private void Start()
     {
-        _gameHelper.enabled = true;
-        _inputView.ShowHint();
-        _gameHelper.StartTutorial();
+        _character = _playerFabric.Create(_spawnPoint);
         _character.EnableMovement();
+        _inputView.Init(_inputSetter);
+        _inputView.ShowHint();
+
+        _gameHelper.enabled = true;
+        _gameHelper.StartTutorial(_character);
     }
 }

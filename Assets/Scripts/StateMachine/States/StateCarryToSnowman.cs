@@ -5,20 +5,28 @@ public class StateCarryToSnowman : State
 {
     private AreaCollector _areaCollector;
     private WaitForSecondsRealtime _delay = new(1f);
+    private NPCMachine _coroutineObject;
 
-    public StateCarryToSnowman(StateMachine machine, NPC bot, AreaCollector area) : base(machine, bot)
+    public StateCarryToSnowman(StateMachine machine, NPC bot, AreaCollector area, NPCMachine coroutineObject) : base(machine, bot)
     {
         _areaCollector = area;
+        _coroutineObject = coroutineObject;
     }
 
     public override void Enter()
     {
-        NPC.IMovable.Move(_areaCollector.Zone.bounds.center, ChangeState);
+        float randomOffset = Random.Range(0.5f, 2.5f);
+
+        Vector3 point = _areaCollector.Zone.bounds.center;
+        point.y = 0f;
+        point.x += randomOffset;
+
+        NPC.IMovable.Move(point, ChangeState);
     }
 
     public override void ChangeState()
     {
-        _areaCollector.StartCoroutine(Wait());
+        _coroutineObject.StartCoroutine(Wait());
     }
 
     private IEnumerator Wait()

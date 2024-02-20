@@ -13,6 +13,9 @@ public class BallMovement : MonoBehaviour
     private float _rotationTime;
     private Coroutine _coroutine;
 
+    private readonly float _rollingValue = 100;
+    private readonly float _coefficient = 10;
+
     public float RollingDuration { get; private set; }
     public event Action<float> MaxWeightReached;
 
@@ -21,8 +24,9 @@ public class BallMovement : MonoBehaviour
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        RollingDuration = character.IMovable.Speed / character.Interaction.Strenght;
+        float characterStats = character.IMovable.Speed * character.Interaction.Strenght;
 
+        RollingDuration = _rollingValue / (characterStats * _coefficient);
         _coroutine = StartCoroutine(Rolling(character));
     }
 

@@ -26,7 +26,7 @@ public class BoostItemView : MonoBehaviour
     {
         if (other.TryGetComponent(out BoostItem item))
         {
-            if (Item == null)
+            if (Item == null && item.IsOccupied == false)
             {
                 item.Interact();
 

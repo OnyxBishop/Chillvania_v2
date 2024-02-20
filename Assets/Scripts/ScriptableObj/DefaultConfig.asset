@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121ff3194669b864d9768596ff675477, type: 3}
   m_Name: DefaultConfig
   m_EditorClassIdentifier: 
-  _playerStrenght: 2
+  _playerStrenght: 3
   _playerSpeed: 3
   _playerInventoryCount: 3
   _botStrenght: 2
   _botSpeed: 3
-  _botInventoryCount: 3
+  _botInventoryCount: 2

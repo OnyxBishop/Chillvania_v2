@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,18 +17,19 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private UpgradeCards _upgradeCards;
 
     [Header("Spawner/common objects")]
+    [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private ModelSpawner _modelSpawner;
     [SerializeField] private AreaCollector _areaCollector;
     [SerializeField] private SnowballFabric _snowballFabric;
 
     [Header("Character")]
-    [SerializeField] private Character _character;
     [SerializeField] private CharacterStatsView _characterStatsView;
 
     [Header("Points")]
     [SerializeField] private Transform _snowballPoint;
     [SerializeField] private Transform _upgradeObject;
 
+    private Character _character;
     private Pointer _pointer;
     private SaveFile _saveFile;
 
@@ -37,18 +39,20 @@ public class GameHelper : MonoBehaviour
     private bool _reachUpgradeArea = false;
     private bool _hasUpgrade = false;
 
-    private void OnEnable()
+    private void Start()
     {
         _character.Inventory.ItemAdded += OnItemAdded;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _character.Inventory.ItemAdded -= OnItemAdded;
     }
 
-    public void StartTutorial()
+    public void StartTutorial(Character character)
     {
+        _character = character;
+        _camera.Follow = _character.transform;
         StartCoroutine(TutorialCoroutine());
     }
 
@@ -79,7 +83,7 @@ public class GameHelper : MonoBehaviour
         yield return new WaitUntil(() => _reachUpgradeArea);
         _helpFrame.SwitchToGetUpgrade();
 
-        _characterStatsView.gameObject.SetActive(true);
+        _characterStatsView.Enable(_character);
         _upgradeArea.PointsChanged += OnUpgradePointsChanged;
 
         yield return new WaitUntil(() => _hasUpgrade);
@@ -88,10 +92,7 @@ public class GameHelper : MonoBehaviour
         CreatePointer(_teleport.transform.position);
 
         yield return new WaitForSecondsRealtime(3f);
-
-        _saveFile = Saver.Load();
-        _saveFile.IsFirstPlaying = false;
-        Saver.Save(_saveFile);
+        Debug.Log($"Здесь было сохранение первого входа {gameObject.name}");
         _helpFrame.Disable();
     }
 
@@ -116,7 +117,6 @@ public class GameHelper : MonoBehaviour
     private void CreateModelsZone()
     {
         _modelSpawner.gameObject.SetActive(true);
-        _modelSpawner.CreateRandom();
         _areaCollector.Init(_modelSpawner.Ally.transform, _modelSpawner.Enemy.transform);
         _modelSpawner.Ally.ValueChanged += OnModelValueChanged;
         CreatePointer(_areaCollector.transform.position);

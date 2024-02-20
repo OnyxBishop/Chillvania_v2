@@ -2,6 +2,7 @@ using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class LeaderboardButton : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class LeaderboardButton : MonoBehaviour
             return;
 #endif
         _view.gameObject.SetActive(true);
-        _leaderboard.SetPlayer(Saver.Load().PLayerModels);
+        _leaderboard.SetPlayer(1);
         _leaderboard.Fill();
     }
 

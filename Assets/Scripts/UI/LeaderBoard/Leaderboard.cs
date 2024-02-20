@@ -8,21 +8,27 @@ public class Leaderboard : MonoBehaviour
 
     private const string AnonymousName = "Anonymous";
     private const string LeaderboardName = "Leaderboard";
+
     private readonly List<LeaderboardPlayer> _players = new();
 
     public void SetPlayer(int score)
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized == false)
             return;
 
-        Agava.YandexGames.Leaderboard.GetPlayerEntry(LeaderboardName, onSuccessCallback: _ =>
+        Agava.YandexGames.Leaderboard.GetPlayerEntry(LeaderboardName, onSuccessCallback: result =>
         {
-            Agava.YandexGames.Leaderboard.SetScore(LeaderboardName, score);
-        } );
+            if (result.score < score)
+                Agava.YandexGames.Leaderboard.SetScore(LeaderboardName, score);
+        });
+#endif
     }
 
     public void Fill()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+
         _players.Clear();
 
         if (PlayerAccount.IsAuthorized == false)
@@ -39,11 +45,12 @@ public class Leaderboard : MonoBehaviour
                 if (string.IsNullOrEmpty(name))
                     name = AnonymousName;
 
-                _players.Add(new LeaderboardPlayer(rank,name,score));
+                _players.Add(new LeaderboardPlayer(rank, name, score));
             }
 
             _view.Construct(_players);
-        } );
+        });
+#endif
     }
 }
 

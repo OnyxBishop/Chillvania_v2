@@ -24,8 +24,8 @@ public class NPCMachine : MonoBehaviour
         _machine.AddState(new StateReachSnowball(_machine, _bot, _spawner));
         _machine.AddState(new StateRolling(_machine, _bot));
         _machine.AddState(new StateChooseTask(_machine, _bot, _boostSpawner));
-        _machine.AddState(new StateCarryToSnowman(_machine, _bot, _collectArea));
-        _machine.AddState(new StateReachBoost(_machine, _bot, _boostSpawner));
+        _machine.AddState(new StateCarryToSnowman(_machine, _bot, _collectArea, this));
+        //_machine.AddState(new StateReachBoost(_machine, _bot, _boostSpawner));
 
         _machine.SetState<StateEntry>();
     }

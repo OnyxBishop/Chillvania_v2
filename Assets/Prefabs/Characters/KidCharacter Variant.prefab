@@ -479,7 +479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3dbba45f87150408ce5c8a8bde7516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _statsViewCountText: {fileID: 0}
 --- !u!1 &5124807724294456285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,12 +1735,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 10f9267d19000c34199a721f1454f0d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3845994047441259146}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 10f9267d19000c34199a721f1454f0d2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6901321606808527636}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 10f9267d19000c34199a721f1454f0d2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5584381193470612075}
   m_SourcePrefab: {fileID: 100100000, guid: 10f9267d19000c34199a721f1454f0d2, type: 3}
 --- !u!1 &8218417604395108475 stripped
 GameObject:
@@ -1822,33 +1815,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerModel: {fileID: 8738812762433114817}
   _audio: {fileID: 1658027902302342444}
---- !u!114 &6901321606808527636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218417604395108475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fed66185348c74c861bca0ea59dd93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _joystickInput: {fileID: 2575388989226309673, guid: 6f5ed3528b245db459caddbceaf5054d, type: 3}
-  _keyboardInput: {fileID: 514847248846269236, guid: d642ad835532cad4eb3136e1247cd89c, type: 3}
-  _container: {fileID: 8738812762433114817}
---- !u!114 &5584381193470612075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218417604395108475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2cce8cff87833a40b08f4763aabcdc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8738812762433114817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 10f9267d19000c34199a721f1454f0d2, type: 3}

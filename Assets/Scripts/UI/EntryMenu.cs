@@ -12,7 +12,7 @@ public class EntryMenu : MonoBehaviour
     private CanvasGroup _canvasGroup;
     private float _fadeDuration = 0.5f;
 
-    public event Action GameStarting;
+    public event Action PlayClicked;
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class EntryMenu : MonoBehaviour
     {
         _fadeAnimation.Disable(_fadeDuration);
         gameObject.SetActive(false);
-        GameStarting?.Invoke();
+        PlayClicked?.Invoke();
     }
 
     private void OnRulesButtonClicked()

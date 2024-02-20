@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class NPC : MonoBehaviour, ICharacter
 {
     private TeamAura _teamAura;

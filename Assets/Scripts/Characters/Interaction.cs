@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class Interaction : MonoBehaviour, IUpgradeable
 {
     [SerializeField] private ItemAnimator _itemAnimator;
@@ -13,6 +14,7 @@ public class Interaction : MonoBehaviour, IUpgradeable
 
     public event Action<float> Upgraded;
 
+    public Collider Collider {  get; private set; }
     public ISelectable CurrentItem { get; private set; }
     public float Strenght { get; private set; }
 
@@ -20,6 +22,7 @@ public class Interaction : MonoBehaviour, IUpgradeable
     {
         _character = GetComponentInParent<ICharacter>();
         _animator = GetComponentInParent<Animator>();
+        Collider = GetComponent<Collider>();
     }
 
     public void Init(int strenght, Inventory inventory)

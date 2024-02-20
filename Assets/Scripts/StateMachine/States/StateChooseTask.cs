@@ -16,16 +16,14 @@ public class StateChooseTask : State
             return;
         }
 
-        if (_boostSpawner.HasBoost && NPC.BoostView.Item == null &&
-            _boostSpawner.GetDistanceToClosestItem(NPC, out _) <= _boostOffset)
-        {
-            Machine.SetState<StateReachBoost>();
-            return;
-        }       
-        else
-        {
-            Machine.SetState<StateReachSnowball>();
-            return;
-        }
+        //if (_boostSpawner.HasBoost && NPC.BoostView.Item == null &&
+        //    _boostSpawner.GetDistanceToClosestItem(NPC, out _) <= _boostOffset)
+        //{
+        //    Machine.SetState<StateReachBoost>();
+        //    return;
+        //}       
+
+
+        Machine.SetState<StateReachSnowball>();
     }
 }

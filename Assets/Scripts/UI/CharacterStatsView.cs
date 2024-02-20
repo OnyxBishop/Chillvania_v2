@@ -1,10 +1,8 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class CharacterStatsView : MonoBehaviour
 {
-    [SerializeField] private NPCSpawner _npcSpawner;
     [SerializeField] private TMP_Text _strenghtValue;
     [SerializeField] private TMP_Text _capacityValue;
     [SerializeField] private TMP_Text _teamCountValue;
@@ -13,10 +11,13 @@ public class CharacterStatsView : MonoBehaviour
     [SerializeField] private AudioClip _upgradeAudioClip;
 
     private Character _character;
+    private NPCSpawner _npcSpawner;
 
     public void Enable(Character character)
     {
         _character = character;
+        _npcSpawner = FindFirstObjectByType<NPCSpawner>();
+
         _strenghtValue.text = _character.Interaction.Strenght.ToString();
         _capacityValue.text = _character.Inventory.Cells.Count.ToString();
         _teamCountValue.text = _npcSpawner.CalculateCount(NpcType.Ally).ToString();

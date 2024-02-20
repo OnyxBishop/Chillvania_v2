@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class InputView : MonoBehaviour
 {
-    [SerializeField] private InputSetter _inputSetter;
-
+    private InputSetter _inputSetter;
     private Image _image;
 
     private void Awake()
@@ -13,6 +12,11 @@ public class InputView : MonoBehaviour
         _image = GetComponentInChildren<Image>();
         _image.enabled = false;
         _image.color = new Color(1f, 1f, 1f, 0f);
+    }
+
+    public void Init(InputSetter inputSetter)
+    {
+        _inputSetter = inputSetter;
     }
 
     public void ShowHint()

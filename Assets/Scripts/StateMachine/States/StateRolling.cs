@@ -37,12 +37,8 @@ public class StateRolling : State
 
     private IEnumerator Rolling()
     {
-        float elapsedTime = 0;
-
         while (_isRolling == true)
         {
-            elapsedTime += Time.deltaTime;
-
             Vector3 forward = NPC.transform.position +
                 NPC.IMovable.CurrentDirection.normalized;
 

@@ -1,15 +1,17 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 namespace Agava.YandexGames
 {
     public sealed class SDKInitializer : MonoBehaviour
     {
-        [SerializeField] private BootstrapEntryPoint _entryPoint;
-
         private const string TutorialEntryPoint = nameof(TutorialEntryPoint);
+        private const string CloudSaveTest = nameof(CloudSaveTest);
         private const string GameplayEntryPoint = nameof(GameplayEntryPoint);
+
+        private const string FirstEntryKey = nameof(FirstEntryKey);
 
         private void Awake()
         {
@@ -29,10 +31,20 @@ namespace Agava.YandexGames
 
         private void OnInitialized()
         {
-            if (_entryPoint.SaveFile.IsFirstPlaying)
-                SceneManager.LoadScene(TutorialEntryPoint);
-            else
+            PlayerPrefs.Load(OnLoadCloudSuccessCallback);
+        }
+
+        private void OnLoadCloudSuccessCallback()
+        {
+            if (PlayerPrefs.HasKey(FirstEntryKey))
+            {
                 SceneManager.LoadScene(GameplayEntryPoint);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(FirstEntryKey, 1);
+                SceneManager.LoadScene(TutorialEntryPoint);
+            }
         }
     }
 }
