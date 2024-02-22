@@ -8,13 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BootstrapEntryPoint.unity
     guid: 4a08e78638dd2ae4d8850de9d830cefc
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/TutorialEntryPoint.unity
     guid: 486e6098a428c09469f8ae7d28432f48
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GameplayEntryPoint.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/CloudSaveTest.unity
-    guid: 2709ce6d13a74784fa50da2de312e1b5
   m_configObjects: {}

@@ -15,16 +15,16 @@ public class NPCMovement : MonoBehaviour, IMovable
     public bool IsMoving { get; private set; } = true;
     public Vector3 CurrentDirection { get; private set; }
 
-    public void Init(int speed)
-    {
-        _initialSpeed = speed;
-        _agent.speed = _initialSpeed;
-    }
-
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+    }
+
+    public void Init(int speed)
+    {
+        _initialSpeed = speed;
+        _agent.speed = _initialSpeed;
     }
 
     public void Move(Vector3 destination, Action callback = null)
@@ -58,6 +58,11 @@ public class NPCMovement : MonoBehaviour, IMovable
         _agent.ResetPath();
         _animator.SetFloat(CharacterAnimatorData.Params.IsRunning, 0);
         IsMoving = false;
+    }
+
+    public void DisableOnGameEnded()
+    {
+        _agent.speed = 0;
     }
 
     public void Upgrade(float value)

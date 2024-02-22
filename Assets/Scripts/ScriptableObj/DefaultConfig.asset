@@ -15,6 +15,6 @@ MonoBehaviour:
   _playerStrenght: 3
   _playerSpeed: 3
   _playerInventoryCount: 3
-  _botStrenght: 2
+  _botStrenght: 3
   _botSpeed: 3
   _botInventoryCount: 2

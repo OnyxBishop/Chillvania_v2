@@ -5,7 +5,7 @@ using Lean.Localization;
 public class HelpFrame : MonoBehaviour
 {
     [SerializeField] private TMP_Text _mainText;
-    [SerializeField] private UpgradeBar _stage;
+    [SerializeField] private UpgradeBar _upgradeBar;
 
     private const string ReachSnowball = nameof(ReachSnowball);
     private const string RollSnowball = nameof(RollSnowball);
@@ -44,12 +44,7 @@ public class HelpFrame : MonoBehaviour
     public void SwitchToBuild()
     {
         _mainText.text = LeanLocalization.GetTranslationText(BuildModel);
-        _stage.gameObject.SetActive(true);
-    }
-
-    public void SwitchToUpgradeSystem()
-    {
-        _mainText.text = LeanLocalization.GetTranslationText(UpgradeSystem);
+        _upgradeBar.gameObject.SetActive(true);
     }
 
     public void SwitchToGetUpgrade()

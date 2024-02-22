@@ -19,7 +19,7 @@ public class NPCSpawner : MonoBehaviour
     public virtual void Spawn(NpcType type)
     {
         NPC npc = _fabric.Create(type);
-        SetPosition(npc);
+        SetPositionAndRotation(npc);
         npc.transform.parent = transform;
         npc.GetComponent<NPCMachine>().Init(_spawner, _boostSpawner, _collectArea);
         _spawnedNPC.Add(npc);
@@ -27,12 +27,10 @@ public class NPCSpawner : MonoBehaviour
         Spawned?.Invoke(npc);
     }
 
-    public void DisableAllNPCMovement()
+    public void DisableAllNPC()
     {
         foreach (NPC npc in _spawnedNPC)
-        {
-            npc.IMovable.Disable();
-        }
+            npc.gameObject.SetActive(false);
     }
 
     public void IncreaseAllStrenght()
@@ -51,12 +49,18 @@ public class NPCSpawner : MonoBehaviour
         return _spawnedNPC.Count(npc => npc.Type == type);
     }
 
-    private void SetPosition(NPC npc)
+    private void SetPositionAndRotation(NPC npc)
     {
         if (npc.Type == NpcType.Ally)
+        {
             npc.transform.position = _allyPoint.position;
+            npc.transform.rotation = _allyPoint.localRotation;
+        }
 
         if (npc.Type == NpcType.Enemy)
+        {
             npc.transform.position = _enemyPoint.position;
+            npc.transform.rotation = _enemyPoint.localRotation;
+        }
     }
 }

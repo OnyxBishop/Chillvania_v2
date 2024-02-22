@@ -8,7 +8,6 @@ namespace Agava.YandexGames
     public sealed class SDKInitializer : MonoBehaviour
     {
         private const string TutorialEntryPoint = nameof(TutorialEntryPoint);
-        private const string CloudSaveTest = nameof(CloudSaveTest);
         private const string GameplayEntryPoint = nameof(GameplayEntryPoint);
 
         private const string FirstEntryKey = nameof(FirstEntryKey);

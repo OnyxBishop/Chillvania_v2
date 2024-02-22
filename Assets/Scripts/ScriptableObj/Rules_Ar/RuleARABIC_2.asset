@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c06a3209bca19438fb6cbcaa65e266, type: 3}
   m_Name: RuleARABIC_2
   m_EditorClassIdentifier: 
-  _texture: {fileID: 2800000, guid: b91ba33aa164f4a4babfc7f599727673, type: 3}
-  _description: "Puan kazan ve becerileri geli\u015Ftir"
+  _texture: {fileID: 2800000, guid: 7a5a26471f0198c4086db091342ce59f, type: 3}
+  _description: "Rakibinin seni ge\xE7mesini engelle"

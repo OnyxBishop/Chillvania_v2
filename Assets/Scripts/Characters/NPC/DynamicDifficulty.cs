@@ -6,16 +6,16 @@ public class DynamicDifficulty : MonoBehaviour
     [SerializeField] private Difficulty _difficulty;
 
     private ModelBuilder _allyModel;
-    private UpgradeArea _upgradeArea;
+    private UpgradeSystem _upgradeSystem;
     private NPCSpawner _spawner;
     private Queue<int> _valueToAdd = new();
     private Queue<int> _improveValues = new();
     private int _counter;
 
-    public void Init(ModelBuilder allyModel, UpgradeArea upgradeArea, NPCSpawner spawner)
+    public void Init(ModelBuilder allyModel, UpgradeSystem upgradeArea, NPCSpawner spawner)
     {
         _allyModel = allyModel;
-        _upgradeArea = upgradeArea;
+        _upgradeSystem = upgradeArea;
         _spawner = spawner;
 
         for (int i = 0; i < _difficulty.SnowValuesToAddNpc.Count; i++)
@@ -28,13 +28,13 @@ public class DynamicDifficulty : MonoBehaviour
     private void OnEnable()
     {
         _allyModel.ValueChanged += OnSnowValueChanged;
-        _upgradeArea.PointsChanged += OnCharacterUpgrade;
+        _upgradeSystem.Upgraded += OnCharacterUpgrade;
     }
 
     private void OnDisable()
     {
         _allyModel.ValueChanged -= OnSnowValueChanged;
-        _upgradeArea.PointsChanged -= OnCharacterUpgrade;
+        _upgradeSystem.Upgraded -= OnCharacterUpgrade;
     }
 
     private void OnSnowValueChanged(float snowValue)
@@ -51,12 +51,12 @@ public class DynamicDifficulty : MonoBehaviour
         }
     }
 
-    private void OnCharacterUpgrade(int points)
+    private void OnCharacterUpgrade()
     {
         if (_improveValues.Count <= 0)
             return;
 
-        _counter += points;
+        _counter++;
 
         if (_counter >= _improveValues.Peek())
         {

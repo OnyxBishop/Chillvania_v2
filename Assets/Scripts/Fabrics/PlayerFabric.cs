@@ -7,7 +7,7 @@ public class PlayerFabric : MonoBehaviour
 
     public Character Create(Transform spawnPoint)
     {
-        Character character = Instantiate(_characterPrefab, spawnPoint.position, spawnPoint.rotation);
+        Character character = Instantiate(_characterPrefab, spawnPoint.position, spawnPoint.localRotation);
         character.SetConfiguration(_statsConfig);
 
         return character;

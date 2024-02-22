@@ -7,7 +7,7 @@ public class SnowballSpawner : MonoBehaviour
 {
     [SerializeField] private SnowballFabric _fabric;
     [SerializeField] private Transform _path;
-    [SerializeField, Range(0, 16)] private int _count;
+    [SerializeField, Range(0, 28)] private int _count;
     [SerializeField] private LayerMask _layerMask;
 
     private Transform[] _spawnPoints;

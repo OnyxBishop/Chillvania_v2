@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   headerSettings:
-    headerText: Map
-    headerColor: {r: 0.3679245, g: 0.019090425, b: 0.039775267, a: 1}
+    headerText: ShopHub
+    headerColor: {r: 0.20067069, g: 0.6037736, b: 0.0768957, a: 1}
     textAlignmentOptions: 0
     fontStyleOptions: 0
     fontSize: 12

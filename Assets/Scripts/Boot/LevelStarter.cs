@@ -5,6 +5,8 @@ using UnityEngine;
 public class LevelStarter : MonoBehaviour
 {
     [SerializeField] private GameplayEntryPoint _entryPoint;
+    [SerializeField] private UpgradeSystem _upgradeSystem;
+    [SerializeField] private DynamicDifficulty _dynamicDifficulty;
     [SerializeField] private PlayerFabric _playerFabric;
     [SerializeField] private UIEnableSwitcher _uiEnableSwitcher;
     [SerializeField] private InputSetter _inputSetter;
@@ -38,10 +40,14 @@ public class LevelStarter : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         YandexGamesSdk.GameReady();
 #endif 
-
         _character = _playerFabric.Create(_map.PlayerSpawnPoint);
         _inputSetter.Set(_character);
         _inputView.Init(_inputSetter);
+
+        _upgradeSystem.Init(_character,_map.ModelSpawner.Ally, _map.NPCSpawner);
+        _dynamicDifficulty.Init(_map.ModelSpawner.Ally, _upgradeSystem, _map.NPCSpawner);
+        _dynamicDifficulty.enabled = true;
+
         _uiEnableSwitcher.Disable();
     }
 

@@ -228,7 +228,7 @@ Material:
     - _NormalScale: 1
     - _OpaqueCullMode: 2
     - _OutlineDepthOffset: 0
-    - _OutlineWidth: 1.01
+    - _OutlineWidth: 1
     - _OverrideLightmapDir: 0
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15

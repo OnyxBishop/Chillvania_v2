@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 602462434}
   - component: {fileID: 602462433}
-  - component: {fileID: 602462435}
   m_Layer: 0
   m_Name: YandexSDK
   m_TagString: Untagged
@@ -153,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43edf4ce640f40e4693a67e919890ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entryPoint: {fileID: 602462435}
 --- !u!4 &602462434
 Transform:
   m_ObjectHideFlags: 0
@@ -169,15 +167,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &602462435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602462432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c528252cd98a3c47a66f64485e25e72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -13,6 +13,7 @@ public class TutorialEntryPoint : MonoBehaviour
     private void Start()
     {
         _character = _playerFabric.Create(_spawnPoint);
+        _inputSetter.Set(_character);
         _character.EnableMovement();
         _inputView.Init(_inputSetter);
         _inputView.ShowHint();

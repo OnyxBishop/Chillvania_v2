@@ -2,6 +2,7 @@ using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class GameHelper : MonoBehaviour
 {
@@ -13,12 +14,13 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private Image _arrowImage;
 
     [Header("Upgrade System")]
-    [SerializeField] private UpgradeArea _upgradeArea;
-    [SerializeField] private UpgradeCards _upgradeCards;
+    [SerializeField] private UpgradeSystem _upgradeSystem;
+    [SerializeField] private UpgradeCardsView _upgradeCards;
 
-    [Header("Spawner/common objects")]
+    [Header("Spawners/common objects")]
     [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private ModelSpawner _modelSpawner;
+    [SerializeField] private NPCSpawner _npcspawner;
     [SerializeField] private AreaCollector _areaCollector;
     [SerializeField] private SnowballFabric _snowballFabric;
 
@@ -29,14 +31,14 @@ public class GameHelper : MonoBehaviour
     [SerializeField] private Transform _snowballPoint;
     [SerializeField] private Transform _upgradeObject;
 
+    private const string FirstEntryKey = nameof(FirstEntryKey);
+
     private Character _character;
     private Pointer _pointer;
-    private SaveFile _saveFile;
 
     private bool _isSnowballTaking = false;
     private bool _isEnoughSnowballs = false;
     private bool _isBuilded = false;
-    private bool _reachUpgradeArea = false;
     private bool _hasUpgrade = false;
 
     private void Start()
@@ -68,7 +70,6 @@ public class GameHelper : MonoBehaviour
         _helpFrame.SwitchToDeliver();
 
         CreateModelsZone();
-
         yield return new WaitUntil(() => _isBuilded);
 
         _helpFrame.SwitchToBuild();
@@ -78,13 +79,10 @@ public class GameHelper : MonoBehaviour
         _arrowImage.gameObject.SetActive(false);
 
         CreateUpgradeSystem();
-        _helpFrame.SwitchToUpgradeSystem();
-
-        yield return new WaitUntil(() => _reachUpgradeArea);
         _helpFrame.SwitchToGetUpgrade();
 
         _characterStatsView.Enable(_character);
-        _upgradeArea.PointsChanged += OnUpgradePointsChanged;
+        _upgradeSystem.StatsIncreased += OnStatsIncreased;
 
         yield return new WaitUntil(() => _hasUpgrade);
         _helpFrame.ShowEnd();
@@ -92,7 +90,10 @@ public class GameHelper : MonoBehaviour
         CreatePointer(_teleport.transform.position);
 
         yield return new WaitForSecondsRealtime(3f);
-        Debug.Log($"Здесь было сохранение первого входа {gameObject.name}");
+
+        PlayerPrefs.SetInt(FirstEntryKey, 1);
+        PlayerPrefs.Save();
+
         _helpFrame.Disable();
     }
 
@@ -105,17 +106,13 @@ public class GameHelper : MonoBehaviour
 
     private void CreateUpgradeSystem()
     {
-        _upgradeArea.Init(_modelSpawner.Ally);
-        _upgradeArea.SetPoints(10);
-        _upgradeArea.gameObject.SetActive(true);
-        _upgradeArea.Triggered += OnUpgradeAreaTriggered;
-        _upgradeObject.gameObject.SetActive(true);
-        _upgradeCards.Unlock();
-        CreatePointer(_upgradeArea.transform.position);
+        _upgradeSystem.Init(_character, _modelSpawner.Ally, _npcspawner);
+        _upgradeSystem.SetUpgrade();
     }
 
     private void CreateModelsZone()
     {
+        _modelSpawner.Create();
         _modelSpawner.gameObject.SetActive(true);
         _areaCollector.Init(_modelSpawner.Ally.transform, _modelSpawner.Enemy.transform);
         _modelSpawner.Ally.ValueChanged += OnModelValueChanged;
@@ -151,16 +148,9 @@ public class GameHelper : MonoBehaviour
         _isEnoughSnowballs = true;
     }
 
-    private void OnUpgradeAreaTriggered(int _)
+    private void OnStatsIncreased()
     {
-        _upgradeArea.Triggered -= OnUpgradeAreaTriggered;
-        Destroy(_pointer.gameObject);
-        _reachUpgradeArea = true;
-    }
-
-    private void OnUpgradePointsChanged(int _)
-    {
-        _upgradeArea.PointsChanged -= OnUpgradePointsChanged;
+        _upgradeSystem.Upgraded -= OnStatsIncreased;
         _hasUpgrade = true;
     }
 }

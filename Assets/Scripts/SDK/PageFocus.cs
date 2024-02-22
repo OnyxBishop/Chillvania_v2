@@ -7,7 +7,7 @@ public class PageFocus : MonoBehaviour
 
     private void Awake()
     {
-        _backgroundSource = SoundHolder.Instance.GetComponent<AudioSource>();
+        _backgroundSource = BackgroundSound.Instance.AudioSource;
     }
 
     private void OnEnable()

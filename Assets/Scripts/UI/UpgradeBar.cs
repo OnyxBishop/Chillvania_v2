@@ -1,40 +1,31 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UpgradeBar : MonoBehaviour
 {
+    [SerializeField] private UpgradeSystem _upgradeSystem;
     [SerializeField] private Slider _slider;
-    [SerializeField] private TMP_Text _upgradePoints;
+    [SerializeField] private AudioSource _upgradeAudioSource;
+    [SerializeField] private AudioClip _pointsChangedAudioClip;
 
-    private UpgradeArea _upgradeArea;   
-
-    private void Start()
-    {
-        _upgradePoints.text = 0.ToString();
+    private void Start() =>
         _slider.value = 0;
-    }
 
     private void OnEnable()
     {
-        _upgradeArea.PointsChanged += OnPointsChanged;
-        _upgradeArea.ProgressChanged += OnValueChanged;
+        _upgradeSystem.Upgraded += OnUpgraded;
+        _upgradeSystem.ProgressChanged += OnValueChanged;
     }
 
     private void OnDisable()
     {
-        _upgradeArea.PointsChanged -= OnPointsChanged;
-        _upgradeArea.ProgressChanged += OnValueChanged;
+        _upgradeSystem.Upgraded -= OnUpgraded;
+        _upgradeSystem.ProgressChanged += OnValueChanged;
     }
 
-    public void Init(UpgradeArea upgradeArea)
+    private void OnUpgraded()
     {
-        _upgradeArea = upgradeArea;
-    }
-
-    private void OnPointsChanged(int points)
-    {
-        _upgradePoints.text = points.ToString();
+        _upgradeAudioSource.PlayOneShot(_pointsChangedAudioClip);
     }
 
     private void OnValueChanged(float value)

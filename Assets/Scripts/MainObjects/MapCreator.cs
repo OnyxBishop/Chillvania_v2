@@ -2,33 +2,26 @@ using UnityEngine;
 
 public class MapCreator : MonoBehaviour
 {
-    [SerializeField] private Map[] _mapPrefab;
+    [SerializeField] private Map[] _mapPrefabs;
+    [SerializeField] private IntProgress _mapsProgress;
 
-    public static MapCreator Instance;
-    private int _mapIndex = 0;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    private int _mapIndex;
 
     public Map Create()
     {
-        Map map = Instantiate(_mapPrefab[_mapIndex], null, true);
+        _mapIndex = _mapsProgress.CurrentProgress;
+
+        Map map = Instantiate(_mapPrefabs[_mapIndex], null, true);
         map.InitAll();
 
-        _mapIndex++;
+        _mapsProgress.Add();
+        _mapsProgress.Save();
 
-        if (_mapIndex >= _mapPrefab.Length)
-            _mapIndex = 0;
+        if (_mapsProgress.CurrentProgress >= _mapPrefabs.Length)
+        {
+            _mapsProgress.SetDefaultValue();
+            _mapsProgress.Save();
+        }
 
         return map;
     }

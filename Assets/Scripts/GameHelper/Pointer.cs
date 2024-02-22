@@ -18,7 +18,7 @@ public class Pointer : MonoBehaviour
 
     public void StopAnimation()
     {
-        if (moveY.IsActive())
+        if (moveY.IsActive() && moveY != null)
             moveY.Kill();
     }
 }

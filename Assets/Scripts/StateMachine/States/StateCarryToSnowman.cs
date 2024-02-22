@@ -15,7 +15,7 @@ public class StateCarryToSnowman : State
 
     public override void Enter()
     {
-        float randomOffset = Random.Range(0.5f, 2.5f);
+        float randomOffset = Random.Range(-1f, 1f);
 
         Vector3 point = _areaCollector.Zone.bounds.center;
         point.y = 0f;
