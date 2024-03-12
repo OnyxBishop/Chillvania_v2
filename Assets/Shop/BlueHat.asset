@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d4eb01661154345bc6824e7a7ff4ea, type: 3}
+  m_Name: BlueHat
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 21300000, guid: 41949f7448f28b84f8be54d3b01acc4d, type: 3}
+  _cost: 50
+  _model: {fileID: 6617398008018264610, guid: 620dd6b34ac32f94aa26c4599cb62843, type: 3}
+  _type: 3

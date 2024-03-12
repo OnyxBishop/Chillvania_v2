@@ -12,7 +12,8 @@ public class TutorialEntryPoint : MonoBehaviour
 
     private void Start()
     {
-        _character = _playerFabric.Create(_spawnPoint);
+        _character = _playerFabric.Create();
+        _character.transform.SetPositionAndRotation(_spawnPoint.position, _spawnPoint.localRotation); 
         _inputSetter.Set(_character);
         _character.EnableMovement();
         _inputView.Init(_inputSetter);

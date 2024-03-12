@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour, IMovable, IUpgradeable
 
     public float Speed => _currentSpeed;
 
-    public void Init(int speed)
+    public void Init(float speed)
     {
         _initialSpeed = speed;
         _currentSpeed = _initialSpeed;

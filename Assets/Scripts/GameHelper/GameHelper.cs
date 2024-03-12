@@ -29,7 +29,6 @@ public class GameHelper : MonoBehaviour
 
     [Header("Points")]
     [SerializeField] private Transform _snowballPoint;
-    [SerializeField] private Transform _upgradeObject;
 
     private const string FirstEntryKey = nameof(FirstEntryKey);
 
@@ -91,9 +90,10 @@ public class GameHelper : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(3f);
 
+#if UNITY_WEBGL && !UNITY_EDITOR
         PlayerPrefs.SetInt(FirstEntryKey, 1);
         PlayerPrefs.Save();
-
+#endif
         _helpFrame.Disable();
     }
 

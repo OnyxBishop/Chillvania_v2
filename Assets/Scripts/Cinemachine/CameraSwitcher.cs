@@ -4,7 +4,6 @@ using UnityEngine;
 public class CameraSwitcher : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _followCamera;
-    [SerializeField] private CinemachineVirtualCamera _shopCamera;
     [SerializeField] private CinemachineVirtualCamera _endGameCamera;
     [SerializeField] private Animator _animator;
 
@@ -41,8 +40,9 @@ public class CameraSwitcher : MonoBehaviour
             _cart.enabled = true;
     }
 
-    public void SwitchToShop()
+    public void ResetDollyCart()
     {
-        _animator.SetTrigger(CameraAnimatorParams.ShowShop);
+        _cart.m_Path = null;
+        _cart.enabled = false;
     }
 }

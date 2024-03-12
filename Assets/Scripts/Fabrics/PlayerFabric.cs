@@ -3,13 +3,24 @@ using UnityEngine;
 public class PlayerFabric : MonoBehaviour
 {
     [SerializeField] private Character _characterPrefab;
-    [SerializeField] private StatsConfig _statsConfig;
 
-    public Character Create(Transform spawnPoint)
+    private IPersistantData _persistentData;
+    private JsonSaver _jsonSaver;
+
+    public Character Create()
     {
-        Character character = Instantiate(_characterPrefab, spawnPoint.position, spawnPoint.localRotation);
-        character.SetConfiguration(_statsConfig);
+        InitData();
+
+        Character character = Instantiate(_characterPrefab);
+        character.SetConfiguration(_persistentData);
 
         return character;
+    }
+
+    private void InitData()
+    {
+        _persistentData = new PersistentData();
+        _jsonSaver = new(_persistentData);
+        _jsonSaver.Load();
     }
 }

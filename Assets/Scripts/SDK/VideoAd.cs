@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 public class VideoAd : MonoBehaviour
 {
-    public void ShowInterstitial() =>
-        Agava.YandexGames.InterstitialAd.Show(OnOpenCallback, OnCloseCallback);
+    public void ShowInterstitial(Action<bool> onCloseCallback) =>
+        Agava.YandexGames.InterstitialAd.Show(OnOpenCallback, onCloseCallback);
+
+    public void ShowRewarded(Action onRewardedCallback) =>
+        Agava.YandexGames.VideoAd.Show(OnOpenCallback, onRewardedCallback, OnCloseCallback);
 
     private void OnOpenCallback()
     {
@@ -11,12 +15,9 @@ public class VideoAd : MonoBehaviour
         AudioListener.volume = 0f;
     }
 
-    private void OnCloseCallback(bool wasShown)
+    private void OnCloseCallback()
     {
-        if (wasShown)
-        {
-            Time.timeScale = 1;
-            AudioListener.volume = 1f;
-        }
+        Time.timeScale = 1;
+        AudioListener.volume = 1f;
     }
 }

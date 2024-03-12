@@ -9,6 +9,7 @@ public class ModelBuilder : MonoBehaviour
     private float _collectedSnow;
 
     public float TotalNeedSnow { get; private set; }
+    public int MaxPartsShow => _partsTransform.Length - 10;
 
     public event Action<float> ValueChanged;
     public event Action<ModelBuilder> BuildEnded;
@@ -55,12 +56,20 @@ public class ModelBuilder : MonoBehaviour
 
     private void UpdateLayers()
     {
-        for (int i = 1; i < _partsTransform.Length; i++)
+        for (int i = 1; i < MaxPartsShow; i++)
         {
             if (_collectedSnow >= i * _difficulty.SnowPieceValue)
                 _partsTransform[i].gameObject.SetActive(true);
             else
                 _partsTransform[i].gameObject.SetActive(false);
+        }
+
+        if (_collectedSnow >= TotalNeedSnow)
+        {
+            for (int i = MaxPartsShow; i < _partsTransform.Length; i++)
+            {
+                _partsTransform[i].gameObject.SetActive(true);
+            }
         }
     }
 }

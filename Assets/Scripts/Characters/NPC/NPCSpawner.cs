@@ -9,7 +9,6 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] private Transform _allyPoint;
     [SerializeField] private AreaCollector _collectArea;
     [SerializeField] private SnowballSpawner _spawner;
-    [SerializeField] private BoostItemsSpawner _boostSpawner;
     [SerializeField] private NPCFabric _fabric;
 
     private List<NPC> _spawnedNPC = new List<NPC>();
@@ -21,10 +20,21 @@ public class NPCSpawner : MonoBehaviour
         NPC npc = _fabric.Create(type);
         SetPositionAndRotation(npc);
         npc.transform.parent = transform;
-        npc.GetComponent<NPCMachine>().Init(_spawner, _boostSpawner, _collectArea);
+        npc.GetComponent<NPCMachine>().Init(_spawner, _collectArea);
         _spawnedNPC.Add(npc);
 
         Spawned?.Invoke(npc);
+    }
+
+    public void MultiplySpawn(NpcType type, int count)
+    {
+        if (count == 0)
+            return;
+
+        for (int i = 0; i < count; i++)
+        {
+            Spawn(type);
+        }
     }
 
     public void DisableAllNPC()

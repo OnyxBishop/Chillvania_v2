@@ -37,7 +37,7 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void SetConfiguration(StatsConfig statsConfig)
     {
-        BotConfig config = statsConfig.Bot;
+        BotConfig config = statsConfig.NewBot;
 
         Inventory = new Inventory(config.InventoryCount);
         Interaction.Init(config.Strenght, Inventory);

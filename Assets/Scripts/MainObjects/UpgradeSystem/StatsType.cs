@@ -2,5 +2,6 @@ public enum StatsType
 {
     Strenght,
     Capacity,
-    TeamCount
+    TeamCount,
+    Speed
 }

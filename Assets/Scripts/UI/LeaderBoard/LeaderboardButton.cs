@@ -2,12 +2,12 @@ using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class LeaderboardButton : MonoBehaviour
 {
     [SerializeField] private LeaderboardView _view;
     [SerializeField] private Button _closeButton;
-    [SerializeField] private IntProgress _modelsCountProgress;
 
     private Button _open;
     private Leaderboard _leaderboard;
@@ -40,6 +40,8 @@ public class LeaderboardButton : MonoBehaviour
 
     private void OpenLeaderboard()
     {
+        Time.timeScale = 0f;
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         PlayerAccount.Authorize();
 
@@ -50,12 +52,13 @@ public class LeaderboardButton : MonoBehaviour
             return;
 #endif
         _view.gameObject.SetActive(true);
-        _leaderboard.SetPlayer(_modelsCountProgress.CurrentProgress);
+        _leaderboard.SetPlayer(PlayerPrefs.GetInt(PrefsSaveKeys.ModelsCount));
         _leaderboard.Fill();
     }
 
     private void Hide()
     {
+        Time.timeScale = 1f;
         _view.gameObject.SetActive(false);
     }
 }

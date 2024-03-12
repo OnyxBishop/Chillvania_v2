@@ -1,28 +1,178 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Shop
+public class Shop : MonoBehaviour
 {
-    [SerializeField] private List<ShopItemData> _itemsData;
+    [SerializeField] private ShopView _view;
+    [SerializeField] private ShopContent _content;
+    [SerializeField] private Wallet _wallet;
+    [SerializeField] private ShopStatsView _statsView;
+    [SerializeField] private SkinPlacement _skinPlacement;
 
-    private List<ShopItem> _items;
-    private int _itemCardCount = 3;
+    [Header("Buttons")]
+    [SerializeField] private CategoryButton _skinsButton;
+    [SerializeField] private CategoryButton _statsButton;
+    [SerializeField] private BuyButton _buyButton;
+    [SerializeField] private Button _selectionButton;
+    [SerializeField] private Image _selectedText;
+    [SerializeField] private Button _addMoneyButton;
 
-    public event Action<IReadOnlyList<ShopItem>> ItemsCreated;
+    private ShopItemView _selectedView;
 
-    public void BuyItem(Character character)
+    private JsonSaver _jsonSaver;
+
+    private SkinSelector _skinSelector;
+    private ItemUnlocker _skinUnlocker;
+    private OpenItemsChecker _openSkinsChecker;
+    private SelectedSkinChecker _selectedSkinChecker;
+
+    private void OnEnable()
     {
-        
+        _skinsButton.Clicked += OnSkinsButtonClicked;
+        _statsButton.Clicked += OnStatsButtonClicked;
+
+        _buyButton.Clicked += OnBuyButtonClicked;
+        _selectionButton.onClick.AddListener(OnSelectionButtonClicked);
+        _addMoneyButton.onClick.AddListener(AddMoneyOnClick);
     }
 
-    private void CreateItems()
+    private void OnDisable()
     {
-        _items = new List<ShopItem>(_itemCardCount);
+        _skinsButton.Clicked -= OnSkinsButtonClicked;
+        _statsButton.Clicked -= OnStatsButtonClicked;
 
-        for (int i = 0; i < _items.Count; i++)
-            _items.Add(new ShopItem(_itemsData[i].Icon, _itemsData[i].Cost));
+        _selectionButton.onClick.RemoveListener(OnSelectionButtonClicked);
+        _buyButton.Clicked -= OnBuyButtonClicked;
+        _addMoneyButton.onClick.RemoveListener(AddMoneyOnClick);
+    }
 
-        ItemsCreated?.Invoke(_items);
+    public void Init(JsonSaver saver, SkinSelector skinSelector, ItemUnlocker skinUnlocker,
+    OpenItemsChecker openSkinsChecker, SelectedSkinChecker selectedSkinChecker)
+    {
+        _jsonSaver = saver;
+
+        _skinSelector = skinSelector;
+        _skinUnlocker = skinUnlocker;
+        _openSkinsChecker = openSkinsChecker;
+        _selectedSkinChecker = selectedSkinChecker;
+
+        _view.Init(_openSkinsChecker, _selectedSkinChecker);
+        _view.ItemViewClicked += OnItemViewClicked;
+
+        OnSkinsButtonClicked();
+    }
+
+    private void OnItemViewClicked(ShopItemView view)
+    {
+        _selectedView = view;
+
+        if (_selectedView.Model != null)
+        {
+            _skinPlacement.InstantiateModel(_selectedView.Model);
+        }
+
+        _openSkinsChecker.Visit(_selectedView.ShopItem);
+
+        if (_openSkinsChecker.IsOpened)
+        {
+            _selectedSkinChecker.Visit(_selectedView.ShopItem);
+
+            if (_selectedSkinChecker.IsSelected)
+            {
+                ShowSelectedText();
+                return;
+            }
+
+            ShowSelectionButton();
+        }
+        else
+        {
+            ShowBuyButton(_selectedView.Price);
+        }
+    }
+
+    private void ShowSelectedText()
+    {
+        _selectedText.gameObject.SetActive(true);
+        _buyButton.gameObject.SetActive(false);
+        _selectionButton.gameObject.SetActive(false);
+    }
+
+    public void OnBuyButtonClicked()
+    {
+        if (_wallet.IsEnough(_selectedView.Price))
+        {
+            _wallet.RemoveMoney(_selectedView.Price);
+
+            _skinUnlocker.Visit(_selectedView.ShopItem);
+
+            SelectSkin();
+
+            _selectedView.Unlock();
+
+            _jsonSaver.Save();
+        }
+
+        OnItemViewClicked(_selectedView);
+    }
+
+    private void ShowSelectionButton()
+    {
+        _selectionButton.gameObject.SetActive(true);
+        _buyButton.gameObject.SetActive(false);
+        _selectedText.gameObject.SetActive(false);
+    }
+
+    private void OnSelectionButtonClicked()
+    {
+        SelectSkin();
+        _jsonSaver.Save();
+
+        OnItemViewClicked(_selectedView);
+    }
+
+    private void OnSkinsButtonClicked()
+    {
+        _statsButton.Unselect();
+        _skinsButton.Select();
+
+        _view.CreateItemView(_content.EquippableItems);
+        _statsView.gameObject.SetActive(false);
+    }
+
+    private void OnStatsButtonClicked()
+    {
+        _statsButton.Select();
+        _skinsButton.Unselect();
+
+        _view.CreateItemView(_content.StatsItems);
+
+        _statsView.Show();
+        _statsView.gameObject.SetActive(true);
+    }
+
+    private void ShowBuyButton(int price)
+    {
+        _buyButton.gameObject.SetActive(true);
+        _buyButton.UpdateText(price);
+
+        if (_wallet.IsEnough(price))
+            _buyButton.Unlock();
+        else
+            _buyButton.Lock();
+
+        _selectionButton.gameObject.SetActive(false);
+        _selectedText.gameObject.SetActive(false);
+    }
+
+    private void SelectSkin()
+    {
+        _skinSelector.Visit(_selectedView.ShopItem);
+        _view.Select(_selectedView);
+    }
+
+    private void AddMoneyOnClick()
+    {
+        _wallet.AddMoney(50);
     }
 }

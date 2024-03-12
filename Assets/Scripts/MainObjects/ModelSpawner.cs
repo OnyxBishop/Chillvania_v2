@@ -4,7 +4,6 @@ using UnityEngine;
 public class ModelSpawner : MonoBehaviour
 {
     [SerializeField] private List<ModelBuilder> _models;
-    [SerializeField] private IntProgress _modelsProgress;
     [SerializeField] private Transform _allyPoint;
     [SerializeField] private Transform _enemyPoint;
 
@@ -13,19 +12,21 @@ public class ModelSpawner : MonoBehaviour
 
     public void Create()
     {
-        int index = _modelsProgress.CurrentProgress;
+        int index = PlayerPrefs.GetInt(PrefsSaveKeys.ModelIndex, 0);
         ModelBuilder curentModel = _models[index];
+        index++;
 
-        _modelsProgress.Add();
-        _modelsProgress.Save();
+        if (index >= _models.Count)
+        {
+            index = 0;
+            PlayerPrefs.SetInt(PrefsSaveKeys.ModelIndex, index);
+            PlayerPrefs.Save();
+        }
 
         Ally = Instantiate(curentModel, _allyPoint.transform.position, _allyPoint.rotation, transform);
         Enemy = Instantiate(curentModel, _enemyPoint.transform.position, _enemyPoint.rotation, transform);
 
-        if (_modelsProgress.CurrentProgress >= _models.Count)
-        {
-            _modelsProgress.SetDefaultValue();
-            _modelsProgress.Save();
-        }
+        PlayerPrefs.SetInt(PrefsSaveKeys.ModelIndex, index);
+        PlayerPrefs.Save();
     }
 }

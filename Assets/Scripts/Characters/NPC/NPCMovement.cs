@@ -21,7 +21,7 @@ public class NPCMovement : MonoBehaviour, IMovable
         _animator = GetComponent<Animator>();
     }
 
-    public void Init(int speed)
+    public void Init(float speed)
     {
         _initialSpeed = speed;
         _agent.speed = _initialSpeed;

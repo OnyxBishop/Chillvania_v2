@@ -9,6 +9,6 @@ public interface IMovable
     public void Move(Vector3 destination, Action callback);
     public void Enable();
     public void Disable();
-    public void Init(int speed);
+    public void Init(float speed);
     public void Upgrade(float value);
 }

@@ -10,12 +10,15 @@ public class InputSetter : MonoBehaviour
 
     public void Set(Character character)
     {
-        _inputFabric = GetComponent<InputFabric>();
+        if (_input == null)
+        {
+            _inputFabric = GetComponent<InputFabric>();
 
-        if (DeviceDetector.IsMobile == true)
-            _input = _inputFabric.Create(DeviceType.Handheld);
-        else
-            _input = _inputFabric.Create(DeviceType.Desktop);
+            if (DeviceDetector.IsMobile == true)
+                _input = _inputFabric.Create(DeviceType.Handheld);
+            else
+                _input = _inputFabric.Create(DeviceType.Desktop);
+        }
 
         _input.ChainWithCharacter(character);
     }

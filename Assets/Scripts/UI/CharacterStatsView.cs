@@ -13,18 +13,6 @@ public class CharacterStatsView : MonoBehaviour
     private Character _character;
     private NPCSpawner _npcSpawner;
 
-    public void Enable(Character character)
-    {
-        _character = character;
-        _npcSpawner = FindFirstObjectByType<NPCSpawner>();
-
-        _strenghtValue.text = _character.Interaction.Strenght.ToString();
-        _capacityValue.text = _character.Inventory.Cells.Count.ToString();
-        _teamCountValue.text = _npcSpawner.CalculateCount(NpcType.Ally).ToString();
-        _snowballsCount.text = string.Format($"{0}/{_character.Inventory.Cells.Count}");
-        gameObject.SetActive(true);
-    }
-
     private void OnEnable()
     {
         _character.Interaction.Upgraded += OnUpgraded;
@@ -43,6 +31,18 @@ public class CharacterStatsView : MonoBehaviour
         _character.Inventory.ItemAdded -= OnItemCountChanged;
         _character.Inventory.ItemRemoved -= OnItemCountChanged;
         _npcSpawner.Spawned -= OnSpawn;
+    }
+
+    public void Enable(Character character)
+    {
+        _character = character;
+        _npcSpawner = FindFirstObjectByType<NPCSpawner>();
+
+        _strenghtValue.text = _character.Interaction.Strenght.ToString();
+        _capacityValue.text = _character.Inventory.Cells.Count.ToString();
+        _teamCountValue.text = _npcSpawner.CalculateCount(NpcType.Ally).ToString();
+        _snowballsCount.text = string.Format($"{0}/{_character.Inventory.Cells.Count}");
+        gameObject.SetActive(true);
     }
 
     private void OnUpgraded(float value)

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c501f8d3fdb88754999da040331438c1, type: 3}
+  m_Name: SkinFabric
+  m_EditorClassIdentifier: 
+  _default: {fileID: 7262236811279365512, guid: 59a36ac5e6607cb4c9fb4fb96c1682b4, type: 3}
+  _redHat: {fileID: 3951692991024116941, guid: 0ee3bc76045394443945f9c37ac3bb27, type: 3}
+  _greenHat: {fileID: 5197743577268902495, guid: 3166871c3ffdf1d488eff54340b0112a, type: 3}
+  _blueHat: {fileID: 6617398008018264610, guid: 620dd6b34ac32f94aa26c4599cb62843, type: 3}
+  _yellowHat: {fileID: 3317392998997539816, guid: 4d15f7f051ebac54b841062ede5f1247, type: 3}

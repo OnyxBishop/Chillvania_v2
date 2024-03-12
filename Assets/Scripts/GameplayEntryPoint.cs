@@ -6,28 +6,61 @@ public class GameplayEntryPoint : MonoBehaviour
 {
     [SerializeField] private LevelStarter _levelStarter;
     [SerializeField] private LevelEnder _levelEnder;
+    [SerializeField] private PlayerFabric _playerFabric;
     [SerializeField] private UiInitialiser _UiInitialiser;
     [SerializeField] private MapCreator _mapCreator;
     [SerializeField] private CameraSwitcher _cameraSwitcher;
+    [SerializeField] private ShopHub _shopHub;
+    [SerializeField] private BlackScreen _blackScreen;
+
+    private Character _character;
+    private Map _map;
 
     public event Action GameReady;
 
-    private IEnumerator Start()
+    private void Start()
     {
-        Map map = _mapCreator.Create();
-        yield return new WaitUntil(() => map.IsInit);
+        StartCoroutine(PrepareLevel());
+    }
 
-        _cameraSwitcher.InitDollyCart(map.CameraPath);
-        _levelStarter.Init(map);
-        _levelEnder.Init(_cameraSwitcher, map.ModelSpawner.Ally, map.ModelSpawner.Enemy);
-        _levelEnder.GameEnded += OnGameEnded;
-        _UiInitialiser.InitAll(map);
+    private IEnumerator PrepareLevel()
+    {
+        _map = _mapCreator.Create();
+        yield return new WaitUntil(() => _map.IsInit);
+
+        _character = _playerFabric.Create();
+        _cameraSwitcher.InitDollyCart(_map.CameraPath);
+        _levelStarter.Init(_character, _map);
+        _levelEnder.Init(_cameraSwitcher, _map.ModelSpawner.Ally, _map.ModelSpawner.Enemy);
+        _levelEnder.OnNextButtonClicked += OnEndLevel;
+        _UiInitialiser.InitAll(_map);
 
         GameReady?.Invoke();
     }
 
-    private void OnGameEnded()
+    private void OnEndLevel()
     {
+        _shopHub.Activate();
+        _shopHub.NextButtonClicked += OnShopNextClicked;
+        ResetAll();
+    }
 
+    private void OnShopNextClicked()
+    {
+        _shopHub.NextButtonClicked -= OnShopNextClicked;
+        StartCoroutine(PrepareLevel());
+        _blackScreen.Disable(() => _levelStarter.StartNext());
+    }
+
+    private bool ResetAll()
+    {
+        _levelEnder.OnNextButtonClicked -= OnEndLevel;
+        Destroy(_map.gameObject);
+        Destroy(_character.gameObject);
+        _cameraSwitcher.ResetDollyCart();
+        _levelStarter.ResetLevel();
+        _levelEnder.Disable();
+
+        return true;
     }
 }
