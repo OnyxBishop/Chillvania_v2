@@ -1,18 +1,19 @@
-using System;
+using UnityEngine;
 using Agava.YandexGames;
 using Lean.Localization;
-using UnityEngine;
 
 public class Localization : MonoBehaviour
-{ 
+{
     [SerializeField] private LeanLocalization _leanLocalization;
 
     private const string EnglishCode = "English";
     private const string RussianCode = "Russian";
-    private const string TurkishCode = "Turkish";
+    private const string TurkishCode = "Arabic";
     private const string English = "en";
     private const string Russian = "ru";
-    private const string Turkish = "ar";
+    private const string Turkish = "tr";
+
+    public string CurrentLanguage => _leanLocalization.CurrentLanguage;
 
     private void Awake()
     {

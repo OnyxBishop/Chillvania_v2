@@ -45,10 +45,18 @@ public class CharacterStatsView : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void Disable()
+    {
+        _character = null;
+        _npcSpawner = null;
+        gameObject.SetActive(false);
+    }
+
     private void OnUpgraded(float value)
     {
         _strenghtValue.text = _character.Interaction.Strenght.ToString();
         _capacityValue.text = _character.Inventory.Cells.Count.ToString();
+        _snowballsCount.text = string.Format($"{0}/{_character.Inventory.Cells.Count}");
         _upgradeAudio.PlayOneShot(_upgradeAudioClip);
     }
 

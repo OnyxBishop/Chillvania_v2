@@ -6,15 +6,13 @@ public class BallMovement : MonoBehaviour
 {
     [SerializeField] private AnimationCurve _rotationCurve;
     [SerializeField] private float _rotationInDeg;
-    [SerializeField] private float _scaleSpeed;
 
     private float _weight;
-    private Vector3 _endScale;
     private float _rotationTime;
     private Coroutine _coroutine;
 
     private readonly float _rollingValue = 100;
-    private readonly float _coefficient = 10;
+    private readonly float _coefficient = 11;
 
     public float RollingDuration { get; private set; }
     public event Action<float> MaxWeightReached;
@@ -33,24 +31,20 @@ public class BallMovement : MonoBehaviour
     private IEnumerator Rolling(ICharacter character)
     {
         WaitUntil waitUntil = new(() => character.IMovable.IsMoving);
+
         float elapsedTime = 0f;
-
         float rotationAmount;
-        float scaleAmount;
+        float rollingCoefficent = Mathf.Lerp(40, 1, RollingDuration);
 
-        Vector3 rotationAxis;
+        Vector3 increaseScale = new Vector3(0.2f, 0.2f, 0.2f);
 
         while (elapsedTime < RollingDuration)
         {
             _rotationTime += Time.deltaTime;
             rotationAmount = _rotationCurve.Evaluate(Mathf.Clamp01(_rotationTime)) * _rotationInDeg;
-            rotationAxis = Vector3.right;
-            transform.Rotate(rotationAxis, rotationAmount * Time.deltaTime);
+            transform.Rotate(Vector3.right, rotationAmount * Time.deltaTime);
 
-            scaleAmount = _rotationCurve.Evaluate(Mathf.Clamp01(1 - _rotationTime))
-                * _scaleSpeed * character.Interaction.Strenght;
-            _endScale = transform.localScale + (scaleAmount * Time.deltaTime * Vector3.one);
-            transform.localScale = Vector3.Lerp(transform.localScale, _endScale, Time.deltaTime);
+            transform.localScale += increaseScale * rollingCoefficent * Mathf.Min(Time.deltaTime, 0.05f);
 
             if (_rotationTime >= 1f)
                 _rotationTime = 0f;

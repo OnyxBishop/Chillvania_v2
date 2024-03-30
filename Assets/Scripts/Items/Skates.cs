@@ -8,12 +8,17 @@ public class Skates : BoostItem
 
     private void Awake()
     {
-        Power = 0.5f;
+        Power = 1.5f;
     }
 
     private void Start()
     {
         StartAnimation();
+    }
+
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 
     public override void StartAnimation()

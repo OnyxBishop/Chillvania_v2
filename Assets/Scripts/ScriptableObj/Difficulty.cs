@@ -9,11 +9,11 @@ public class Difficulty : ScriptableObject
     [SerializeField, Range(1,100)] private List<int> _percentagesToGetPoint;
 
     [Header("Bots Variables")]
-    [SerializeField] private List<int> _snowValueToAddNpc;
-    [SerializeField] private List<int> _upgradeValuesToImprove;
+    [SerializeField] private List<int> _collectedSnowToAddNpc;
+    [SerializeField] private List<int> _spendedPointsToAddNPC;
 
     public int SnowPieceValue => _snowPieceValue;
     public IReadOnlyList<int> PercentagesToGetPoint => _percentagesToGetPoint;
-    public IReadOnlyList<int> SnowValuesToAddNpc => _snowValueToAddNpc;
-    public IReadOnlyList<int> ValuesToImprove => _upgradeValuesToImprove;
+    public IReadOnlyList<int> CollectedSnowToAddNpc => _collectedSnowToAddNpc;
+    public IReadOnlyList<int> SpendedPointsToAddNPC => _spendedPointsToAddNPC;
 }

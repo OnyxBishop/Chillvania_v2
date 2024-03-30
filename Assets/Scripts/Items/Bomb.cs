@@ -21,6 +21,11 @@ public class Bomb : BoostItem
         StartAnimation();
     }
 
+    private void OnDestroy()
+    {
+        transform.DOKill();
+    }
+
     public override void StartAnimation()
     {
         transform.DOMoveY(transform.position.y + 0.2f, 1).SetLoops(-1, LoopType.Yoyo);

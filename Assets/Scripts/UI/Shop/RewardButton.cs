@@ -9,9 +9,11 @@ public class RewardButton : MonoBehaviour
 
     private int _reward = 30;
 
-    private void OnEnable() => _button.onClick.AddListener(OnButtonClicked);
+    private void OnEnable() =>
+        _button.onClick.AddListener(OnButtonClicked);
 
-    private void OnDisable() => _button.onClick.RemoveListener(OnButtonClicked);
+    private void OnDisable() =>
+        _button.onClick.RemoveListener(OnButtonClicked);
 
     private void OnButtonClicked()
     {

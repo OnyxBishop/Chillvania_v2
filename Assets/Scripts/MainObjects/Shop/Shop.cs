@@ -60,6 +60,8 @@ public class Shop : MonoBehaviour
         _view.ItemViewClicked += OnItemViewClicked;
 
         OnSkinsButtonClicked();
+        _selectionButton.gameObject.SetActive(false);
+        _buyButton.gameObject.SetActive(false);
     }
 
     private void OnItemViewClicked(ShopItemView view)

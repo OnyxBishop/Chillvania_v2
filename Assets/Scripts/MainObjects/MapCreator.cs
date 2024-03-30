@@ -6,12 +6,12 @@ public class MapCreator : MonoBehaviour
 
     private int _mapIndex;
 
-    public Map Create()
+    public Map Create(float characterStrenght)
     {
         _mapIndex = PlayerPrefs.GetInt(PrefsSaveKeys.MapIndex, 0);
 
         Map map = Instantiate(_mapPrefabs[_mapIndex], null, true);
-        map.InitAll();
+        map.InitAll(characterStrenght);
 
         _mapIndex++;
 

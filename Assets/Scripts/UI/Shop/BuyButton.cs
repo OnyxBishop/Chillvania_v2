@@ -12,12 +12,17 @@ public class BuyButton : MonoBehaviour
     [SerializeField] private Color _lockColor;
     [SerializeField] private Color _unlockColor;
 
+    [SerializeField, Range(0.1f, 0.3f)] private float _shakeScaleDuration;
+    [SerializeField] private float _xShakeScaleStrenght;
+    [SerializeField] private float _yShakeScaleStrenght;
+
     [SerializeField, Range(0, 1)] private float _lockAnimationDuration;
     [SerializeField, Range(0.5f, 5)] private float _lockAnimationStrength;
 
-    public event Action Clicked;
-
     private bool _isLock;
+    private Tween _scaleTweener;
+
+    public event Action Clicked;
 
     private void OnEnable() => _button.onClick.AddListener(OnClicked);
 
@@ -29,12 +34,20 @@ public class BuyButton : MonoBehaviour
     {
         _isLock = true;
         _text.color = _lockColor;
+
+        _scaleTweener?.Kill();
     }
 
     public void Unlock()
     {
         _isLock = false;
         _text.color = _unlockColor;
+
+        _scaleTweener = transform.DOShakeScale(
+            duration: _shakeScaleDuration,
+            strength: new Vector3(_xShakeScaleStrenght, _yShakeScaleStrenght),
+            randomnessMode: ShakeRandomnessMode.Harmonic)
+            .OnComplete(() => transform.localScale = Vector3.one);
     }
 
     private void OnClicked()

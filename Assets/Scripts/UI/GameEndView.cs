@@ -8,6 +8,7 @@ public class GameEndView : MonoBehaviour
     [SerializeField] private NextButton _nextButton;
     [SerializeField] private BlackScreen _blackScreen;
     [SerializeField] private VideoAd _videoAd;
+    [SerializeField] private PauseControl _pauseControl;
 
     public event Action OnNextButtonClicked;
 
@@ -48,8 +49,7 @@ public class GameEndView : MonoBehaviour
     {
         if (wasShown)
         {
-            Time.timeScale = 1;
-            AudioListener.volume = 1f;
+            _pauseControl.SetPauseOnUI(false);
 
             OnNextButtonClicked?.Invoke();
         }

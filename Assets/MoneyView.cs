@@ -6,13 +6,9 @@ public class MoneyView : MonoBehaviour
     [SerializeField] private TMP_Text _countText;
     [SerializeField] private Wallet _wallet;
 
-    private void Start()
-    {
-        _countText.text = _wallet.Money.ToString();
-    }
-
     private void OnEnable()
     {
+        _countText.text = _wallet.Money.ToString();
         _wallet.MoneyChanged += OnMoneyChanged;
     }
 

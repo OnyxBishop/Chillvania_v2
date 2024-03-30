@@ -19,9 +19,9 @@ public class Map : MonoBehaviour
 
     public bool IsInit { get; private set; } = false;
 
-    public void InitAll()
+    public void InitAll(float characterStrenght)
     {
-        _modelSpawner.Create();
+        _modelSpawner.Create(characterStrenght);
         _areaCollector.Init(_modelSpawner.Ally.transform, _modelSpawner.Enemy.transform);
         GenerateNavMesh();
 

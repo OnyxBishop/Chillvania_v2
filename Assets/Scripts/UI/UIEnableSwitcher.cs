@@ -16,5 +16,6 @@ public class UIEnableSwitcher : MonoBehaviour
     public void Disable()
     {
         _uiCanvas.gameObject.SetActive(false);
+        _characterStatsView.Disable();
     }
 }

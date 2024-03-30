@@ -8,33 +8,49 @@ public class DynamicDifficulty : MonoBehaviour
     private ModelBuilder _allyModel;
     private UpgradeSystem _upgradeSystem;
     private NPCSpawner _spawner;
-    private Queue<int> _valueToAdd = new();
-    private Queue<int> _improveValues = new();
-    private int _counter;
+    private Queue<int> _valueToAdd;
+    private Queue<int> _spendedPoints;
+    private int _counter = 0;
+
+    private void OnEnable()
+    {
+        _allyModel.ValueChanged += OnSnowValueChanged;
+        _upgradeSystem.StatsIncreased += OnCharacterStatsIncreased;
+    }
+
+    private void OnDisable()
+    {
+        _allyModel.ValueChanged -= OnSnowValueChanged;
+        _upgradeSystem.StatsIncreased -= OnCharacterStatsIncreased;
+    }
 
     public void Init(ModelBuilder allyModel, UpgradeSystem upgradeArea, NPCSpawner spawner)
     {
         _allyModel = allyModel;
         _upgradeSystem = upgradeArea;
         _spawner = spawner;
+        _valueToAdd = new();
+        _spendedPoints = new();
 
-        for (int i = 0; i < _difficulty.SnowValuesToAddNpc.Count; i++)
-            _valueToAdd.Enqueue(_difficulty.SnowValuesToAddNpc[i]);
+        for (int i = 0; i < _difficulty.CollectedSnowToAddNpc.Count; i++)
+            _valueToAdd.Enqueue(_difficulty.CollectedSnowToAddNpc[i]);
 
-        for (int i = 0; i < _difficulty.ValuesToImprove.Count; i++)
-            _improveValues.Enqueue(_difficulty.ValuesToImprove[i]);
+        for (int i = 0; i < _difficulty.SpendedPointsToAddNPC.Count; i++)
+            _spendedPoints.Enqueue(_difficulty.SpendedPointsToAddNPC[i]);
+
+        enabled = true;
     }
 
-    private void OnEnable()
+    public void ResetAll()
     {
-        _allyModel.ValueChanged += OnSnowValueChanged;
-        _upgradeSystem.Upgraded += OnCharacterUpgrade;
-    }
+        enabled = false;
 
-    private void OnDisable()
-    {
-        _allyModel.ValueChanged -= OnSnowValueChanged;
-        _upgradeSystem.Upgraded -= OnCharacterUpgrade;
+        _allyModel = null;
+        _upgradeSystem = null;
+        _spawner = null;
+        _valueToAdd = null;
+        _spendedPoints = null;
+        _counter = 0;
     }
 
     private void OnSnowValueChanged(float snowValue)
@@ -51,17 +67,17 @@ public class DynamicDifficulty : MonoBehaviour
         }
     }
 
-    private void OnCharacterUpgrade()
+    private void OnCharacterStatsIncreased()
     {
-        if (_improveValues.Count <= 0)
+        if (_spendedPoints.Count <= 0)
             return;
 
         _counter++;
 
-        if (_counter >= _improveValues.Peek())
+        if (_counter >= _spendedPoints.Peek())
         {
             _spawner.IncreaseAllStrenght();
-            _improveValues.Dequeue();
+            _spendedPoints.Dequeue();
         }
     }
 }

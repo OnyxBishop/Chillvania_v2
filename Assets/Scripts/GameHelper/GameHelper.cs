@@ -16,10 +16,12 @@ public class GameHelper : MonoBehaviour
     [Header("Upgrade System")]
     [SerializeField] private UpgradeSystem _upgradeSystem;
     [SerializeField] private UpgradeCardsView _upgradeCards;
+    [SerializeField] private NextButton _nextButton;
 
     [Header("Spawners/common objects")]
     [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private ModelSpawner _modelSpawner;
+    [SerializeField] private Image _buildFrame;
     [SerializeField] private NPCSpawner _npcspawner;
     [SerializeField] private AreaCollector _areaCollector;
     [SerializeField] private SnowballFabric _snowballFabric;
@@ -82,6 +84,7 @@ public class GameHelper : MonoBehaviour
 
         _characterStatsView.Enable(_character);
         _upgradeSystem.StatsIncreased += OnStatsIncreased;
+        _nextButton.Clicked += OnStatsIncreased;
 
         yield return new WaitUntil(() => _hasUpgrade);
         _helpFrame.ShowEnd();
@@ -89,6 +92,8 @@ public class GameHelper : MonoBehaviour
         CreatePointer(_teleport.transform.position);
 
         yield return new WaitForSecondsRealtime(3f);
+
+        _pointer.StopAnimation();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         PlayerPrefs.SetInt(FirstEntryKey, 1);
@@ -107,13 +112,13 @@ public class GameHelper : MonoBehaviour
     private void CreateUpgradeSystem()
     {
         _upgradeSystem.Init(_character, _modelSpawner.Ally, _npcspawner);
-        _upgradeSystem.SetUpgrade();
+        _upgradeSystem.SetUpgrade(5);
     }
 
     private void CreateModelsZone()
     {
-        _modelSpawner.Create();
-        _modelSpawner.gameObject.SetActive(true);
+        _modelSpawner.Create(_character.Interaction.Strenght);
+        _buildFrame.gameObject.SetActive(true);
         _areaCollector.Init(_modelSpawner.Ally.transform, _modelSpawner.Enemy.transform);
         _modelSpawner.Ally.ValueChanged += OnModelValueChanged;
         CreatePointer(_areaCollector.transform.position);
@@ -138,6 +143,7 @@ public class GameHelper : MonoBehaviour
     private void OnModelValueChanged(float _)
     {
         _modelSpawner.Ally.ValueChanged -= OnModelValueChanged;
+        _pointer.StopAnimation();
         Destroy(_pointer.gameObject);
 
         _isBuilded = true;
@@ -150,7 +156,8 @@ public class GameHelper : MonoBehaviour
 
     private void OnStatsIncreased()
     {
-        _upgradeSystem.Upgraded -= OnStatsIncreased;
+        _upgradeSystem.StatsIncreased -= OnStatsIncreased;
+        _nextButton.Clicked -= OnStatsIncreased;
         _hasUpgrade = true;
     }
 }

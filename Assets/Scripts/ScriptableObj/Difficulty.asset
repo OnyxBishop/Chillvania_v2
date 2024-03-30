@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Difficulty
   m_EditorClassIdentifier: 
   _snowPieceValue: 3
-  _percentagesToGetPoint: 1400000023000000320000004600000055000000
-  _snowValueToAddNpc: 190000003200000046000000
-  _upgradeValuesToImprove: 020000000400000006000000
+  _percentagesToGetPoint: 0a0000001400000023000000320000004100000050000000
+  _collectedSnowToAddNpc: 19000000320000004b000000
+  _spendedPointsToAddNPC: 03000000

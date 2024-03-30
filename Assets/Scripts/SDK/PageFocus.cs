@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class PageFocus : MonoBehaviour
 {
+    [SerializeField] private PauseControl _pauseControl;
+
     private AudioSource _backgroundSource;
+    private float _maxAudioVolume = 0.25f;
 
     private void Awake()
     {
@@ -24,24 +27,13 @@ public class PageFocus : MonoBehaviour
 
     private void OnInBackgroundChangeApp(bool inApp)
     {
-        MuteAudio(!inApp);
-        PauseGame(!inApp);
+        _pauseControl.SetPauseOnFocus(!inApp);
+        _backgroundSource.volume = !inApp ? 0 : _maxAudioVolume;
     }
 
     private void OnInBackgroundChangeWeb(bool isBackground)
     {
-        MuteAudio(isBackground);
-        PauseGame(isBackground);
-    }
-
-    private void MuteAudio(bool value)
-    {
-        AudioListener.pause = value;
-        _backgroundSource.volume = value ? 0 : 0.25f;
-    }
-
-    private void PauseGame(bool value)
-    {
-        Time.timeScale = value ? 0 : 1;
+        _pauseControl.SetPauseOnFocus(isBackground);
+        _backgroundSource.volume = isBackground ? 0 : _maxAudioVolume;
     }
 }

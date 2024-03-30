@@ -25,10 +25,10 @@ public class GameplayEntryPoint : MonoBehaviour
 
     private IEnumerator PrepareLevel()
     {
-        _map = _mapCreator.Create();
+        _character = _playerFabric.Create();
+        _map = _mapCreator.Create(_character.Interaction.Strenght);
         yield return new WaitUntil(() => _map.IsInit);
 
-        _character = _playerFabric.Create();
         _cameraSwitcher.InitDollyCart(_map.CameraPath);
         _levelStarter.Init(_character, _map);
         _levelEnder.Init(_cameraSwitcher, _map.ModelSpawner.Ally, _map.ModelSpawner.Enemy);
@@ -52,7 +52,7 @@ public class GameplayEntryPoint : MonoBehaviour
         _blackScreen.Disable(() => _levelStarter.StartNext());
     }
 
-    private bool ResetAll()
+    private void ResetAll()
     {
         _levelEnder.OnNextButtonClicked -= OnEndLevel;
         Destroy(_map.gameObject);
@@ -60,7 +60,5 @@ public class GameplayEntryPoint : MonoBehaviour
         _cameraSwitcher.ResetDollyCart();
         _levelStarter.ResetLevel();
         _levelEnder.Disable();
-
-        return true;
     }
 }

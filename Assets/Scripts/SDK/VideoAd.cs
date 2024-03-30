@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class VideoAd : MonoBehaviour
 {
+    [SerializeField] private PauseControl _pauseControl;
+
     public void ShowInterstitial(Action<bool> onCloseCallback) =>
         Agava.YandexGames.InterstitialAd.Show(OnOpenCallback, onCloseCallback);
 
@@ -11,13 +13,11 @@ public class VideoAd : MonoBehaviour
 
     private void OnOpenCallback()
     {
-        Time.timeScale = 0;
-        AudioListener.volume = 0f;
+        _pauseControl.SetPauseOnUI(true);
     }
 
     private void OnCloseCallback()
     {
-        Time.timeScale = 1;
-        AudioListener.volume = 1f;
+        _pauseControl.SetPauseOnUI(false);
     }
 }

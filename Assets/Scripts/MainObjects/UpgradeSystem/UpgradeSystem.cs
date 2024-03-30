@@ -11,11 +11,15 @@ public class UpgradeSystem : MonoBehaviour
     private ModelBuilder _allyModel;
     private List<int> _upgradeLevels;
 
+    private int _points = 0;
     private int _currentLevel = 0;
 
-    public event Action Upgraded;
-    public event Action<float> ProgressChanged;
+    public int Points => _points;
+
+    public event Action PointGetted;
     public event Action StatsIncreased;
+    public event Action<int> PointsChanged;
+    public event Action<float> ProgressChanged;
 
     private void OnDisable()
     {
@@ -27,6 +31,7 @@ public class UpgradeSystem : MonoBehaviour
         _character = character;
         _allyModel = allyModel;
         _npcSpawner = npcSpawner;
+        _points = 0;
         _upgradeLevels = new List<int>();
 
         for (int i = 0; i < _difficulty.PercentagesToGetPoint.Count; i++)
@@ -38,8 +43,11 @@ public class UpgradeSystem : MonoBehaviour
         _allyModel.ValueChanged += OnValueChanged;
     }
 
-    public void IncreaseStat(StatsType type)
+    public void IncreaseStat(StatsType type, int cost)
     {
+        if (cost > _points)
+            throw new ArgumentException("Not enough points to upgrade");
+
         if (type.Equals(StatsType.Strenght))
         {
             float increaseValue = 1f;
@@ -57,12 +65,16 @@ public class UpgradeSystem : MonoBehaviour
             _npcSpawner.Spawn(NpcType.Ally);
         }
 
+        _points -= cost;
+        PointsChanged?.Invoke(_points);
         StatsIncreased?.Invoke();
     }
 
-    public void SetUpgrade()
+    public void SetUpgrade(int points = 1)
     {
-        Upgraded?.Invoke();
+        _points = points;
+        PointGetted?.Invoke();
+        PointsChanged?.Invoke(_points);
     }
 
     private void OnValueChanged(float value)
@@ -75,7 +87,9 @@ public class UpgradeSystem : MonoBehaviour
         if (value >= _upgradeLevels[0])
         {
             _upgradeLevels.RemoveAt(0);
-            Upgraded?.Invoke();
+            _points++;
+            PointGetted?.Invoke();
+            PointsChanged?.Invoke(_points);
         }
     }
 

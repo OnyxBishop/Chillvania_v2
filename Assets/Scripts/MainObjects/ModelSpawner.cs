@@ -10,7 +10,7 @@ public class ModelSpawner : MonoBehaviour
     public ModelBuilder Ally { get; private set; }
     public ModelBuilder Enemy { get; private set; }
 
-    public void Create()
+    public void Create(float characterStrenght)
     {
         int index = PlayerPrefs.GetInt(PrefsSaveKeys.ModelIndex, 0);
         ModelBuilder curentModel = _models[index];
@@ -25,6 +25,9 @@ public class ModelSpawner : MonoBehaviour
 
         Ally = Instantiate(curentModel, _allyPoint.transform.position, _allyPoint.rotation, transform);
         Enemy = Instantiate(curentModel, _enemyPoint.transform.position, _enemyPoint.rotation, transform);
+
+        Ally.Init(characterStrenght);
+        Enemy.Init(characterStrenght);
 
         PlayerPrefs.SetInt(PrefsSaveKeys.ModelIndex, index);
         PlayerPrefs.Save();

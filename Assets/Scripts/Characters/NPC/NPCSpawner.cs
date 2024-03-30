@@ -32,9 +32,7 @@ public class NPCSpawner : MonoBehaviour
             return;
 
         for (int i = 0; i < count; i++)
-        {
             Spawn(type);
-        }
     }
 
     public void DisableAllNPC()
