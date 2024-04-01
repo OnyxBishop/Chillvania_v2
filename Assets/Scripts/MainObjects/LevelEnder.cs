@@ -16,7 +16,6 @@ public class LevelEnder : MonoBehaviour
     private CameraSwitcher _cameraSwitcher;
 
     private float _delay = 6f;
-    private WaitForSeconds _wait;
     private bool _isFirstWinner;
 
     public event Action GameEnded;
@@ -79,7 +78,7 @@ public class LevelEnder : MonoBehaviour
 
     private IEnumerator ShowModel()
     {
-        yield return _wait(_delay);d
+        yield return new WaitForSeconds(_delay);
 
         CameraAnimationEnded?.Invoke();
     }

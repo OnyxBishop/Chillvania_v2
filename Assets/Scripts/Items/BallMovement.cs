@@ -3,17 +3,17 @@ using System.Collections;
 using UnityEngine;
 
 public class BallMovement : MonoBehaviour
-{
+{    
     [SerializeField] private AnimationCurve _rotationCurve;
     [SerializeField] private float _rotationInDeg;
-
-    private float _weight;
-    private float _rotationTime;
-    private Coroutine _coroutine;
 
     private readonly float _rollingValue = 100;
     private readonly float _coefficient = 11;
 
+    private float _weight;
+    private float _rotationTime;
+    private Coroutine _coroutine;
+   
     public float RollingDuration { get; private set; }
     public event Action<float> MaxWeightReached;
 
