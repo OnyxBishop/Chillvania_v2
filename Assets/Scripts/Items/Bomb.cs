@@ -7,8 +7,8 @@ public class Bomb : BoostItem
 {
     private AudioSource _audioSource;
 
-    public override BoostItemType Type => BoostItemType.Bomb;
     public override event Action<BoostItem> Taken;
+    public override BoostItemType Type => BoostItemType.Bomb;
 
     private void Awake()
     {

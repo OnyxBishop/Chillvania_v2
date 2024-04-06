@@ -17,7 +17,7 @@ public class StateReachSnowball : State
 
     public override void ChangeState()
     {
-        Machine.SetState<StateRolling>();
+        InvokeEnded();
     }
 
     private void OnTargetInteracted(Snowball snowball)
@@ -29,7 +29,7 @@ public class StateReachSnowball : State
         }
         else
         {
-            Machine.SetState<StateChooseTask>();
+            InvokeEnded();
         }
     }
 }

@@ -43,6 +43,26 @@ public class SnowballSpawner : MonoBehaviour
         }
     }
 
+    public Snowball GetClosestSnowball(NPC npc)
+    {
+        float closestDistance = float.MaxValue;
+        Snowball closestSnowball = null;
+
+        foreach (Snowball snowball in _createdSnowballs)
+        {
+            float distance = (npc.transform.position - snowball.transform.position).sqrMagnitude;
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestSnowball = snowball;
+            }
+        }
+
+
+        return closestSnowball;
+    }
+
     private void Spawn()
     {
         Transform spawnPoint = null;
@@ -64,26 +84,6 @@ public class SnowballSpawner : MonoBehaviour
         Snowball snowball = _fabric.Create(spawnPoint);
         snowball.InteractStarting += OnInteractStarting;
         _createdSnowballs.Add(snowball);
-    }
-
-    public Snowball GetClosestSnowball(NPC npc)
-    {
-        float closestDistance = float.MaxValue;
-        Snowball closestSnowball = null;
-
-        foreach (Snowball snowball in _createdSnowballs)
-        {
-            float distance = (npc.transform.position - snowball.transform.position).sqrMagnitude;
-
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestSnowball = snowball;
-            }
-        }
-
-
-        return closestSnowball;
     }
 
     private void OnInteractStarting(Snowball snowball)

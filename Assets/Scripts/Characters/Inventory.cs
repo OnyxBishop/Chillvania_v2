@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class Inventory : IUpgradeable
 {
@@ -11,9 +10,7 @@ public class Inventory : IUpgradeable
     public event Action InventoryEnded;
     public event Action<SelectableType> ItemAdded;
     public event Action<SelectableType> ItemRemoved;
-    public event Action<float> Upgraded;
-
-    public IReadOnlyList<Cell> Cells => _cells;
+    public event Action<float> Upgraded;   
 
     public Inventory(int initialCount)
     {
@@ -25,6 +22,8 @@ public class Inventory : IUpgradeable
             _cells.Add(new Cell());
         }
     }
+
+    public IReadOnlyList<Cell> Cells => _cells;
 
     public void AddItem(ISelectable selectable)
     {

@@ -9,8 +9,6 @@ public class StateEntry : State
         _delay -= elapsedTime;
 
         if (_delay <= 0)
-        {
-            Machine.SetState<StateReachSnowball>();
-        }
+            InvokeEnded();
     }
 }

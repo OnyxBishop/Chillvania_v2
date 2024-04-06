@@ -28,7 +28,7 @@ public class StateReachBoost : State
     public override void ChangeState()
     {
         _interactionCollider.enabled = true;
-        Machine.SetState<StateChooseTask>();
+        InvokeEnded();
     }
 
     private void OnItemTaken(BoostItem item)
@@ -40,7 +40,7 @@ public class StateReachBoost : State
         }
         else
         {
-            Machine.SetState<StateChooseTask>();
+            InvokeEnded();
         }
     }
 }

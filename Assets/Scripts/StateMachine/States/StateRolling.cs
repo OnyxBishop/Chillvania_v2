@@ -28,11 +28,11 @@ public class StateRolling : State
 
         if (NPC.Inventory.CalculateCount(SelectableType.Snowball) == NPC.Inventory.Cells.Count)
         {
-            Machine.SetState<StateCarryToSnowman>();
+            InvokeEnded();
             return;
         }
 
-        Machine.SetState<StateChooseTask>();
+        InvokeEnded();
     }
 
     private IEnumerator Rolling()

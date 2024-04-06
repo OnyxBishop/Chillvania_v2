@@ -20,11 +20,11 @@ public class PlayerData
         SelectedSkin = SkinsType.Default;
     }
 
+    public event Action<StatsType> StatsChanged;
+
     public int MaxInitialStrenght => _maxInitialStrenght;
     public float MaxInitialSpeed => _maxInitialSpeed;
-    public int MaxInitialTeam => _maxInitialTeam;
-
-    public event Action<StatsType> StatsChanged;
+    public int MaxInitialTeam => _maxInitialTeam;    
 
     public void OpenSkin(SkinsType type)
     {

@@ -3,8 +3,8 @@ using System;
 
 public class Skates : BoostItem
 {
-    public override BoostItemType Type => BoostItemType.Skates;
     public override event Action<BoostItem> Taken;
+    public override BoostItemType Type => BoostItemType.Skates;
 
     private void Awake()
     {

@@ -100,7 +100,7 @@ public class Shop : MonoBehaviour
         _selectionButton.gameObject.SetActive(false);
     }
 
-    public void OnBuyButtonClicked()
+    private void OnBuyButtonClicked()
     {
         if (_wallet.IsEnough(_selectedView.Price))
         {

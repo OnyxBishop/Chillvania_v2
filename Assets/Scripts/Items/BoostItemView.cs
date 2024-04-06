@@ -12,10 +12,10 @@ public class BoostItemView : MonoBehaviour
     private Action _onPickUpCallback;
     private Tween _animationTween;
 
-    public BoostItem Item { get; private set; }
-
     public event Action<BoostItem> Added;
     public event Action Removed;
+
+    public BoostItem Item { get; private set; }
 
     private void Awake()
     {

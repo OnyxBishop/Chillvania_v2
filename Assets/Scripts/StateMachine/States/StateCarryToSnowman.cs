@@ -34,6 +34,6 @@ public class StateCarryToSnowman : State
         NPC.IMovable.Disable();
         yield return _delay;
         NPC.IMovable.Enable();
-        Machine.SetState<StateChooseTask>();
+        InvokeEnded();
     }
 }

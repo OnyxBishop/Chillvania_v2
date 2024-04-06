@@ -25,12 +25,6 @@ public class Interaction : MonoBehaviour, IUpgradeable
         Collider = GetComponent<Collider>();
     }
 
-    public void Init(int strenght, Inventory inventory)
-    {
-        Strenght = strenght;
-        _inventory = inventory;
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out ISelectable selectable))
@@ -41,6 +35,12 @@ public class Interaction : MonoBehaviour, IUpgradeable
                 Action(selectable);
             }
         }
+    }
+
+    public void Init(int strenght, Inventory inventory)
+    {
+        Strenght = strenght;
+        _inventory = inventory;
     }
 
     public void Upgrade(float value)

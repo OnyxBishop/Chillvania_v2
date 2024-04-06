@@ -8,10 +8,10 @@ public class StateChooseTask : State
     {
         if (NPC.Inventory.CalculateCount(SelectableType.Snowball) == NPC.Inventory.Cells.Count)
         {
-            Machine.SetState<StateCarryToSnowman>();
+            InvokeEnded();
             return;
         }
 
-        Machine.SetState<StateReachSnowball>();
+        InvokeEnded();
     }
 }

@@ -9,6 +9,8 @@ public class NPC : MonoBehaviour, ICharacter
     public BoostItemView BoostView { get; private set; }
     public Interaction Interaction { get; private set; }
 
+    public bool HasBoost => BoostView.Item != null;
+
     private void Awake()
     {
         IMovable = GetComponent<NPCMovement>();

@@ -14,8 +14,8 @@ public class BallMovement : MonoBehaviour
     private float _rotationTime;
     private Coroutine _coroutine;
    
-    public float RollingDuration { get; private set; }
     public event Action<float> MaxWeightReached;
+    public float RollingDuration { get; private set; }
 
     public void Move(ICharacter character)
     {
