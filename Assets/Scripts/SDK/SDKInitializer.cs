@@ -21,7 +21,7 @@ namespace Agava.YandexGames
         {
 #if !UNITY_EDITOR && UNITY_WEBGL
            yield return YandexGamesSdk.Initialize(OnInitialized);
-#else 
+#else
             OnInitialized();
 
             yield break;

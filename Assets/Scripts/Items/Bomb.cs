@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class Bomb : BoostItem

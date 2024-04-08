@@ -5,7 +5,6 @@ public class StateMachine
 {
     private Dictionary<Type, State> _states = new Dictionary<Type, State>();
 
-    public Action Ended;
     public State CurrentState { get; private set; }
 
     public void AddState(State state)
@@ -25,18 +24,11 @@ public class StateMachine
             CurrentState?.Exit();
             CurrentState = newState;
             newState.Enter();
-            newState.NeedTransit += OnStateEnded;
         }
     }
 
     public void Update(float elapsedTime)
     {
-        CurrentState?.Update(elapsedTime);        
-    }
-
-    private void OnStateEnded(State state)
-    {
-        state.NeedTransit -= OnStateEnded;
-        Ended?.Invoke();
+        CurrentState?.Update(elapsedTime);
     }
 }

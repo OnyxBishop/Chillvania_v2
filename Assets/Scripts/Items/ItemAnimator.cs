@@ -64,4 +64,3 @@ public class ItemAnimator : MonoBehaviour
         return new Vector3(x, y, z);
     }
 }
-

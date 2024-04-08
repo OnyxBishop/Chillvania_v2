@@ -1,7 +1,7 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
-using System;
 
 public class NPCMovement : MonoBehaviour, IMovable
 {

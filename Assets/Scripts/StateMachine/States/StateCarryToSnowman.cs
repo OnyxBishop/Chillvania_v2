@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class StateCarryToSnowman : State
 {
+    private StateMachine _machine;
     private AreaCollector _areaCollector;
-    private WaitForSecondsRealtime _delay = new(1f);
+    private WaitForSecondsRealtime _delay = new (1f);
     private NPCMachine _coroutineObject;
+    private NPC _npc;
 
-    public StateCarryToSnowman(StateMachine machine, NPC bot, AreaCollector area, NPCMachine coroutineObject) : base(machine, bot)
+    public StateCarryToSnowman(StateMachine machine, NPC bot, AreaCollector area, NPCMachine coroutineObject) 
+        : base(machine, bot)
     {
+        _machine = machine;
         _areaCollector = area;
         _coroutineObject = coroutineObject;
+        _npc = bot;
     }
 
     public override void Enter()
@@ -21,7 +26,7 @@ public class StateCarryToSnowman : State
         point.y = 0f;
         point.x += randomOffset;
 
-        NPC.IMovable.Move(point, ChangeState);
+        _npc.IMovable.Move(point, ChangeState);
     }
 
     public override void ChangeState()
@@ -31,9 +36,9 @@ public class StateCarryToSnowman : State
 
     private IEnumerator Wait()
     {
-        NPC.IMovable.Disable();
+        _npc.IMovable.Disable();
         yield return _delay;
-        NPC.IMovable.Enable();
-        InvokeEnded();
+        _npc.IMovable.Enable();
+        _machine.SetState<StateChooseTask>();
     }
 }

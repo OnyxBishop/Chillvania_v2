@@ -8,7 +8,7 @@ public class UpgradeCardsView : MonoBehaviour
     [SerializeField] private NextButton _nextButton;
     [SerializeField] private PauseControl _pauseControl;
 
-    private List<UpgradeCard> _cards = new();
+    private List<UpgradeCard> _cards = new ();
     private FadeAnimation _fadeAnimation;
     private CanvasGroup _canvasGroup;
 

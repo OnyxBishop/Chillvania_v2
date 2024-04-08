@@ -6,7 +6,7 @@ public class EntryMenu : MonoBehaviour
 {
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _rulesButton;
-    [SerializeField] private RulesPanel _rulesPanel;  
+    [SerializeField] private RulesPanel _rulesPanel;
 
     private FadeAnimation _fadeAnimation;
     private CanvasGroup _canvasGroup;

@@ -1,17 +1,23 @@
 public class StateChooseTask : State
 {
-    public StateChooseTask(StateMachine machine, NPC bot) : base(machine, bot)
+    private StateMachine _machine;
+    private NPC _npc;
+
+    public StateChooseTask(StateMachine machine, NPC bot)
+        : base(machine, bot)
     {
+        _machine = machine;
+        _npc = bot;
     }
 
     public override void Enter()
     {
-        if (NPC.Inventory.CalculateCount(SelectableType.Snowball) == NPC.Inventory.Cells.Count)
+        if (_npc.Inventory.CalculateCount(SelectableType.Snowball) == _npc.Inventory.Cells.Count)
         {
-            InvokeEnded();
+            _machine.SetState<StateCarryToSnowman>();
             return;
         }
 
-        InvokeEnded();
+        _machine.SetState<StateReachSnowball>();
     }
 }

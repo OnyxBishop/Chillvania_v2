@@ -1,8 +1,8 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class BuyButton : MonoBehaviour
 {
@@ -12,12 +12,12 @@ public class BuyButton : MonoBehaviour
     [SerializeField] private Color _lockColor;
     [SerializeField] private Color _unlockColor;
 
-    [SerializeField, Range(0.1f, 0.3f)] private float _shakeScaleDuration;
+    [SerializeField][Range(0.1f, 0.3f)] private float _shakeScaleDuration;
     [SerializeField] private float _xShakeScaleStrenght;
     [SerializeField] private float _yShakeScaleStrenght;
 
-    [SerializeField, Range(0, 1)] private float _lockAnimationDuration;
-    [SerializeField, Range(0.5f, 5)] private float _lockAnimationStrength;
+    [SerializeField][Range(0, 1)] private float _lockAnimationDuration;
+    [SerializeField][Range(0.5f, 5)] private float _lockAnimationStrength;
 
     private bool _isLock;
     private Tween _scaleTweener;

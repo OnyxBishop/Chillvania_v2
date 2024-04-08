@@ -9,7 +9,7 @@ public class BoostItemsSpawner : MonoBehaviour
     [SerializeField] private Transform _path;
     [SerializeField] private BoostItemsFabric _fabric;
     [SerializeField] private LayerMask _layerMask;
-    
+
     private Transform[] _spawnPoints;
     private List<BoostItem> _spawnedItems;
 
@@ -17,17 +17,17 @@ public class BoostItemsSpawner : MonoBehaviour
     private float _elapsedTime;
 
     private int _capacity = 3;
-    private float _overlapRadius = 1f;  
-
-    public bool HasBoost => _spawnedItems.Count(item => item.Type == BoostItemType.Bomb 
-    || item.Type == BoostItemType.Skates) > 0;
+    private float _overlapRadius = 1f;
 
     public event Action Spawned;
+
+    public bool HasBoost => _spawnedItems.Count(item => item.Type == BoostItemType.Bomb
+    || item.Type == BoostItemType.Skates) > 0;
 
     private void Start()
     {
         _spawnPoints = new Transform[_path.childCount];
-        _spawnedItems = new(_capacity);
+        _spawnedItems = new (_capacity);
 
         for (int i = 0; i < _path.childCount; i++)
             _spawnPoints[i] = _path.GetChild(i);

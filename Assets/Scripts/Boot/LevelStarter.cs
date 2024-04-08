@@ -1,5 +1,5 @@
-using Agava.YandexGames;
 using System;
+using Agava.YandexGames;
 using UnityEngine;
 
 public class LevelStarter : MonoBehaviour
@@ -67,8 +67,8 @@ public class LevelStarter : MonoBehaviour
 
     private void OnGameReadyToStart()
     {
-        _character.transform.SetPositionAndRotation
-            (_map.PlayerSpawnPoint.position, _map.PlayerSpawnPoint.localRotation);
+        _character.transform.SetPositionAndRotation(_map.PlayerSpawnPoint.position,
+            _map.PlayerSpawnPoint.localRotation);
 
         _inputSetter.Set(_character);
         _inputSetter.Enable();

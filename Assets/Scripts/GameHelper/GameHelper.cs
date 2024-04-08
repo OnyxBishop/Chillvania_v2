@@ -6,6 +6,8 @@ using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class GameHelper : MonoBehaviour
 {
+    private const string FirstEntryKey = nameof(FirstEntryKey);
+
     [Header("Tutorial Objects")]
     [SerializeField] private TutorialEntryPoint _entryPoint;
     [SerializeField] private HelpFrame _helpFrame;
@@ -31,8 +33,6 @@ public class GameHelper : MonoBehaviour
 
     [Header("Points")]
     [SerializeField] private Transform _snowballPoint;
-
-    private const string FirstEntryKey = nameof(FirstEntryKey);
 
     private Character _character;
     private Pointer _pointer;
@@ -140,7 +140,7 @@ public class GameHelper : MonoBehaviour
         _isSnowballTaking = true;
     }
 
-    private void OnModelValueChanged(float _)
+    private void OnModelValueChanged(float value)
     {
         _modelSpawner.Ally.ValueChanged -= OnModelValueChanged;
         _pointer.StopAnimation();
@@ -149,7 +149,7 @@ public class GameHelper : MonoBehaviour
         _isBuilded = true;
     }
 
-    private void OnItemAdded(SelectableType _)
+    private void OnItemAdded(SelectableType value)
     {
         _isEnoughSnowballs = true;
     }

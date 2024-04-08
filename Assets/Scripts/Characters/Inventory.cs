@@ -10,7 +10,7 @@ public class Inventory : IUpgradeable
     public event Action InventoryEnded;
     public event Action<SelectableType> ItemAdded;
     public event Action<SelectableType> ItemRemoved;
-    public event Action<float> Upgraded;   
+    public event Action<float> Upgraded;
 
     public Inventory(int initialCount)
     {
@@ -76,38 +76,5 @@ public class Inventory : IUpgradeable
     public int CalculateCount(SelectableType type)
     {
         return _cells.Count(cell => cell.Weight > 0f && cell.Selectable.Type == type);
-    }
-}
-
-public class Cell
-{
-    private ISelectable _selectable;
-
-    public Cell()
-    {
-        Empty = true;
-    }
-
-    public ISelectable Selectable => _selectable;
-    public bool Empty { get; private set; }
-    public float Weight { get; private set; }
-
-    public void Add(ISelectable selectable)
-    {
-        _selectable = selectable;
-
-        if (_selectable is Snowball snowball)
-        {
-            Weight = snowball.Weight;
-        }
-
-        Empty = false;
-    }
-
-    public void Clear()
-    {
-        Empty = true;
-        Weight = 0f;
-        _selectable = null;
     }
 }

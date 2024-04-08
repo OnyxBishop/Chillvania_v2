@@ -29,8 +29,8 @@ public class DynamicDifficulty : MonoBehaviour
         _allyModel = allyModel;
         _upgradeSystem = upgradeArea;
         _spawner = spawner;
-        _valueToAdd = new();
-        _spendedPoints = new();
+        _valueToAdd = new ();
+        _spendedPoints = new ();
 
         for (int i = 0; i < _difficulty.CollectedSnowToAddNpc.Count; i++)
             _valueToAdd.Enqueue(_difficulty.CollectedSnowToAddNpc[i]);

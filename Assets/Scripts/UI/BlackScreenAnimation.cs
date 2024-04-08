@@ -34,7 +34,7 @@ public class BlackScreenAnimation
         {
             elapsedTime += Time.deltaTime;
 
-            delta = (elapsedTime / duration);
+            delta = elapsedTime / duration;
             _image.fillAmount = Mathf.MoveTowards(from, to, delta);
 
             yield return null;

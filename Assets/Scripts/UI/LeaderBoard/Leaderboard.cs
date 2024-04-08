@@ -1,15 +1,15 @@
-using Agava.YandexGames;
 using System.Collections.Generic;
+using Agava.YandexGames;
 using UnityEngine;
 
 public class Leaderboard : MonoBehaviour
 {
-    [SerializeField] private LeaderboardView _view;
-
     private const string AnonymousName = "Anonymous";
     private const string LeaderboardName = "Leaderboard";
 
     private readonly List<LeaderboardPlayer> _players = new();
+
+    [SerializeField] private LeaderboardView _view;
 
     public void SetPlayer(int score)
     {
@@ -52,18 +52,4 @@ public class Leaderboard : MonoBehaviour
         });
 #endif
     }
-}
-
-public class LeaderboardPlayer
-{
-    public LeaderboardPlayer(int rank, string name, int score)
-    {
-        Rank = rank;
-        Name = name;
-        Score = score;
-    }
-
-    public int Rank { get; private set; }
-    public string Name { get; private set; }
-    public int Score { get; private set; }
 }

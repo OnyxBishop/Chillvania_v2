@@ -14,12 +14,12 @@ public class UpgradeSystem : MonoBehaviour
     private int _points = 0;
     private int _currentLevel = 0;
 
-    public int Points => _points;
-
     public event Action PointGetted;
     public event Action StatsIncreased;
     public event Action<int> PointsChanged;
     public event Action<float> ProgressChanged;
+
+    public int Points => _points;
 
     private void OnDisable()
     {
@@ -102,7 +102,7 @@ public class UpgradeSystem : MonoBehaviour
                     (_upgradeLevels[1] - _upgradeLevels[0]));
         else
             levelProgress = Mathf.Clamp01(1 - (_upgradeLevels[0] - value) /
-                    (_upgradeLevels[0]));
+                    _upgradeLevels[0]);
 
         if (levelProgress == 1)
             levelProgress = 0;

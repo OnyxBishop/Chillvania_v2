@@ -1,5 +1,5 @@
-using Lean.Localization;
 using System.Collections.Generic;
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +20,7 @@ public class RuleView : MonoBehaviour
         if (_localization.CurrentLanguage == "Russian")
             _rules = _dataRU;
 
-        if(_localization.CurrentLanguage == "English")
+        if (_localization.CurrentLanguage == "English")
             _rules = _dataENG;
 
         if (_localization.CurrentLanguage == "Arabic")

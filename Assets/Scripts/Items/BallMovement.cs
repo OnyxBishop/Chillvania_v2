@@ -3,17 +3,17 @@ using System.Collections;
 using UnityEngine;
 
 public class BallMovement : MonoBehaviour
-{    
-    [SerializeField] private AnimationCurve _rotationCurve;
-    [SerializeField] private float _rotationInDeg;
-
+{
     private readonly float _rollingValue = 100;
     private readonly float _coefficient = 11;
+
+    [SerializeField] private AnimationCurve _rotationCurve;
+    [SerializeField] private float _rotationInDeg;
 
     private float _weight;
     private float _rotationTime;
     private Coroutine _coroutine;
-   
+
     public event Action<float> MaxWeightReached;
     public float RollingDuration { get; private set; }
 
@@ -30,7 +30,7 @@ public class BallMovement : MonoBehaviour
 
     private IEnumerator Rolling(ICharacter character)
     {
-        WaitUntil waitUntil = new(() => character.IMovable.IsMoving);
+        WaitUntil waitUntil = new (() => character.IMovable.IsMoving);
 
         float elapsedTime = 0f;
         float rotationAmount;

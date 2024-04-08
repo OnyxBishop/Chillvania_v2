@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class InventoryView : MonoBehaviour
 {
@@ -8,7 +8,7 @@ public class InventoryView : MonoBehaviour
     private Inventory _inventory;
     private CanvasGroup _canvasGroup;
     private FadeAnimation _fadeAnimation;
-    private WaitForSeconds _waitForSeconds = new(1f);
+    private WaitForSeconds _waitForSeconds = new (1f);
     private Coroutine _fadeCoroutine;
 
     public void Init(Inventory inventory)

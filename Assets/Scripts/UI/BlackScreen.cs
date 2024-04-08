@@ -11,7 +11,7 @@ public class BlackScreen : MonoBehaviour
 
     private void Awake()
     {
-        _animation = new(_image, this);
+        _animation = new (_image, this);
         _image.fillAmount = 0;
     }
 

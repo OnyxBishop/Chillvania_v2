@@ -5,8 +5,8 @@ using UnityEngine;
 public class Difficulty : ScriptableObject
 {
     [Header("PLayer Variables")]
-    [SerializeField, Range(1, 4)] private int _snowPieceValue;
-    [SerializeField, Range(1,100)] private List<int> _percentagesToGetPoint;
+    [SerializeField][Range(1, 4)] private int _snowPieceValue;
+    [SerializeField][Range(1, 100)] private List<int> _percentagesToGetPoint;
 
     [Header("Bots Variables")]
     [SerializeField] private List<int> _collectedSnowToAddNpc;

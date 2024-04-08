@@ -77,7 +77,7 @@ public class Movement : MonoBehaviour, IMovable, IUpgradeable
 
     private IEnumerator TemporaryUpgrade(float value)
     {
-        WaitForSeconds wait = new(5f);
+        WaitForSeconds wait = new (5f);
 
         _currentSpeed += value;
 

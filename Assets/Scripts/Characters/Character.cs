@@ -5,6 +5,7 @@ public class Character : MonoBehaviour, ICharacter
 {
     [SerializeField] private SkinPlacement _hatSkin;
 
+    private SkinsType _skinType;
     private InventoryView _inventoryView;
 
     public IMovable IMovable { get; private set; }
@@ -12,8 +13,6 @@ public class Character : MonoBehaviour, ICharacter
     public Interaction Interaction { get; private set; }
     public BoostItemView BoostView { get; private set; }
     public NpcType Type => NpcType.Ally;
-
-    private SkinsType _skinType;
 
     public void Awake()
     {

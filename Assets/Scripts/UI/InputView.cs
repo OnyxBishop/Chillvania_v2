@@ -1,17 +1,17 @@
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class InputView : MonoBehaviour
 {
+    private const string English = "English";
+    private const string Russian = "Russian";
+    private const string Turkish = "Arabic";
+
     [SerializeField] private Localization _localization;
     [SerializeField] private Sprite _rusSprite;
     [SerializeField] private Sprite _engSprite;
     [SerializeField] private Sprite _arSprite;
-
-    private const string English = "English";
-    private const string Russian = "Russian";
-    private const string Turkish = "Arabic";
 
     private InputSetter _inputSetter;
     private Image _image;

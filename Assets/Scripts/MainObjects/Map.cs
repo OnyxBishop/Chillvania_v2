@@ -1,6 +1,6 @@
+using Cinemachine;
 using UnityEngine;
 using Unity.AI.Navigation;
-using Cinemachine;
 
 public class Map : MonoBehaviour
 {

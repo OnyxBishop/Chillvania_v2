@@ -1,18 +1,18 @@
-using UnityEngine;
-using UnityEngine.UI;
 using Lean.Localization;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class ResultsView : MonoBehaviour
 {
+    private const string Victory = nameof(Victory);
+    private const string Lose = nameof(Lose);
+
     [SerializeField] private Image _image;
     [SerializeField] private Sprite _victorySprite;
     [SerializeField] private Sprite _loseSprite;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private TMP_Text _coinsCount;
-
-    private const string Victory = nameof(Victory);
-    private const string Lose = nameof(Lose);
 
     public void Render(bool isVictory, int coinsCount)
     {

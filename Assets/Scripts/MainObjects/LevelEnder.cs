@@ -36,8 +36,8 @@ public class LevelEnder : MonoBehaviour
         _enemyModel.BuildEnded -= OnBuildEnded;
     }
 
-    public void Init(CameraSwitcher cameraSwitcher,
-        ModelBuilder allyModel, ModelBuilder enemyModel)
+    public void Init(
+        CameraSwitcher cameraSwitcher, ModelBuilder allyModel, ModelBuilder enemyModel)
     {
         _allyModel = allyModel;
         _enemyModel = enemyModel;

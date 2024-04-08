@@ -6,7 +6,7 @@ public class LeaderboardView : MonoBehaviour
     [SerializeField] private Transform _container;
     [SerializeField] private LeaderboardElement _elementPrefab;
 
-    private List<LeaderboardElement> _spawnedElements = new();
+    private List<LeaderboardElement> _spawnedElements = new ();
 
     public void Construct(List<LeaderboardPlayer> players)
     {
@@ -15,7 +15,7 @@ public class LeaderboardView : MonoBehaviour
         foreach (LeaderboardPlayer player in players)
         {
             LeaderboardElement elementInstance = Instantiate(_elementPrefab, _container);
-            elementInstance.Initialise(player.Rank,player.Name, player.Score);
+            elementInstance.Initialise(player.Rank, player.Name, player.Score);
 
             _spawnedElements.Add(elementInstance);
         }

@@ -3,13 +3,18 @@ using UnityEngine;
 
 public class StateRolling : State
 {
+    private StateMachine _machine;
     private ItemAnimator _itemAnimator;
     private Coroutine _rollingCoroutine;
+    private NPC _npc;
     private bool _isRolling;
 
-    public StateRolling(StateMachine machine, NPC bot) : base(machine, bot)
+    public StateRolling(StateMachine machine, NPC bot)
+        : base(machine, bot)
     {
-        _itemAnimator = NPC.GetComponentInChildren<ItemAnimator>();
+        _machine = machine;
+        _npc = bot;
+        _itemAnimator = _npc.GetComponentInChildren<ItemAnimator>();
     }
 
     public override void Enter()
@@ -26,23 +31,23 @@ public class StateRolling : State
         if (_rollingCoroutine != null)
             _itemAnimator.StopCoroutine(_rollingCoroutine);
 
-        if (NPC.Inventory.CalculateCount(SelectableType.Snowball) == NPC.Inventory.Cells.Count)
+        if (_npc.Inventory.CalculateCount(SelectableType.Snowball) == _npc.Inventory.Cells.Count)
         {
-            InvokeEnded();
+            _machine.SetState<StateCarryToSnowman>();
             return;
         }
 
-        InvokeEnded();
+        _machine.SetState<StateChooseTask>();
     }
 
     private IEnumerator Rolling()
     {
         while (_isRolling == true)
         {
-            Vector3 forward = NPC.transform.position +
-                NPC.IMovable.CurrentDirection.normalized;
+            Vector3 forward = _npc.transform.position +
+                _npc.IMovable.CurrentDirection.normalized;
 
-            NPC.IMovable.Move(forward, null);
+            _npc.IMovable.Move(forward, null);
 
             yield return null;
         }

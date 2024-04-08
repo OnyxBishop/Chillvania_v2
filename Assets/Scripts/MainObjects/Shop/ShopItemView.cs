@@ -10,14 +10,12 @@ public class ShopItemView : MonoBehaviour
 
     [SerializeField] private Button _buyButton;
 
+    public event Action<ShopItemView> Clicked;
+
     public bool IsLock { get; private set; }
     public ShopItem ShopItem { get; private set; }
-
     public GameObject Model { get; private set; } = null;
-
     public int Price => ShopItem.Cost;
-
-    public event Action<ShopItemView> Clicked;
 
     private void OnEnable() =>
         _buyButton.onClick.AddListener(OnButtonClicked);

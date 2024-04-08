@@ -14,7 +14,7 @@ public class Interaction : MonoBehaviour, IUpgradeable
 
     public event Action<float> Upgraded;
 
-    public Collider Collider {  get; private set; }
+    public Collider Collider { get; private set; }
     public ISelectable CurrentItem { get; private set; }
     public float Strenght { get; private set; }
 

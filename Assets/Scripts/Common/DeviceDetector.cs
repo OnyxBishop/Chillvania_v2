@@ -1,5 +1,5 @@
-using Agava.WebUtility;
 using System.Runtime.InteropServices;
+using Agava.WebUtility;
 using UnityEngine;
 
 public static class DeviceDetector

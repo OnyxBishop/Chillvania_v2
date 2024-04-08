@@ -7,13 +7,13 @@ public class Snowball : MonoBehaviour, ISelectable
     private BallMovement _movement;
     private Collider _collider;
 
-    public float Weight { get; private set; }
-    public float RollingDuration => _movement.RollingDuration;
-    public SelectableType Type => SelectableType.Snowball;
-
     public event Action<Snowball> InteractStarting;
     public event Action InteractEnded;
 
+    public float Weight { get; private set; }
+    public float RollingDuration => _movement.RollingDuration;
+    public SelectableType Type => SelectableType.Snowball;
+   
     private void Awake()
     {
         _collider = GetComponent<Collider>();

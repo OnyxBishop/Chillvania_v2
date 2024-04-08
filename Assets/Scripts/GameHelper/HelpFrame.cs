@@ -1,12 +1,9 @@
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
-using Lean.Localization;
 
 public class HelpFrame : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _mainText;
-    [SerializeField] private UpgradeBar _upgradeBar;
-
     private const string ReachSnowball = nameof(ReachSnowball);
     private const string RollSnowball = nameof(RollSnowball);
     private const string DeliverSnowball = nameof(DeliverSnowball);
@@ -14,6 +11,9 @@ public class HelpFrame : MonoBehaviour
     private const string UpgradeSystem = nameof(UpgradeSystem);
     private const string GetUpgrade = nameof(GetUpgrade);
     private const string EndTask = nameof(EndTask);
+
+    [SerializeField] private TMP_Text _mainText;
+    [SerializeField] private UpgradeBar _upgradeBar;
 
     private void Start()
     {

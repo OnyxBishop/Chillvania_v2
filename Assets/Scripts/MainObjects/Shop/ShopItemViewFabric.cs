@@ -7,7 +7,7 @@ public class ShopItemViewFabric : MonoBehaviour
 
     public ShopItemView Create(ShopItem data, Transform parent)
     {
-        ShopItemVisitor shopItemVisitor = new(_skinViewPrefab, _statsViewPrefab);
+        ShopItemVisitor shopItemVisitor = new (_skinViewPrefab, _statsViewPrefab);
         shopItemVisitor.Visit(data);
 
         ShopItemView created = Instantiate(shopItemVisitor.Prefab, parent);

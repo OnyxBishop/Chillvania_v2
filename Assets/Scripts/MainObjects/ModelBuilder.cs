@@ -12,11 +12,11 @@ public class ModelBuilder : MonoBehaviour
     private float _snowballsCoeficcent = 7f;
     private bool _isActive = true;
 
-    public float TotalNeedSnow { get; private set; }
-    public int MaxPartsShow => _partsTransform.Length - 10;
-
     public event Action<float> ValueChanged;
     public event Action<ModelBuilder> BuildEnded;
+
+    public float TotalNeedSnow { get; private set; }
+    public int MaxPartsShow => _partsTransform.Length - 10;
 
     private void Awake()
     {

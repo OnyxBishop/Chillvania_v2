@@ -16,7 +16,7 @@ public class PlayerData
     public PlayerData()
     {
         Config = new PlayerConfig(3, 2.5f, 3, 0);
-        OpenedSkins = new();
+        OpenedSkins = new ();
         SelectedSkin = SkinsType.Default;
     }
 

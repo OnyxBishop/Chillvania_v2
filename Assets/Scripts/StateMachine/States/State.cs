@@ -1,25 +1,31 @@
-using System;
-
 public abstract class State
 {
-    protected readonly StateMachine Machine;
-    protected readonly NPC NPC;
-
-    public Action<State> NeedTransit;
+    private readonly StateMachine _machine;
+    private readonly NPC _npc;
 
     public State(StateMachine machine, NPC bot)
     {
-        Machine = machine;
-        NPC = bot;
+        _machine = machine;
+        _npc = bot;
     }
 
-    public virtual void Enter() { }
+    public virtual void Enter()
+    {
 
-    public virtual void Exit() { }
+    }
 
-    public virtual void Update(float elapsedTime) { }
+    public virtual void Exit()
+    {
 
-    public virtual void ChangeState() { }
+    }
 
-    public void InvokeEnded() { NeedTransit?.Invoke(this); }
+    public virtual void Update(float elapsedTime)
+    {
+
+    }
+
+    public virtual void ChangeState()
+    {
+
+    }
 }

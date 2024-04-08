@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class BoostItemView : MonoBehaviour
@@ -91,6 +91,6 @@ public class BoostItemView : MonoBehaviour
 
         _animationTween?.Kill();
 
-       _animationTween = _viewImage.DOFade(1, 1.2f).SetLoops(4).OnComplete(() => _viewImage.gameObject.SetActive(false));
+        _animationTween = _viewImage.DOFade(1, 1.2f).SetLoops(4).OnComplete(() => _viewImage.gameObject.SetActive(false));
     }
 }
