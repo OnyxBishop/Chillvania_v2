@@ -1,4 +1,6 @@
 using System;
+using Ram.Chillvania.UI.Buttons;
+using Ram.Chillvania.UI.Common;
 using UnityEngine;
 
 public class GameEndView : MonoBehaviour

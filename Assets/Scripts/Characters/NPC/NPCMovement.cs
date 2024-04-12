@@ -21,7 +21,7 @@ public class NPCMovement : MonoBehaviour, IMovable
         _animator = GetComponent<Animator>();
     }
 
-    public void Init(float speed)
+    public void SetInitialSpeed(float speed)
     {
         _initialSpeed = speed;
         _agent.speed = _initialSpeed;
@@ -41,7 +41,7 @@ public class NPCMovement : MonoBehaviour, IMovable
                 transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * _agent.angularSpeed);
             }
 
-            _animator.SetFloat(CharacterAnimatorData.Params.IsRunning, destination.normalized.magnitude);
+            _animator.SetFloat(CharacterAnimatorParams.IsRunning, destination.normalized.magnitude);
             CurrentDirection = destination - transform.position;
 
             StartCoroutine(CheckingPathPanding(callback));
@@ -56,13 +56,8 @@ public class NPCMovement : MonoBehaviour, IMovable
     public void Disable()
     {
         _agent.ResetPath();
-        _animator.SetFloat(CharacterAnimatorData.Params.IsRunning, 0);
+        _animator.SetFloat(CharacterAnimatorParams.IsRunning, 0);
         IsMoving = false;
-    }
-
-    public void DisableOnGameEnded()
-    {
-        _agent.speed = 0;
     }
 
     public void Upgrade(float value)

@@ -1,3 +1,4 @@
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 public class JoystickInput : MonoBehaviour, IInput
@@ -7,7 +8,7 @@ public class JoystickInput : MonoBehaviour, IInput
     private Movement _movement;
     private Vector3 _direction;
 
-    public bool Moving => _joystick.Direction != Vector2.zero;
+    public bool HasDirection => _joystick.Direction != Vector2.zero;
 
     private void Awake()
     {
@@ -24,9 +25,9 @@ public class JoystickInput : MonoBehaviour, IInput
         GetDirection();
     }
 
-    public void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (!Moving)
+        if (!HasDirection)
         {
             _movement.Disable();
             return;

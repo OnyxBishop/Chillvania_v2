@@ -1,4 +1,5 @@
 using System.Collections;
+using Ram.Chillvania.StateMachine;
 using UnityEngine;
 
 public class StateCarryToSnowman : State
@@ -10,7 +11,6 @@ public class StateCarryToSnowman : State
     private NPC _npc;
 
     public StateCarryToSnowman(StateMachine machine, NPC bot, AreaCollector area, NPCMachine coroutineObject) 
-        : base(machine, bot)
     {
         _machine = machine;
         _areaCollector = area;

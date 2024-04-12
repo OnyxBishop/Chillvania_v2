@@ -1,4 +1,6 @@
-﻿public class Cell
+﻿using Ram.Chillvania.Items;
+
+public class Cell
 {
     private ISelectable _selectable;
 

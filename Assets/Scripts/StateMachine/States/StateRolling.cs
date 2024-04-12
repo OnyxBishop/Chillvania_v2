@@ -1,4 +1,6 @@
 using System.Collections;
+using Ram.Chillvania.Items;
+using Ram.Chillvania.StateMachine;
 using UnityEngine;
 
 public class StateRolling : State
@@ -10,7 +12,6 @@ public class StateRolling : State
     private bool _isRolling;
 
     public StateRolling(StateMachine machine, NPC bot)
-        : base(machine, bot)
     {
         _machine = machine;
         _npc = bot;

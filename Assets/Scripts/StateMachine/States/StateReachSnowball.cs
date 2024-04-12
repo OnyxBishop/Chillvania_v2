@@ -1,3 +1,6 @@
+using Ram.Chillvania.Items;
+using Ram.Chillvania.StateMachine;
+
 public class StateReachSnowball : State
 {
     private StateMachine _machine;
@@ -6,7 +9,6 @@ public class StateReachSnowball : State
     private NPC _npc;
 
     public StateReachSnowball(StateMachine machine, NPC npc, SnowballSpawner spawner)
-        : base(machine, npc)
     {
         _machine = machine;
         _snowballSpawner = spawner;

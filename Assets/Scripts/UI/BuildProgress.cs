@@ -1,30 +1,33 @@
 using TMPro;
 using UnityEngine;
 
-public class BuildProgress : MonoBehaviour
+namespace Ram.Chillvania.UI.Common
 {
-    [SerializeField] private TMP_Text _progress;
-
-    private ModelBuilder _model;
-
-    public void Init(ModelBuilder model)
+    public class BuildProgress : MonoBehaviour
     {
-        _progress.text = 0.ToString();
-        _model = model;
-    }
+        [SerializeField] private TMP_Text _progress;
 
-    private void OnEnable()
-    {
-        _model.ValueChanged += OnValueChanged;
-    }
+        private ModelBuilder _model;
 
-    private void OnDisable()
-    {
-        _model.ValueChanged -= OnValueChanged;
-    }
+        public void Init(ModelBuilder model)
+        {
+            _progress.text = 0.ToString();
+            _model = model;
+        }
 
-    private void OnValueChanged(float value)
-    {
-        _progress.text = value.ToString();
+        private void OnEnable()
+        {
+            _model.ValueChanged += OnValueChanged;
+        }
+
+        private void OnDisable()
+        {
+            _model.ValueChanged -= OnValueChanged;
+        }
+
+        private void OnValueChanged(float value)
+        {
+            _progress.text = value.ToString();
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Agava.YandexGames;
 using UnityEngine;
 using UnityEngine.UI;

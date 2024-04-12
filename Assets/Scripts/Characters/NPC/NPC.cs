@@ -1,4 +1,6 @@
+using Ram.Chillvania.Model;
 using UnityEngine;
+
 public class NPC : MonoBehaviour, ICharacter
 {
     private TeamAura _teamAura;
@@ -8,8 +10,6 @@ public class NPC : MonoBehaviour, ICharacter
     public Inventory Inventory { get; private set; }
     public BoostItemView BoostView { get; private set; }
     public Interaction Interaction { get; private set; }
-
-    public bool HasBoost => BoostView.Item != null;
 
     private void Awake()
     {
@@ -43,6 +43,6 @@ public class NPC : MonoBehaviour, ICharacter
 
         Inventory = new Inventory(config.InventoryCount);
         Interaction.Init(config.Strenght, Inventory);
-        IMovable.Init(config.Speed);
+        IMovable.SetInitialSpeed(config.Speed);
     }
 }

@@ -1,4 +1,6 @@
+using Ram.Chillvania.Model;
 using UnityEngine;
+
 
 [RequireComponent(typeof(InputFabric))]
 public class InputSetter : MonoBehaviour

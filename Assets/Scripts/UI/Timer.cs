@@ -1,33 +1,36 @@
 using TMPro;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+namespace Ram.Chillvania.UI.Common
 {
-    [SerializeField] private TMP_Text _text;
-
-    private float _elapsedTime = 0f;
-    private int _minutes;
-    private int _seconds;
-    private bool _isPlaying = false;
-
-    private void Update()
+    public class Timer : MonoBehaviour
     {
-        if (_isPlaying == false)
-            return;
+        [SerializeField] private TMP_Text _text;
 
-        _elapsedTime += Time.deltaTime;
-        UpdateTimerText();
-    }
+        private float _elapsedTime = 0f;
+        private int _minutes;
+        private int _seconds;
+        private bool _isPlaying = false;
 
-    public void StartCounting()
-    {
-        _isPlaying = true;
-    }
+        private void Update()
+        {
+            if (_isPlaying == false)
+                return;
 
-    private void UpdateTimerText()
-    {
-        _minutes = Mathf.FloorToInt(_elapsedTime / 60);
-        _seconds = Mathf.FloorToInt(_elapsedTime % 60);
-        _text.text = string.Format("{0:00}:{1:00}", _minutes, _seconds);
+            _elapsedTime += Time.deltaTime;
+            UpdateTimerText();
+        }
+
+        public void StartCounting()
+        {
+            _isPlaying = true;
+        }
+
+        private void UpdateTimerText()
+        {
+            _minutes = Mathf.FloorToInt(_elapsedTime / 60);
+            _seconds = Mathf.FloorToInt(_elapsedTime % 60);
+            _text.text = string.Format("{0:00}:{1:00}", _minutes, _seconds);
+        }
     }
 }

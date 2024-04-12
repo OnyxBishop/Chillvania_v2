@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ram.Chillvania.Items.BoostItems;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,7 +28,7 @@ public class BoostItemsSpawner : MonoBehaviour
     private void Start()
     {
         _spawnPoints = new Transform[_path.childCount];
-        _spawnedItems = new (_capacity);
+        _spawnedItems = new(_capacity);
 
         for (int i = 0; i < _path.childCount; i++)
             _spawnPoints[i] = _path.GetChild(i);

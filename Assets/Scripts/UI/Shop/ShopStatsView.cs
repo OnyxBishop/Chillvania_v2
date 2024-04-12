@@ -37,13 +37,17 @@ public class ShopStatsView : MonoBehaviour
 
     private void OnStatsChanged(StatsType type)
     {
-        if (type == StatsType.Strenght)
-            _strenghtText.text = string.Format($"{_data.Config.Strenght} / {_maxStrenght}");
-
-        if (type == StatsType.Speed)
-            _speedText.text = string.Format($"{_data.Config.Speed} / {_maxSpeed}");
-
-        if (type == StatsType.TeamCount)
-            _teamCountText.text = string.Format($"{_data.Config.TeamCount} / {_maxTeamCount}");
+        switch (type)
+        {
+            case StatsType.Strenght:
+                _strenghtText.text = string.Format($"{_data.Config.Strenght} / {_maxStrenght}");
+                break;
+            case StatsType.TeamCount:
+                _teamCountText.text = string.Format($"{_data.Config.TeamCount} / {_maxTeamCount}");
+                break;
+            case StatsType.Speed:
+                _speedText.text = string.Format($"{_data.Config.Speed} / {_maxSpeed}");
+                break;
+        }
     }
 }

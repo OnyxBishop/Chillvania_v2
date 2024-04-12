@@ -1,34 +1,38 @@
 using System;
 using System.Collections.Generic;
 
-public class StateMachine
+namespace Ram.Chillvania.StateMachine
 {
-    private Dictionary<Type, State> _states = new Dictionary<Type, State>();
-
-    public State CurrentState { get; private set; }
-
-    public void AddState(State state)
+    public class StateMachine
     {
-        _states.Add(state.GetType(), state);
-    }
+        private Dictionary<Type, State> _states = new Dictionary<Type, State>();
 
-    public void SetState<T>() where T : State
-    {
-        Type type = typeof(T);
+        public State CurrentState { get; private set; }
 
-        if (CurrentState != null && CurrentState.GetType() == type)
-            return;
-
-        if (_states.TryGetValue(type, out State newState))
+        public void AddState(State state)
         {
-            CurrentState?.Exit();
-            CurrentState = newState;
-            newState.Enter();
+            _states.Add(state.GetType(), state);
         }
-    }
 
-    public void Update(float elapsedTime)
-    {
-        CurrentState?.Update(elapsedTime);
+        public void SetState<T>()
+            where T : State
+        {
+            Type type = typeof(T);
+
+            if (CurrentState != null && CurrentState.GetType() == type)
+                return;
+
+            if (_states.TryGetValue(type, out State newState))
+            {
+                CurrentState?.Exit();
+                CurrentState = newState;
+                newState.Enter();
+            }
+        }
+
+        public void Update(float elapsedTime)
+        {
+            CurrentState?.Update(elapsedTime);
+        }
     }
 }

@@ -2,30 +2,33 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class NextButton : MonoBehaviour
+namespace Ram.Chillvania.UI.Buttons
 {
-    private Button _button;
-
-    public event Action Clicked;
-
-    private void Awake()
+    [RequireComponent(typeof(Button))]
+    public class NextButton : MonoBehaviour
     {
-        _button = GetComponent<Button>();
-    }
+        private Button _button;
 
-    private void OnEnable()
-    {
-        _button.onClick.AddListener(OnButtonClicked);
-    }
+        public event Action Clicked;
 
-    private void OnDisable()
-    {
-        _button.onClick.RemoveListener(OnButtonClicked);
-    }
+        private void Awake()
+        {
+            _button = GetComponent<Button>();
+        }
 
-    private void OnButtonClicked()
-    {
-        Clicked?.Invoke();
+        private void OnEnable()
+        {
+            _button.onClick.AddListener(OnButtonClicked);
+        }
+
+        private void OnDisable()
+        {
+            _button.onClick.RemoveListener(OnButtonClicked);
+        }
+
+        private void OnButtonClicked()
+        {
+            Clicked?.Invoke();
+        }
     }
 }

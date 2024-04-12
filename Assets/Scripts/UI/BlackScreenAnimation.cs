@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Ram.Chillvania.UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 

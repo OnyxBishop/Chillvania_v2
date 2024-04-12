@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ram.Chillvania.Items;
+using Ram.Chillvania.Items.BoostItems;
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]

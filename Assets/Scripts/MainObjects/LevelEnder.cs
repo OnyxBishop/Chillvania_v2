@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Ram.Chillvania.Shop;
 using UnityEngine;
 using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
@@ -92,11 +93,11 @@ public class LevelEnder : MonoBehaviour
         if (isVictory)
         {
             _wallet.AddMoney(_victoryMoney);
-            int modelsProgress = PlayerPrefs.GetInt(PrefsSaveKeys.ModelsCount);
-            modelsProgress++;
             _resultsView.Render(isVictory, _victoryMoney);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
+            int modelsProgress = PlayerPrefs.GetInt(PrefsSaveKeys.ModelsCount);
+            modelsProgress++;
             PlayerPrefs.SetInt(PrefsSaveKeys.ModelsCount, modelsProgress);
             PlayerPrefs.Save();
 #endif

@@ -23,16 +23,16 @@ public class Movement : MonoBehaviour, IMovable, IUpgradeable
 
     public float Speed => _currentSpeed;
 
-    public void Init(float speed)
-    {
-        _initialSpeed = speed;
-        _currentSpeed = _initialSpeed;
-    }
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
+    }
+
+    public void SetInitialSpeed(float speed)
+    {
+        _initialSpeed = speed;
+        _currentSpeed = _initialSpeed;
     }
 
     public void Move(Vector3 direction, Action callback = null)
@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour, IMovable, IUpgradeable
         _rigidbody.velocity = direction * _currentSpeed;
 
         IsMoving = true;
-        _animator.SetFloat(CharacterAnimatorData.Params.IsRunning, direction.magnitude);
+        _animator.SetFloat(CharacterAnimatorParams.IsRunning, direction.magnitude);
         CurrentDirection = direction;
     }
 
@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour, IMovable, IUpgradeable
         if (_rigidbody != null)
         {
             _rigidbody.velocity = Vector3.zero;
-            _animator.SetFloat(CharacterAnimatorData.Params.IsRunning, 0);
+            _animator.SetFloat(CharacterAnimatorParams.IsRunning, 0);
         }
 
         IsMoving = false;

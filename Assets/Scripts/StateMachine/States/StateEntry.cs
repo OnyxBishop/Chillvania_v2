@@ -1,10 +1,11 @@
+using Ram.Chillvania.StateMachine;
+
 public class StateEntry : State
 {
     private StateMachine _machine;
     private float _delay = 2.5f;
 
-    public StateEntry(StateMachine machine, NPC npc)
-        : base(machine, npc)
+    public StateEntry(StateMachine machine)
     {
         _machine = machine;
     }

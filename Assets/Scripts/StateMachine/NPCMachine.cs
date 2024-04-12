@@ -1,3 +1,4 @@
+using Ram.Chillvania.StateMachine;
 using UnityEngine;
 
 public class NPCMachine : MonoBehaviour
@@ -18,7 +19,7 @@ public class NPCMachine : MonoBehaviour
         _machine = new StateMachine();
         _bot = GetComponent<NPC>();
 
-        _machine.AddState(new StateEntry(_machine, _bot));
+        _machine.AddState(new StateEntry(_machine));
         _machine.AddState(new StateReachSnowball(_machine, _bot, _spawner));
         _machine.AddState(new StateRolling(_machine, _bot));
         _machine.AddState(new StateChooseTask(_machine, _bot));

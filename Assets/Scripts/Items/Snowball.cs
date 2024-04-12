@@ -1,55 +1,58 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class Snowball : MonoBehaviour, ISelectable
+namespace Ram.Chillvania.Items
 {
-    private BallMovement _movement;
-    private Collider _collider;
-
-    public event Action<Snowball> InteractStarting;
-    public event Action InteractEnded;
-
-    public float Weight { get; private set; }
-    public float RollingDuration => _movement.RollingDuration;
-    public SelectableType Type => SelectableType.Snowball;
-   
-    private void Awake()
+    [RequireComponent(typeof(Collider))]
+    public class Snowball : MonoBehaviour, ISelectable
     {
-        _collider = GetComponent<Collider>();
-        _movement = GetComponentInChildren<BallMovement>();
-    }
+        private BallMovement _movement;
+        private Collider _collider;
 
-    public void Interact(ICharacter character)
-    {
-        _collider.enabled = false;
-        InteractStarting?.Invoke(this);
+        public event Action<Snowball> InteractStarting;
+        public event Action InteractEnded;
 
-        _movement.Move(character);
-        _movement.MaxWeightReached += OnMaxWeightReached;
-    }
+        public float Weight { get; private set; }
+        public float RollingDuration => _movement.RollingDuration;
+        public SelectableType Type => SelectableType.Snowball;
 
-    public void OnMaxWeightReached(float weight)
-    {
-        Weight = weight;
-        InteractEnded?.Invoke();
-    }
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+            _movement = GetComponentInChildren<BallMovement>();
+        }
 
-    public void Disable()
-    {
-        gameObject.SetActive(false);
-        _collider.enabled = false;
-    }
+        public void Interact(ICharacter character)
+        {
+            _collider.enabled = false;
+            InteractStarting?.Invoke(this);
 
-    public void Enable()
-    {
-        gameObject.SetActive(true);
-        _collider.enabled = true;
-        transform.rotation = Quaternion.identity;
-    }
+            _movement.Move(character);
+            _movement.MaxWeightReached += OnMaxWeightReached;
+        }
 
-    public void DestroySelf()
-    {
-        Destroy(gameObject);
+        public void OnMaxWeightReached(float weight)
+        {
+            Weight = weight;
+            InteractEnded?.Invoke();
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+            _collider.enabled = false;
+        }
+
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+            _collider.enabled = true;
+            transform.rotation = Quaternion.identity;
+        }
+
+        public void DestroySelf()
+        {
+            Destroy(gameObject);
+        }
     }
 }

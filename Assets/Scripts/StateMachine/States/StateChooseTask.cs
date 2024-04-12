@@ -1,10 +1,11 @@
+using Ram.Chillvania.StateMachine;
+
 public class StateChooseTask : State
 {
     private StateMachine _machine;
     private NPC _npc;
 
     public StateChooseTask(StateMachine machine, NPC bot)
-        : base(machine, bot)
     {
         _machine = machine;
         _npc = bot;

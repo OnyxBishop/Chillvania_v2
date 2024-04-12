@@ -1,3 +1,4 @@
+using Ram.Chillvania.Model;
 using TMPro;
 using UnityEngine;
 

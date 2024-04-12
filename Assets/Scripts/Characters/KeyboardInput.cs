@@ -1,3 +1,4 @@
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 public class KeyboardInput : MonoBehaviour, IInput
@@ -5,7 +6,7 @@ public class KeyboardInput : MonoBehaviour, IInput
     private Movement _movement;
     private Vector3 _direction;
 
-    public bool Moving => _direction != Vector3.zero;
+    public bool HasDirection => _direction != Vector3.zero;
 
     private void OnDisable()
     {
@@ -17,9 +18,9 @@ public class KeyboardInput : MonoBehaviour, IInput
         GetDirection();
     }
 
-    public void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (!Moving)
+        if (!HasDirection)
         {
             _movement.Disable();
             return;

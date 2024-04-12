@@ -1,3 +1,5 @@
+using Ram.Chillvania.Model;
+
 public interface ICharacter
 {
     public IMovable IMovable { get; }

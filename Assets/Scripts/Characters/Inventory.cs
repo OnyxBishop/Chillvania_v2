@@ -2,79 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class Inventory : IUpgradeable
+namespace Ram.Chillvania.Model
 {
-    private List<Cell> _cells;
-    private int _initialCount;
-
-    public event Action InventoryEnded;
-    public event Action<SelectableType> ItemAdded;
-    public event Action<SelectableType> ItemRemoved;
-    public event Action<float> Upgraded;
-
-    public Inventory(int initialCount)
+    public class Inventory : IUpgradeable
     {
-        _initialCount = initialCount;
-        _cells = new List<Cell>(_initialCount);
+        private List<Cell> _cells;
+        private int _initialCount;
 
-        for (int i = 0; i < _initialCount; i++)
+        public event Action InventoryEnded;
+        public event Action<SelectableType> ItemAdded;
+        public event Action<SelectableType> ItemRemoved;
+        public event Action<float> Upgraded;
+
+        public Inventory(int initialCount)
         {
-            _cells.Add(new Cell());
-        }
-    }
+            _initialCount = initialCount;
+            _cells = new List<Cell>(_initialCount);
 
-    public IReadOnlyList<Cell> Cells => _cells;
-
-    public void AddItem(ISelectable selectable)
-    {
-        if (TryGetEmptyCell(out Cell cell) == false)
-        {
-            InventoryEnded?.Invoke();
-            selectable.DestroySelf();
-            return;
+            for (int i = 0; i < _initialCount; i++)
+            {
+                _cells.Add(new Cell());
+            }
         }
 
-        cell.Add(selectable);
-        ItemAdded?.Invoke(selectable.Type);
-    }
+        public IReadOnlyList<Cell> Cells => _cells;
 
-    public ISelectable GetItem(SelectableType type)
-    {
-        ISelectable selectable;
-
-        foreach (var cell in _cells)
+        public void AddItem(ISelectable selectable)
         {
-            if (cell.Empty || cell.Selectable.Type.Equals(type) == false)
-                continue;
+            if (TryGetEmptyCell(out Cell cell) == false)
+            {
+                InventoryEnded?.Invoke();
+                selectable.DestroySelf();
+                return;
+            }
 
-            selectable = cell.Selectable;
-            cell.Clear();
-            ItemRemoved?.Invoke(selectable.Type);
-            return selectable;
+            cell.Add(selectable);
+            ItemAdded?.Invoke(selectable.Type);
         }
 
-        return null;
-    }
+        public ISelectable GetItem(SelectableType type)
+        {
+            ISelectable selectable;
 
-    public bool TryGetEmptyCell(out Cell cell)
-    {
-        cell = _cells.FirstOrDefault(cell => cell.Empty == true);
+            foreach (var cell in _cells)
+            {
+                if (cell.Empty || cell.Selectable.Type.Equals(type) == false)
+                    continue;
 
-        return cell != null;
-    }
+                selectable = cell.Selectable;
+                cell.Clear();
+                ItemRemoved?.Invoke(selectable.Type);
+                return selectable;
+            }
 
-    public void Upgrade(float value)
-    {
-        _cells.Capacity += (int)value;
+            return null;
+        }
 
-        for (int i = 0; i < value; i++)
-            _cells.Add(new Cell());
+        public bool TryGetEmptyCell(out Cell cell)
+        {
+            cell = _cells.FirstOrDefault(cell => cell.Empty == true);
 
-        Upgraded?.Invoke(_cells.Capacity);
-    }
+            return cell != null;
+        }
 
-    public int CalculateCount(SelectableType type)
-    {
-        return _cells.Count(cell => cell.Weight > 0f && cell.Selectable.Type == type);
+        public void Upgrade(float value)
+        {
+            _cells.Capacity += (int)value;
+
+            for (int i = 0; i < value; i++)
+                _cells.Add(new Cell());
+
+            Upgraded?.Invoke(_cells.Capacity);
+        }
+
+        public int CalculateCount(SelectableType type)
+        {
+            return _cells.Count(cell => cell.Weight > 0f && cell.Selectable.Type == type);
+        }
     }
 }

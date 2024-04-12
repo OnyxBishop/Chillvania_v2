@@ -1,8 +1,9 @@
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 public class TutorialEntryPoint : MonoBehaviour
 {
-    [SerializeField] private GameHelper _gameHelper;
+    [SerializeField] private TutorialHints _gameHelper;
     [SerializeField] private PlayerFabric _playerFabric;
     [SerializeField] private InputSetter _inputSetter;
     [SerializeField] private InputView _inputView;

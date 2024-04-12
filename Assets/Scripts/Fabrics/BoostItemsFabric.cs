@@ -1,3 +1,4 @@
+using Ram.Chillvania.Items.BoostItems;
 using UnityEngine;
 
 public class BoostItemsFabric : MonoBehaviour

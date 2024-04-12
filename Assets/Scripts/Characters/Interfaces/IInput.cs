@@ -1,6 +1,8 @@
+using Ram.Chillvania.Model;
+
 public interface IInput
 {
-    public bool Moving { get; }
+    public bool HasDirection { get; }
     public void GetDirection();
     public void ChainWithCharacter(Character character);
     public void Enable();

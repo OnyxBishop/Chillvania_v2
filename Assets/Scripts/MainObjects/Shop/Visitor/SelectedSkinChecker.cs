@@ -14,7 +14,9 @@ public class SelectedSkinChecker : IShopItemVisitor
         item.Accept(this);
     }
 
-    public void Visit(CharacterStatsItem item) { }
+    public void Visit(CharacterStatsItem item) 
+    {
+    }
 
     public void Visit(EquippableItem item)
     {

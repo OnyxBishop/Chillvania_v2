@@ -1,3 +1,4 @@
+using Ram.Chillvania.UI.Common;
 using UnityEngine;
 
 public class UiInitialiser : MonoBehaviour
@@ -10,10 +11,13 @@ public class UiInitialiser : MonoBehaviour
         ModelBuilder allyModel = map.ModelSpawner.Ally;
         ModelBuilder enemyModel = map.ModelSpawner.Enemy;
 
-        _allyBuildProgress.Init(allyModel);
-        _allyBuildProgress.gameObject.SetActive(true);
+        Activate(_allyBuildProgress, allyModel);
+        Activate(_enemyBuildProgress, enemyModel);
+    }
 
-        _enemyBuildProgress.Init(enemyModel);
-        _enemyBuildProgress.gameObject.SetActive(true);
+    private void Activate(BuildProgress bar, ModelBuilder model)
+    {
+        bar.Init(model);
+        bar.gameObject.SetActive(true);
     }
 }

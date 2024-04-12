@@ -1,5 +1,6 @@
 using System;
 using Agava.YandexGames;
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 public class LevelStarter : MonoBehaviour

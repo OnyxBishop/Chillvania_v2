@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 public class UpgradeSystem : MonoBehaviour
@@ -48,21 +49,21 @@ public class UpgradeSystem : MonoBehaviour
         if (cost > _points)
             throw new ArgumentException("Not enough points to upgrade");
 
-        if (type.Equals(StatsType.Strenght))
+        switch (type)
         {
-            float increaseValue = 1f;
-            _character.Upgrade(_character.Interaction, increaseValue);
-        }
-
-        if (type.Equals(StatsType.Capacity))
-        {
-            int increaseValue = 1;
-            _character.Upgrade(_character.Inventory, increaseValue);
-        }
-
-        if (type.Equals(StatsType.TeamCount))
-        {
-            _npcSpawner.Spawn(NpcType.Ally);
+            case StatsType.Strenght:
+                float addStrenght = 1f;
+                _character.Upgrade(_character.Interaction, addStrenght);
+                break;
+            case StatsType.Capacity:
+                int addCapacity = 1;
+                _character.Upgrade(_character.Inventory, addCapacity);
+                break;
+            case StatsType.TeamCount:
+                _npcSpawner.Spawn(NpcType.Ally);
+                break;
+            default:
+                break;
         }
 
         _points -= cost;

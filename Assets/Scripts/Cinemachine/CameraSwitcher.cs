@@ -1,4 +1,5 @@
 using Cinemachine;
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour

@@ -1,180 +1,184 @@
+using Ram.Chillvania.Shop.Buttons;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour
+namespace Ram.Chillvania.Shop
 {
-    [SerializeField] private ShopView _view;
-    [SerializeField] private ShopContent _content;
-    [SerializeField] private Wallet _wallet;
-    [SerializeField] private ShopStatsView _statsView;
-    [SerializeField] private SkinPlacement _skinPlacement;
-
-    [Header("Buttons")]
-    [SerializeField] private CategoryButton _skinsButton;
-    [SerializeField] private CategoryButton _statsButton;
-    [SerializeField] private BuyButton _buyButton;
-    [SerializeField] private Button _selectionButton;
-    [SerializeField] private Image _selectedText;
-    [SerializeField] private Button _addMoneyButton;
-
-    private ShopItemView _selectedView;
-
-    private JsonSaver _jsonSaver;
-
-    private SkinSelector _skinSelector;
-    private ItemUnlocker _skinUnlocker;
-    private OpenItemsChecker _openSkinsChecker;
-    private SelectedSkinChecker _selectedSkinChecker;
-
-    private void OnEnable()
+    public class Shop : MonoBehaviour
     {
-        _skinsButton.Clicked += OnSkinsButtonClicked;
-        _statsButton.Clicked += OnStatsButtonClicked;
+        [SerializeField] private ShopView _view;
+        [SerializeField] private ShopContent _content;
+        [SerializeField] private Wallet _wallet;
+        [SerializeField] private ShopStatsView _statsView;
+        [SerializeField] private SkinPlacement _skinPlacement;
 
-        _buyButton.Clicked += OnBuyButtonClicked;
-        _selectionButton.onClick.AddListener(OnSelectionButtonClicked);
-        _addMoneyButton.onClick.AddListener(AddMoneyOnClick);
-    }
+        [Header("Buttons")]
+        [SerializeField] private CategoryButton _skinsButton;
+        [SerializeField] private CategoryButton _statsButton;
+        [SerializeField] private BuyButton _buyButton;
+        [SerializeField] private Button _selectionButton;
+        [SerializeField] private Image _selectedText;
+        [SerializeField] private Button _addMoneyButton;
 
-    private void OnDisable()
-    {
-        _skinsButton.Clicked -= OnSkinsButtonClicked;
-        _statsButton.Clicked -= OnStatsButtonClicked;
+        private ShopItemView _selectedView;
 
-        _selectionButton.onClick.RemoveListener(OnSelectionButtonClicked);
-        _buyButton.Clicked -= OnBuyButtonClicked;
-        _addMoneyButton.onClick.RemoveListener(AddMoneyOnClick);
-    }
+        private JsonSaver _jsonSaver;
 
-    public void Init(JsonSaver saver, SkinSelector skinSelector, ItemUnlocker skinUnlocker,
-    OpenItemsChecker openSkinsChecker, SelectedSkinChecker selectedSkinChecker)
-    {
-        _jsonSaver = saver;
+        private SkinSelector _skinSelector;
+        private ItemUnlocker _skinUnlocker;
+        private OpenItemsChecker _openSkinsChecker;
+        private SelectedSkinChecker _selectedSkinChecker;
 
-        _skinSelector = skinSelector;
-        _skinUnlocker = skinUnlocker;
-        _openSkinsChecker = openSkinsChecker;
-        _selectedSkinChecker = selectedSkinChecker;
-
-        _view.Init(_openSkinsChecker, _selectedSkinChecker);
-        _view.ItemViewClicked += OnItemViewClicked;
-
-        OnSkinsButtonClicked();
-        _selectionButton.gameObject.SetActive(false);
-        _buyButton.gameObject.SetActive(false);
-    }
-
-    private void OnItemViewClicked(ShopItemView view)
-    {
-        _selectedView = view;
-
-        if (_selectedView.Model != null)
+        private void OnEnable()
         {
-            _skinPlacement.InstantiateModel(_selectedView.Model);
+            _skinsButton.Clicked += OnSkinsButtonClicked;
+            _statsButton.Clicked += OnStatsButtonClicked;
+
+            _buyButton.Clicked += OnBuyButtonClicked;
+            _selectionButton.onClick.AddListener(OnSelectionButtonClicked);
+            _addMoneyButton.onClick.AddListener(AddMoneyOnClick);
         }
 
-        _openSkinsChecker.Visit(_selectedView.ShopItem);
-
-        if (_openSkinsChecker.IsOpened)
+        private void OnDisable()
         {
-            _selectedSkinChecker.Visit(_selectedView.ShopItem);
+            _skinsButton.Clicked -= OnSkinsButtonClicked;
+            _statsButton.Clicked -= OnStatsButtonClicked;
 
-            if (_selectedSkinChecker.IsSelected)
+            _selectionButton.onClick.RemoveListener(OnSelectionButtonClicked);
+            _buyButton.Clicked -= OnBuyButtonClicked;
+            _addMoneyButton.onClick.RemoveListener(AddMoneyOnClick);
+        }
+
+        public void Init(JsonSaver saver, SkinSelector skinSelector, ItemUnlocker skinUnlocker,
+        OpenItemsChecker openSkinsChecker, SelectedSkinChecker selectedSkinChecker)
+        {
+            _jsonSaver = saver;
+
+            _skinSelector = skinSelector;
+            _skinUnlocker = skinUnlocker;
+            _openSkinsChecker = openSkinsChecker;
+            _selectedSkinChecker = selectedSkinChecker;
+
+            _view.Init(_openSkinsChecker, _selectedSkinChecker);
+            _view.ItemViewClicked += OnItemViewClicked;
+
+            OnSkinsButtonClicked();
+            _selectionButton.gameObject.SetActive(false);
+            _buyButton.gameObject.SetActive(false);
+        }
+
+        private void OnItemViewClicked(ShopItemView view)
+        {
+            _selectedView = view;
+
+            if (_selectedView.Model != null)
             {
-                ShowSelectedText();
-                return;
+                _skinPlacement.InstantiateModel(_selectedView.Model);
             }
 
-            ShowSelectionButton();
+            _openSkinsChecker.Visit(_selectedView.ShopItem);
+
+            if (_openSkinsChecker.IsOpened)
+            {
+                _selectedSkinChecker.Visit(_selectedView.ShopItem);
+
+                if (_selectedSkinChecker.IsSelected)
+                {
+                    ShowSelectedText();
+                    return;
+                }
+
+                ShowSelectionButton();
+            }
+            else
+            {
+                ShowBuyButton(_selectedView.Price);
+            }
         }
-        else
+
+        private void ShowSelectedText()
         {
-            ShowBuyButton(_selectedView.Price);
+            _selectedText.gameObject.SetActive(true);
+            _buyButton.gameObject.SetActive(false);
+            _selectionButton.gameObject.SetActive(false);
         }
-    }
 
-    private void ShowSelectedText()
-    {
-        _selectedText.gameObject.SetActive(true);
-        _buyButton.gameObject.SetActive(false);
-        _selectionButton.gameObject.SetActive(false);
-    }
-
-    private void OnBuyButtonClicked()
-    {
-        if (_wallet.IsEnough(_selectedView.Price))
+        private void OnBuyButtonClicked()
         {
-            _wallet.RemoveMoney(_selectedView.Price);
+            if (_wallet.IsEnough(_selectedView.Price))
+            {
+                _wallet.RemoveMoney(_selectedView.Price);
 
-            _skinUnlocker.Visit(_selectedView.ShopItem);
+                _skinUnlocker.Visit(_selectedView.ShopItem);
 
+                SelectSkin();
+
+                _selectedView.Unlock();
+
+                _jsonSaver.Save();
+            }
+
+            OnItemViewClicked(_selectedView);
+        }
+
+        private void ShowSelectionButton()
+        {
+            _selectionButton.gameObject.SetActive(true);
+            _buyButton.gameObject.SetActive(false);
+            _selectedText.gameObject.SetActive(false);
+        }
+
+        private void OnSelectionButtonClicked()
+        {
             SelectSkin();
-
-            _selectedView.Unlock();
-
             _jsonSaver.Save();
+
+            OnItemViewClicked(_selectedView);
         }
 
-        OnItemViewClicked(_selectedView);
-    }
+        private void OnSkinsButtonClicked()
+        {
+            _statsButton.Unselect();
+            _skinsButton.Select();
 
-    private void ShowSelectionButton()
-    {
-        _selectionButton.gameObject.SetActive(true);
-        _buyButton.gameObject.SetActive(false);
-        _selectedText.gameObject.SetActive(false);
-    }
+            _view.CreateItemView(_content.EquippableItems);
+            _statsView.gameObject.SetActive(false);
+        }
 
-    private void OnSelectionButtonClicked()
-    {
-        SelectSkin();
-        _jsonSaver.Save();
+        private void OnStatsButtonClicked()
+        {
+            _statsButton.Select();
+            _skinsButton.Unselect();
 
-        OnItemViewClicked(_selectedView);
-    }
+            _view.CreateItemView(_content.StatsItems);
 
-    private void OnSkinsButtonClicked()
-    {
-        _statsButton.Unselect();
-        _skinsButton.Select();
+            _statsView.Show();
+            _statsView.gameObject.SetActive(true);
+        }
 
-        _view.CreateItemView(_content.EquippableItems);
-        _statsView.gameObject.SetActive(false);
-    }
+        private void ShowBuyButton(int price)
+        {
+            _buyButton.gameObject.SetActive(true);
+            _buyButton.UpdateText(price);
 
-    private void OnStatsButtonClicked()
-    {
-        _statsButton.Select();
-        _skinsButton.Unselect();
+            if (_wallet.IsEnough(price))
+                _buyButton.Unlock();
+            else
+                _buyButton.Lock();
 
-        _view.CreateItemView(_content.StatsItems);
+            _selectionButton.gameObject.SetActive(false);
+            _selectedText.gameObject.SetActive(false);
+        }
 
-        _statsView.Show();
-        _statsView.gameObject.SetActive(true);
-    }
+        private void SelectSkin()
+        {
+            _skinSelector.Visit(_selectedView.ShopItem);
+            _view.Select(_selectedView);
+        }
 
-    private void ShowBuyButton(int price)
-    {
-        _buyButton.gameObject.SetActive(true);
-        _buyButton.UpdateText(price);
-
-        if (_wallet.IsEnough(price))
-            _buyButton.Unlock();
-        else
-            _buyButton.Lock();
-
-        _selectionButton.gameObject.SetActive(false);
-        _selectedText.gameObject.SetActive(false);
-    }
-
-    private void SelectSkin()
-    {
-        _skinSelector.Visit(_selectedView.ShopItem);
-        _view.Select(_selectedView);
-    }
-
-    private void AddMoneyOnClick()
-    {
-        _wallet.AddMoney(50);
+        private void AddMoneyOnClick()
+        {
+            _wallet.AddMoney(50);
+        }
     }
 }

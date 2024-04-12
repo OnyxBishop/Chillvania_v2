@@ -1,3 +1,4 @@
+using Ram.Chillvania.Model;
 using UnityEngine;
 
 public class PlayerFabric : MonoBehaviour

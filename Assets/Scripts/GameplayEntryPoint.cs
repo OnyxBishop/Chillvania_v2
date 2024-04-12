@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using Ram.Chillvania.Model;
+using Ram.Chillvania.UI.Common;
 using UnityEngine;
 
 public class GameplayEntryPoint : MonoBehaviour

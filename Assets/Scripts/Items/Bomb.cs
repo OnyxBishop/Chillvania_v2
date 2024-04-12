@@ -2,44 +2,47 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class Bomb : BoostItem
+namespace Ram.Chillvania.Items.BoostItems
 {
-    private AudioSource _audioSource;
-
-    public override event Action<BoostItem> Taken;
-    public override BoostItemType Type => BoostItemType.Bomb;
-
-    private void Awake()
+    [RequireComponent(typeof(AudioSource))]
+    public class Bomb : BoostItem
     {
-        Power = 3f;
-        _audioSource = GetComponent<AudioSource>();
-    }
+        private AudioSource _audioSource;
 
-    private void Start()
-    {
-        StartAnimation();
-    }
+        public override event Action<BoostItem> Taken;
+        public override BoostItemType Type => BoostItemType.Bomb;
 
-    private void OnDestroy()
-    {
-        transform.DOKill();
-    }
+        private void Awake()
+        {
+            Power = 3f;
+            _audioSource = GetComponent<AudioSource>();
+        }
 
-    public override void StartAnimation()
-    {
-        transform.DOMoveY(transform.position.y + 0.2f, 1).SetLoops(-1, LoopType.Yoyo);
-    }
+        private void Start()
+        {
+            StartAnimation();
+        }
 
-    public override void Interact()
-    {
-        IsOccupied = true;
-        transform.DOKill();
-        Taken?.Invoke(this);
-    }
+        private void OnDestroy()
+        {
+            transform.DOKill();
+        }
 
-    public void PlayExplosionSound()
-    {
-        _audioSource.Play();
+        public override void StartAnimation()
+        {
+            transform.DOMoveY(transform.position.y + 0.2f, 1).SetLoops(-1, LoopType.Yoyo);
+        }
+
+        public override void Interact()
+        {
+            IsOccupied = true;
+            transform.DOKill();
+            Taken?.Invoke(this);
+        }
+
+        public void PlayExplosionSound()
+        {
+            _audioSource.Play();
+        }
     }
 }

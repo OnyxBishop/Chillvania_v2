@@ -1,3 +1,4 @@
+using Ram.Chillvania.Shop;
 using UnityEngine;
 
 public class ShopBootstrap : MonoBehaviour
