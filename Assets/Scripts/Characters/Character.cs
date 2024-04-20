@@ -38,7 +38,7 @@ namespace Ram.Chillvania.Characters
             IMovable.Enable();
         }
 
-        public void SetConfiguration(IPersistantData data)
+        public void SetConfiguration(IPersistentData data)
         {
             PlayerConfig config = data.PlayerData.Config;
 

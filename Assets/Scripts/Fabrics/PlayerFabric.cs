@@ -8,7 +8,7 @@ namespace Ram.Chillvania.Fabrics
     {
         [SerializeField] private Character _characterPrefab;
 
-        private IPersistantData _persistentData;
+        private IPersistentData _persistentData;
         private JsonSaver _jsonSaver;
 
         public Character Create()

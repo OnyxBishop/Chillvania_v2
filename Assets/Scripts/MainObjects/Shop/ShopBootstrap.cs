@@ -11,7 +11,7 @@ namespace Ram.Chillvania.Shop
         [SerializeField] private ShopStatsView _shopStatsView;
 
         private JsonSaver _saver;
-        private IPersistantData _persistentData;
+        private IPersistentData _persistentData;
 
         public bool IsInit { get; private set; } = false;
 

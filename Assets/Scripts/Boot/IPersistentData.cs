@@ -1,6 +1,6 @@
 namespace Ram.Chillvania.Boot
 {
-    public interface IPersistantData
+    public interface IPersistentData
     {
         public PlayerData PlayerData { get; set; }
     }

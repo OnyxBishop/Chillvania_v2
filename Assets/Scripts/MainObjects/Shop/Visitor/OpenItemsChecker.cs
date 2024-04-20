@@ -4,9 +4,9 @@ namespace Ram.Chillvania.Shop.Visitors
 {
     public class OpenItemsChecker : IShopItemVisitor
     {
-        private IPersistantData _data;
+        private IPersistentData _data;
 
-        public OpenItemsChecker(IPersistantData data)
+        public OpenItemsChecker(IPersistentData data)
         {
             _data = data;
         }

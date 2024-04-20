@@ -4,9 +4,9 @@ namespace Ram.Chillvania.Shop.Visitors
 {
     public class ItemUnlocker : IShopItemVisitor
     {
-        private IPersistantData _data;
+        private IPersistentData _data;
 
-        public ItemUnlocker(IPersistantData data) =>
+        public ItemUnlocker(IPersistentData data) =>
             _data = data;
 
         public void Visit(ShopItem item)

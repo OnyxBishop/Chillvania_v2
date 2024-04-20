@@ -23,7 +23,7 @@ namespace Ram.Chillvania.Boot
 
         private Map _map;
         private Character _character;
-        private IPersistantData _data;
+        private IPersistentData _data;
         private JsonSaver _jsonSaver;
 
         public event Action GameStarting;

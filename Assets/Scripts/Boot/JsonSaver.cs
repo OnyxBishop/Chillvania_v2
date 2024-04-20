@@ -5,9 +5,9 @@ namespace Ram.Chillvania.Boot
 {
     public class JsonSaver
     {
-        private IPersistantData _persistentData;
+        private IPersistentData _persistentData;
 
-        public JsonSaver(IPersistantData persistentData)
+        public JsonSaver(IPersistentData persistentData)
         {
             _persistentData = persistentData;
         }

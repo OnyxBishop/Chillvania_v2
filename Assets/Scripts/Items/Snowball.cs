@@ -1,5 +1,5 @@
-using Ram.Chillvania.Characters;
 using System;
+using Ram.Chillvania.Characters;
 using UnityEngine;
 
 namespace Ram.Chillvania.Items

@@ -4,9 +4,9 @@ namespace Ram.Chillvania.Shop.Visitors
 {
     public class SelectedSkinChecker : IShopItemVisitor
     {
-        private IPersistantData _data;
+        private IPersistentData _data;
 
-        public SelectedSkinChecker(IPersistantData data)
+        public SelectedSkinChecker(IPersistentData data)
         {
             _data = data;
         }
