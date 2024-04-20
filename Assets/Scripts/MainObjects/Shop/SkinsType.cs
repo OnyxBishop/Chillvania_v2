@@ -1,8 +1,11 @@
-public enum SkinsType
+namespace Ram.Chillvania.Shop
 {
-    Default,
-    RedHat,
-    GreenHat,
-    BlueHat,
-    YellowHat
+    public enum SkinsType
+    {
+        Default,
+        RedHat,
+        GreenHat,
+        BlueHat,
+        YellowHat
+    }
 }

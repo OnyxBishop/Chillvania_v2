@@ -1,4 +1,7 @@
-public enum SelectableType
+namespace Ram.Chillvania.Items
 {
-    Snowball
+    public enum SelectableType
+    {
+        Snowball
+    }
 }

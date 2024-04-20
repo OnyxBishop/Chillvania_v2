@@ -1,8 +1,10 @@
 ﻿using System;
 using Ram.Chillvania.Items;
+using Ram.Chillvania.UI;
+using Ram.Chillvania.Upgrade;
 using UnityEngine;
 
-namespace Ram.Chillvania.Model
+namespace Ram.Chillvania.Characters
 {
     [RequireComponent(typeof(Collider))]
     public class Interaction : MonoBehaviour, IUpgradeable

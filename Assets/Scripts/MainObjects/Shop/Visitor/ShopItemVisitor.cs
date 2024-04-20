@@ -1,28 +1,33 @@
-public class ShopItemVisitor : IShopItemVisitor
+using Ram.Chillvania.UI.Shop;
+
+namespace Ram.Chillvania.Shop.Visitors
 {
-    private ShopItemView _skinPrefab;
-    private ShopItemView _statsPrefab;
-
-    public ShopItemVisitor(ShopItemView skinPrefab, ShopItemView statsPrefab)
+    public class ShopItemVisitor : IShopItemVisitor
     {
-        _skinPrefab = skinPrefab;
-        _statsPrefab = statsPrefab;
-    }
+        private ShopItemView _skinPrefab;
+        private ShopItemView _statsPrefab;
 
-    public ShopItemView Prefab { get; private set; }
+        public ShopItemVisitor(ShopItemView skinPrefab, ShopItemView statsPrefab)
+        {
+            _skinPrefab = skinPrefab;
+            _statsPrefab = statsPrefab;
+        }
 
-    public void Visit(ShopItem item)
-    {
-        item.Accept(this);
-    }
+        public ShopItemView Prefab { get; private set; }
 
-    public void Visit(EquippableItem item)
-    {
-        Prefab = _skinPrefab;
-    }
+        public void Visit(ShopItem item)
+        {
+            item.Accept(this);
+        }
 
-    public void Visit(CharacterStatsItem item)
-    {
-        Prefab = _statsPrefab;
+        public void Visit(EquippableItem item)
+        {
+            Prefab = _skinPrefab;
+        }
+
+        public void Visit(CharacterStatsItem item)
+        {
+            Prefab = _statsPrefab;
+        }
     }
 }

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ram.Chillvania.Items;
+using Ram.Chillvania.Upgrade;
 
-namespace Ram.Chillvania.Model
+namespace Ram.Chillvania.Characters
 {
     public class Inventory : IUpgradeable
     {
         private List<Cell> _cells;
         private int _initialCount;
-
-        public event Action InventoryEnded;
-        public event Action<SelectableType> ItemAdded;
-        public event Action<SelectableType> ItemRemoved;
-        public event Action<float> Upgraded;
 
         public Inventory(int initialCount)
         {
@@ -24,6 +21,11 @@ namespace Ram.Chillvania.Model
                 _cells.Add(new Cell());
             }
         }
+
+        public event Action InventoryEnded;
+        public event Action<SelectableType> ItemAdded;
+        public event Action<SelectableType> ItemRemoved;
+        public event Action<float> Upgraded;
 
         public IReadOnlyList<Cell> Cells => _cells;
 

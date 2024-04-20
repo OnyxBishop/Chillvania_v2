@@ -4,38 +4,41 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RuleView : MonoBehaviour
+namespace Ram.Chillvania.UI
 {
-    [SerializeField] private LeanLocalization _localization;
-    [SerializeField] private List<RuleData> _dataRU;
-    [SerializeField] private List<RuleData> _dataENG;
-    [SerializeField] private List<RuleData> _dataAR;
-    [SerializeField] private RawImage _image;
-    [SerializeField] private TMP_Text _description;
-
-    private List<RuleData> _rules;
-
-    public void SetLanguage()
+    public class RuleView : MonoBehaviour
     {
-        if (_localization.CurrentLanguage == "Russian")
-            _rules = _dataRU;
+        [SerializeField] private LeanLocalization _localization;
+        [SerializeField] private List<RuleData> _dataRU;
+        [SerializeField] private List<RuleData> _dataENG;
+        [SerializeField] private List<RuleData> _dataAR;
+        [SerializeField] private RawImage _image;
+        [SerializeField] private TMP_Text _description;
 
-        if (_localization.CurrentLanguage == "English")
-            _rules = _dataENG;
+        private List<RuleData> _rules;
 
-        if (_localization.CurrentLanguage == "Arabic")
-            _rules = _dataAR;
-    }
+        public void SetLanguage()
+        {
+            if (_localization.CurrentLanguage == "Russian")
+                _rules = _dataRU;
 
-    public void Render(ref int index)
-    {
-        if (index < 0)
-            index = _rules.Count - 1;
+            if (_localization.CurrentLanguage == "English")
+                _rules = _dataENG;
 
-        if (index >= _rules.Count)
-            index = 0;
+            if (_localization.CurrentLanguage == "Arabic")
+                _rules = _dataAR;
+        }
 
-        _image.texture = _rules[index].Texture;
-        _description.text = _rules[index].Description;
+        public void Render(ref int index)
+        {
+            if (index < 0)
+                index = _rules.Count - 1;
+
+            if (index >= _rules.Count)
+                index = 0;
+
+            _image.texture = _rules[index].Texture;
+            _description.text = _rules[index].Description;
+        }
     }
 }

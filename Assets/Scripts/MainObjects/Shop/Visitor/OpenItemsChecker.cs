@@ -1,26 +1,31 @@
-public class OpenItemsChecker : IShopItemVisitor
+using Ram.Chillvania.Boot;
+
+namespace Ram.Chillvania.Shop.Visitors
 {
-    private IPersistantData _data;
-
-    public OpenItemsChecker(IPersistantData data)
+    public class OpenItemsChecker : IShopItemVisitor
     {
-        _data = data;
-    }
+        private IPersistantData _data;
 
-    public bool IsOpened { get; private set; }
+        public OpenItemsChecker(IPersistantData data)
+        {
+            _data = data;
+        }
 
-    public void Visit(ShopItem item)
-    {
-        item.Accept(this);
-    }
+        public bool IsOpened { get; private set; }
 
-    public void Visit(EquippableItem item)
-    {
-        IsOpened = _data.PlayerData.OpenedSkins.Contains(item.SkinsType);
-    }
+        public void Visit(ShopItem item)
+        {
+            item.Accept(this);
+        }
 
-    public void Visit(CharacterStatsItem item)
-    {
-        IsOpened = !_data.PlayerData.CanIncrease(item.StatsType, item.IncreseValue);
+        public void Visit(EquippableItem item)
+        {
+            IsOpened = _data.PlayerData.OpenedSkins.Contains(item.SkinsType);
+        }
+
+        public void Visit(CharacterStatsItem item)
+        {
+            IsOpened = !_data.PlayerData.CanIncrease(item.StatsType, item.IncreseValue);
+        }
     }
 }

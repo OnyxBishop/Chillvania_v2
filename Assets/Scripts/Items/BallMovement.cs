@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Ram.Chillvania.Characters;
 using UnityEngine;
 
 namespace Ram.Chillvania.Items
@@ -32,7 +33,7 @@ namespace Ram.Chillvania.Items
 
         private IEnumerator Rolling(ICharacter character)
         {
-            WaitUntil waitUntil = new(() => character.IMovable.IsMoving);
+            WaitUntil waitUntil = new WaitUntil(() => character.IMovable.IsMoving);
 
             float elapsedTime = 0f;
             float rotationAmount;

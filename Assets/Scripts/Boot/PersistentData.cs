@@ -1,4 +1,7 @@
-public class PersistentData : IPersistantData
+namespace Ram.Chillvania.Boot
 {
-    public PlayerData PlayerData { get; set; }
+    public class PersistentData : IPersistantData
+    {
+        public PlayerData PlayerData { get; set; }
+    }
 }

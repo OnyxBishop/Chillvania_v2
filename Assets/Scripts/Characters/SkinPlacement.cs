@@ -1,21 +1,25 @@
+using Ram.Chillvania.Shop;
 using UnityEngine;
 
-public class SkinPlacement : MonoBehaviour
+namespace Ram.Chillvania.Characters
 {
-    [SerializeField] private SkinFabric _skinFabric;
-
-    private GameObject _current;
-
-    public void InstantiateModel(GameObject item)
+    public class SkinPlacement : MonoBehaviour
     {
-        if (_current != null)
-            Destroy(_current);
+        [SerializeField] private SkinFabric _skinFabric;
 
-        _current = Instantiate(item, transform);
-    }
+        private GameObject _current;
 
-    public void CreateSkin(SkinsType type)
-    {
-        _current = _skinFabric.Create(type, transform);
+        public void InstantiateModel(GameObject item)
+        {
+            if (_current != null)
+                Destroy(_current);
+
+            _current = Instantiate(item, transform);
+        }
+
+        public void CreateSkin(SkinsType type)
+        {
+            _current = _skinFabric.Create(type, transform);
+        }
     }
 }

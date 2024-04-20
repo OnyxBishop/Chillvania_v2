@@ -1,16 +1,19 @@
 using TMPro;
 using UnityEngine;
 
-public class LeaderboardElement : MonoBehaviour
+namespace Ram.Chillvania.UI.Leaderboard
 {
-    [SerializeField] private TMP_Text _playerRank;
-    [SerializeField] private TMP_Text _playerName;
-    [SerializeField] private TMP_Text _playerScore;
-
-    public void Initialise(int rank, string name, int score)
+    public class LeaderboardElement : MonoBehaviour
     {
-        _playerRank.text = rank.ToString();
-        _playerName.text = name;
-        _playerScore.text = score.ToString();
+        [SerializeField] private TMP_Text _playerRank;
+        [SerializeField] private TMP_Text _playerName;
+        [SerializeField] private TMP_Text _playerScore;
+
+        public void Initialise(int rank, string name, int score)
+        {
+            _playerRank.text = rank.ToString();
+            _playerName.text = name;
+            _playerScore.text = score.ToString();
+        }
     }
 }

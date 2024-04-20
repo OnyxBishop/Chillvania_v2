@@ -1,20 +1,23 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public class TeamAura : MonoBehaviour
+namespace Ram.Chillvania.Characters.NPC
 {
-    private SpriteRenderer _spriteRenderer;
-
-    private void Awake()
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class TeamAura : MonoBehaviour
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+        private SpriteRenderer _spriteRenderer;
 
-    public void SetColor(NpcType type)
-    {
-        if (type == NpcType.Ally)
-            _spriteRenderer.color = Color.blue;
-        else if (type == NpcType.Enemy)
-            _spriteRenderer.color = Color.red;
+        private void Awake()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        public void SetColor(NpcType type)
+        {
+            if (type == NpcType.Ally)
+                _spriteRenderer.color = Color.blue;
+            else if (type == NpcType.Enemy)
+                _spriteRenderer.color = Color.red;
+        }
     }
 }

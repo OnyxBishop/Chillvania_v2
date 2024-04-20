@@ -1,24 +1,28 @@
-using Ram.Chillvania.StateMachine;
+using Ram.Chillvania.Characters.NPC;
+using Ram.Chillvania.Items;
 
-public class StateChooseTask : State
+namespace Ram.Chillvania.StatesMachine.States
 {
-    private StateMachine _machine;
-    private NPC _npc;
-
-    public StateChooseTask(StateMachine machine, NPC bot)
+    public class StateChooseTask : State
     {
-        _machine = machine;
-        _npc = bot;
-    }
+        private StateMachine _machine;
+        private NPC _npc;
 
-    public override void Enter()
-    {
-        if (_npc.Inventory.CalculateCount(SelectableType.Snowball) == _npc.Inventory.Cells.Count)
+        public StateChooseTask(StateMachine machine, NPC bot)
         {
-            _machine.SetState<StateCarryToSnowman>();
-            return;
+            _machine = machine;
+            _npc = bot;
         }
 
-        _machine.SetState<StateReachSnowball>();
+        public override void Enter()
+        {
+            if (_npc.Inventory.CalculateCount(SelectableType.Snowball) == _npc.Inventory.Cells.Count)
+            {
+                _machine.SetState<StateCarryToSnowman>();
+                return;
+            }
+
+            _machine.SetState<StateReachSnowball>();
+        }
     }
 }

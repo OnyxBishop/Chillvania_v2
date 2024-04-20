@@ -1,23 +1,26 @@
-using Ram.Chillvania.Model;
+using Ram.Chillvania.Characters;
 using Ram.Chillvania.UI.Common;
 using UnityEngine;
 
-public class UIEnableSwitcher : MonoBehaviour
+namespace Ram.Chillvania.UI
 {
-    [SerializeField] private Canvas _uiCanvas;
-    [SerializeField] private CharacterStatsView _characterStatsView;
-    [SerializeField] private Timer _timer;
-
-    public void Enable(Character character)
+    public class UIEnableSwitcher : MonoBehaviour
     {
-        _uiCanvas.gameObject.SetActive(true);
-        _characterStatsView.Enable(character);
-        _timer.StartCounting();
-    }
+        [SerializeField] private Canvas _uiCanvas;
+        [SerializeField] private CharacterStatsView _characterStatsView;
+        [SerializeField] private Timer _timer;
 
-    public void Disable()
-    {
-        _uiCanvas.gameObject.SetActive(false);
-        _characterStatsView.Disable();
+        public void Enable(Character character)
+        {
+            _uiCanvas.gameObject.SetActive(true);
+            _characterStatsView.Enable(character);
+            _timer.StartCounting();
+        }
+
+        public void Disable()
+        {
+            _uiCanvas.gameObject.SetActive(false);
+            _characterStatsView.Disable();
+        }
     }
 }

@@ -1,37 +1,41 @@
-using Ram.Chillvania.Model;
+using Ram.Chillvania.Characters;
+using Ram.Chillvania.Common;
+using Ram.Chillvania.Fabrics;
 using UnityEngine;
 
-
-[RequireComponent(typeof(InputFabric))]
-public class InputSetter : MonoBehaviour
+namespace Ram.Chillvania.Boot
 {
-    private InputFabric _inputFabric;
-    private IInput _input;
-
-    public IInput Input => _input;
-
-    public void Set(Character character)
+    [RequireComponent(typeof(InputFabric))]
+    public class InputSetter : MonoBehaviour
     {
-        if (_input == null)
-        {
-            _inputFabric = GetComponent<InputFabric>();
+        private InputFabric _inputFabric;
+        private IInput _input;
 
-            if (DeviceDetector.IsMobile == true)
-                _input = _inputFabric.Create(DeviceType.Handheld);
-            else
-                _input = _inputFabric.Create(DeviceType.Desktop);
+        public IInput Input => _input;
+
+        public void Set(Character character)
+        {
+            if (_input == null)
+            {
+                _inputFabric = GetComponent<InputFabric>();
+
+                if (DeviceDetector.IsMobile == true)
+                    _input = _inputFabric.Create(DeviceType.Handheld);
+                else
+                    _input = _inputFabric.Create(DeviceType.Desktop);
+            }
+
+            _input.ChainWithCharacter(character);
         }
 
-        _input.ChainWithCharacter(character);
-    }
+        public void Enable()
+        {
+            _input.Enable();
+        }
 
-    public void Enable()
-    {
-        _input.Enable();
-    }
-
-    public void Disable()
-    {
-        _input.Disable();
+        public void Disable()
+        {
+            _input.Disable();
+        }
     }
 }

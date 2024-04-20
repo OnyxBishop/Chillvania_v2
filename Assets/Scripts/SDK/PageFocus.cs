@@ -1,39 +1,43 @@
 using Agava.WebUtility;
+using Ram.Chillvania.Common;
 using UnityEngine;
 
-public class PageFocus : MonoBehaviour
+namespace Ram.Chillvania.SDK
 {
-    [SerializeField] private PauseControl _pauseControl;
-
-    private AudioSource _backgroundSource;
-    private float _maxAudioVolume = 0.25f;
-
-    private void Awake()
+    public class PageFocus : MonoBehaviour
     {
-        _backgroundSource = BackgroundSound.Instance.AudioSource;
-    }
+        [SerializeField] private PauseControl _pauseControl;
 
-    private void OnEnable()
-    {
-        Application.focusChanged += OnInBackgroundChangeApp;
-        WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
-    }
+        private AudioSource _backgroundSource;
+        private float _maxAudioVolume = 0.25f;
 
-    private void OnDisable()
-    {
-        Application.focusChanged -= OnInBackgroundChangeApp;
-        WebApplication.InBackgroundChangeEvent -= OnInBackgroundChangeWeb;
-    }
+        private void Awake()
+        {
+            _backgroundSource = BackgroundSound.Instance.AudioSource;
+        }
 
-    private void OnInBackgroundChangeApp(bool inApp)
-    {
-        _pauseControl.SetPauseOnFocus(!inApp);
-        _backgroundSource.volume = !inApp ? 0 : _maxAudioVolume;
-    }
+        private void OnEnable()
+        {
+            Application.focusChanged += OnInBackgroundChangeApp;
+            WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
+        }
 
-    private void OnInBackgroundChangeWeb(bool isBackground)
-    {
-        _pauseControl.SetPauseOnFocus(isBackground);
-        _backgroundSource.volume = isBackground ? 0 : _maxAudioVolume;
+        private void OnDisable()
+        {
+            Application.focusChanged -= OnInBackgroundChangeApp;
+            WebApplication.InBackgroundChangeEvent -= OnInBackgroundChangeWeb;
+        }
+
+        private void OnInBackgroundChangeApp(bool inApp)
+        {
+            _pauseControl.SetPauseOnFocus(!inApp);
+            _backgroundSource.volume = !inApp ? 0 : _maxAudioVolume;
+        }
+
+        private void OnInBackgroundChangeWeb(bool isBackground)
+        {
+            _pauseControl.SetPauseOnFocus(isBackground);
+            _backgroundSource.volume = isBackground ? 0 : _maxAudioVolume;
+        }
     }
 }

@@ -1,25 +1,28 @@
 using UnityEngine;
 
-public class FaceToCamera : MonoBehaviour
+namespace Ram.Chillvania.Common
 {
-    [SerializeField] private bool _xRotate = true;
-
-    private Transform _camera;
-    private Quaternion _rotation;
-
-    private void Awake()
+    public class FaceToCamera : MonoBehaviour
     {
-        _camera = Camera.main.transform;
-    }
+        [SerializeField] private bool _xRotate = true;
 
-    private void Update()
-    {
-        transform.forward = _camera.forward;
+        private Transform _camera;
+        private Quaternion _rotation;
 
-        if (_xRotate == false)
+        private void Awake()
         {
-            _rotation = transform.localRotation;
-            transform.localRotation = Quaternion.Euler(0, _rotation.eulerAngles.y, _rotation.eulerAngles.z);
+            _camera = Camera.main.transform;
+        }
+
+        private void Update()
+        {
+            transform.forward = _camera.forward;
+
+            if (_xRotate == false)
+            {
+                _rotation = transform.localRotation;
+                transform.localRotation = Quaternion.Euler(0, _rotation.eulerAngles.y, _rotation.eulerAngles.z);
+            }
         }
     }
 }

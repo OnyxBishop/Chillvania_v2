@@ -1,15 +1,18 @@
 using Ram.Chillvania.Items;
 using UnityEngine;
 
-public class SnowballFabric : MonoBehaviour
+namespace Ram.Chillvania.Fabrics
 {
-    [SerializeField] private Snowball _prefab;
-
-    public Snowball Create(Transform transform)
+    public class SnowballFabric : MonoBehaviour
     {
-        Snowball snowball = Instantiate(_prefab, transform.position, Quaternion.identity);
-        snowball.transform.parent = transform;
+        [SerializeField] private Snowball _prefab;
 
-        return snowball;
+        public Snowball Create(Transform transform)
+        {
+            Snowball snowball = Instantiate(_prefab, transform.position, Quaternion.identity);
+            snowball.transform.parent = transform;
+
+            return snowball;
+        }
     }
 }

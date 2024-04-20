@@ -1,4 +1,8 @@
+using Ram.Chillvania.Boot;
+using Ram.Chillvania.Characters;
 using Ram.Chillvania.Shop.Buttons;
+using Ram.Chillvania.Shop.Visitors;
+using Ram.Chillvania.UI.Shop;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,8 +53,12 @@ namespace Ram.Chillvania.Shop
             _addMoneyButton.onClick.RemoveListener(AddMoneyOnClick);
         }
 
-        public void Init(JsonSaver saver, SkinSelector skinSelector, ItemUnlocker skinUnlocker,
-        OpenItemsChecker openSkinsChecker, SelectedSkinChecker selectedSkinChecker)
+        public void Init(
+            JsonSaver saver,
+            SkinSelector skinSelector,
+            ItemUnlocker skinUnlocker,
+            OpenItemsChecker openSkinsChecker,
+            SelectedSkinChecker selectedSkinChecker)
         {
             _jsonSaver = saver;
 

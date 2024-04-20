@@ -1,21 +1,24 @@
-using Ram.Chillvania.Model;
+using Ram.Chillvania.Characters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Teleport : MonoBehaviour
+namespace Ram.Chillvania.GameHints
 {
-    private const string GameplayEntryPoint = nameof(GameplayEntryPoint);
-    private float _elapsedTime = 0f;
-    private float _delay = 2f;
-
-    private void OnTriggerStay(Collider other)
+    public class Teleport : MonoBehaviour
     {
-        if (other.TryGetComponent(out Character character))
-        {
-            _elapsedTime += Time.deltaTime;
+        private const string GameplayEntryPoint = nameof(GameplayEntryPoint);
+        private float _elapsedTime = 0f;
+        private float _delay = 2f;
 
-            if (_elapsedTime >= _delay)
-                SceneManager.LoadScene(GameplayEntryPoint);
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.TryGetComponent(out Character character))
+            {
+                _elapsedTime += Time.deltaTime;
+
+                if (_elapsedTime >= _delay)
+                    SceneManager.LoadScene(GameplayEntryPoint);
+            }
         }
     }
 }

@@ -1,59 +1,65 @@
 using System;
+using Ram.Chillvania.Common;
+using Ram.Chillvania.MainObjects;
+using Ram.Chillvania.SDK;
 using Ram.Chillvania.UI.Buttons;
 using Ram.Chillvania.UI.Common;
 using UnityEngine;
 
-public class GameEndView : MonoBehaviour
+namespace Ram.Chillvania.UI
 {
-    [SerializeField] private LevelEnder _levelEnder;
-    [SerializeField] private Canvas _gameEndCanvas;
-    [SerializeField] private NextButton _nextButton;
-    [SerializeField] private BlackScreen _blackScreen;
-    [SerializeField] private VideoAd _videoAd;
-    [SerializeField] private PauseControl _pauseControl;
-
-    public event Action OnNextButtonClicked;
-
-    private void OnEnable()
+    public class GameEndView : MonoBehaviour
     {
-        _levelEnder.CameraAnimationEnded += OnAnimationEnded;
-        _nextButton.Clicked += OnButtonClicked;
-    }
+        [SerializeField] private LevelEnder _levelEnder;
+        [SerializeField] private Canvas _gameEndCanvas;
+        [SerializeField] private NextButton _nextButton;
+        [SerializeField] private BlackScreen _blackScreen;
+        [SerializeField] private VideoAd _videoAd;
+        [SerializeField] private PauseControl _pauseControl;
 
-    private void OnDisable()
-    {
-        _levelEnder.CameraAnimationEnded -= OnAnimationEnded;
-        _nextButton.Clicked -= OnButtonClicked;
-    }
+        public event Action OnNextButtonClicked;
 
-    private void OnAnimationEnded()
-    {
-        _gameEndCanvas.gameObject.SetActive(true);
-    }
+        private void OnEnable()
+        {
+            _levelEnder.CameraAnimationEnded += OnAnimationEnded;
+            _nextButton.Clicked += OnButtonClicked;
+        }
 
-    private void OnButtonClicked()
-    {
-        _blackScreen.Enable(OnBlackScreenEnabled);
-        _gameEndCanvas.gameObject.SetActive(false);
-    }
+        private void OnDisable()
+        {
+            _levelEnder.CameraAnimationEnded -= OnAnimationEnded;
+            _nextButton.Clicked -= OnButtonClicked;
+        }
 
-    private void OnBlackScreenEnabled()
-    {
+        private void OnAnimationEnded()
+        {
+            _gameEndCanvas.gameObject.SetActive(true);
+        }
+
+        private void OnButtonClicked()
+        {
+            _blackScreen.Enable(OnBlackScreenEnabled);
+            _gameEndCanvas.gameObject.SetActive(false);
+        }
+
+        private void OnBlackScreenEnabled()
+        {
 #if UNITY_WEBGL && !UNITY_EDITOR
         _videoAd.ShowInterstitial(OnAdCloseCallback);
         return;
 #endif
 
-        OnNextButtonClicked?.Invoke();
-    }
-
-    private void OnAdCloseCallback(bool wasShown)
-    {
-        if (wasShown)
-        {
-            _pauseControl.SetPauseOnUI(false);
-
             OnNextButtonClicked?.Invoke();
+        }
+
+        private void OnAdCloseCallback(bool wasShown)
+        {
+            if (wasShown)
+            {
+                _pauseControl.SetPauseOnUI(false);
+
+                OnNextButtonClicked?.Invoke();
+            }
         }
     }
 }

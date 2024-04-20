@@ -1,44 +1,47 @@
 using Agava.YandexGames;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
+using Ram.Chillvania.Common;
 using UnityEngine;
 using UnityEngine.UI;
-using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
-public class LeaderboardButton : MonoBehaviour
+namespace Ram.Chillvania.UI.Leaderboard
 {
-    [SerializeField] private LeaderboardView _view;
-    [SerializeField] private Button _closeButton;
-    [SerializeField] private Image _authorizedWindow;
-    [SerializeField] private Button _authorizedButton;
-    [SerializeField] private Button _authorizedCloseButton;
-    [SerializeField] private PauseControl _pauseControl;
-
-    private Button _open;
-    private Leaderboard _leaderboard;
-
-    private void Awake()
+    public class LeaderboardButton : MonoBehaviour
     {
-        _open = GetComponent<Button>();
-        _leaderboard = GetComponent<Leaderboard>();
-    }
+        [SerializeField] private LeaderboardView _view;
+        [SerializeField] private Button _closeButton;
+        [SerializeField] private Image _authorizedWindow;
+        [SerializeField] private Button _authorizedButton;
+        [SerializeField] private Button _authorizedCloseButton;
+        [SerializeField] private PauseControl _pauseControl;
 
-    private void OnEnable()
-    {
-        _open.onClick.AddListener(OnOpenClicked);
-        _authorizedButton.onClick.AddListener(OnAuthorizedClicked);
-        _closeButton.onClick.AddListener(HideLeaderBoard);
-        _authorizedCloseButton.onClick.AddListener(HideAuthorizedWindow);
-    }
+        private Button _open;
+        private Leaderboard _leaderboard;
 
-    private void OnDisable()
-    {
-        _open.onClick.RemoveListener(OnOpenClicked);
-        _authorizedButton.onClick.RemoveListener(OnAuthorizedClicked);
-        _closeButton.onClick.RemoveListener(HideLeaderBoard);
-        _authorizedCloseButton.onClick.RemoveListener(HideAuthorizedWindow);
-    }
+        private void Awake()
+        {
+            _open = GetComponent<Button>();
+            _leaderboard = GetComponent<Leaderboard>();
+        }
 
-    private void OnOpenClicked()
-    {
+        private void OnEnable()
+        {
+            _open.onClick.AddListener(OnOpenClicked);
+            _authorizedButton.onClick.AddListener(OnAuthorizedClicked);
+            _closeButton.onClick.AddListener(HideLeaderBoard);
+            _authorizedCloseButton.onClick.AddListener(HideAuthorizedWindow);
+        }
+
+        private void OnDisable()
+        {
+            _open.onClick.RemoveListener(OnOpenClicked);
+            _authorizedButton.onClick.RemoveListener(OnAuthorizedClicked);
+            _closeButton.onClick.RemoveListener(HideLeaderBoard);
+            _authorizedCloseButton.onClick.RemoveListener(HideAuthorizedWindow);
+        }
+
+        private void OnOpenClicked()
+        {
 #if !UNITY_EDITOR && UNITY_WEBGL
         if (PlayerAccount.IsAuthorized == false)
         {
@@ -47,26 +50,26 @@ public class LeaderboardButton : MonoBehaviour
             return;
         }
 #endif
-        if (_view.isActiveAndEnabled == true)
-            HideLeaderBoard();
-        else
-            OpenLeaderboard();
-    }
+            if (_view.isActiveAndEnabled == true)
+                HideLeaderBoard();
+            else
+                OpenLeaderboard();
+        }
 
-    private void OpenLeaderboard()
-    {
+        private void OpenLeaderboard()
+        {
 #if !UNITY_EDITOR && UNITY_WEBGL
         if (PlayerAccount.IsAuthorized == true)
             PlayerAccount.RequestPersonalProfileDataPermission();
 #endif
-        _view.gameObject.SetActive(true);
-        _pauseControl.SetPauseOnUI(true);
-        _leaderboard.SetPlayer(PlayerPrefs.GetInt(PrefsSaveKeys.ModelsCount));
-        _leaderboard.Fill();
-    }
+            _view.gameObject.SetActive(true);
+            _pauseControl.SetPauseOnUI(true);
+            _leaderboard.SetPlayer(PlayerPrefs.GetInt(PrefsSaveKeys.ModelsCount));
+            _leaderboard.Fill();
+        }
 
-    private void OnAuthorizedClicked()
-    {
+        private void OnAuthorizedClicked()
+        {
 #if !UNITY_EDITOR && UNITY_WEBGL
         PlayerAccount.Authorize(onSuccessCallback: () =>
         {
@@ -74,17 +77,18 @@ public class LeaderboardButton : MonoBehaviour
             OpenLeaderboard();
         });
 #endif
-    }
+        }
 
-    private void HideLeaderBoard()
-    {
-        _pauseControl.SetPauseOnUI(false);
-        _view.gameObject.SetActive(false);
-    }
+        private void HideLeaderBoard()
+        {
+            _pauseControl.SetPauseOnUI(false);
+            _view.gameObject.SetActive(false);
+        }
 
-    private void HideAuthorizedWindow()
-    {
-        _pauseControl.SetPauseOnUI(false);
-        _authorizedWindow.gameObject.SetActive(false);
+        private void HideAuthorizedWindow()
+        {
+            _pauseControl.SetPauseOnUI(false);
+            _authorizedWindow.gameObject.SetActive(false);
+        }
     }
 }

@@ -1,39 +1,45 @@
 using System;
+using Ram.Chillvania.Characters;
+using Ram.Chillvania.Characters.NPC;
+using Ram.Chillvania.Fabrics;
 using UnityEngine;
 
-public class TutorialNPCSpawner : NPCSpawner
+namespace Ram.Chillvania.GameHints
 {
-    [SerializeField] private Transform[] _spawnPoints;
-    [SerializeField] private NPCFabric _tutorialFabric;
-
-    private int _count = 0;
-
-    public override event Action<NPC> Spawned;
-
-    public override void Spawn(NpcType type)
+    public class TutorialNPCSpawner : NPCSpawner
     {
-        Transform spawnPoint = GetPoint();
+        [SerializeField] private Transform[] _spawnPoints;
+        [SerializeField] private NPCFabric _tutorialFabric;
 
-        if (spawnPoint == null)
-            return;
+        private int _count = 0;
 
-        NPC spawned = _tutorialFabric.Create(type);
-        spawned.transform.position = spawnPoint.position;
+        public override event Action<NPC> Spawned;
 
-        _count++;
-        Spawned?.Invoke(spawned);
-    }
+        public override void Spawn(NpcType type)
+        {
+            Transform spawnPoint = GetPoint();
 
-    public override int CalculateCount(NpcType type)
-    {
-        return _count;
-    }
+            if (spawnPoint == null)
+                return;
 
-    private Transform GetPoint()
-    {
-        if (_count >= _spawnPoints.Length)
-            return null;
+            NPC spawned = _tutorialFabric.Create(type);
+            spawned.transform.position = spawnPoint.position;
 
-        return _spawnPoints[_count];
+            _count++;
+            Spawned?.Invoke(spawned);
+        }
+
+        public override int CalculateCount(NpcType type)
+        {
+            return _count;
+        }
+
+        private Transform GetPoint()
+        {
+            if (_count >= _spawnPoints.Length)
+                return null;
+
+            return _spawnPoints[_count];
+        }
     }
 }

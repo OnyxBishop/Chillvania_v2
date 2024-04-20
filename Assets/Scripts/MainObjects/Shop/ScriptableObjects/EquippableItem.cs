@@ -1,3 +1,5 @@
+using Ram.Chillvania.Shop;
+using Ram.Chillvania.Shop.Visitors;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EquippableItemData", menuName = "ShopItem/EquippableItem", order = 51)]

@@ -8,9 +8,9 @@ namespace Ram.Chillvania.Shop
     {
         private int _money;
 
-        public int Money => _money;
-
         public event Action<int> MoneyChanged;
+
+        public int Money => _money;
 
         private void Awake()
         {

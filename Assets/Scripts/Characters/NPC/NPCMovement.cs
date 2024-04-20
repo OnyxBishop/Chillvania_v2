@@ -3,88 +3,91 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCMovement : MonoBehaviour, IMovable
+namespace Ram.Chillvania.Characters.NPC
 {
-    private NavMeshAgent _agent;
-    private Animator _animator;
-    private float _minValueToRotation = 0.1f;
-
-    private float _initialSpeed;
-
-    public float Speed => _agent.speed;
-    public bool IsMoving { get; private set; } = true;
-    public Vector3 CurrentDirection { get; private set; }
-
-    private void Awake()
+    public class NPCMovement : MonoBehaviour, IMovable
     {
-        _agent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
-    }
+        private NavMeshAgent _agent;
+        private Animator _animator;
+        private float _minValueToRotation = 0.1f;
 
-    public void SetInitialSpeed(float speed)
-    {
-        _initialSpeed = speed;
-        _agent.speed = _initialSpeed;
-    }
+        private float _initialSpeed;
 
-    public void Move(Vector3 destination, Action callback = null)
-    {
-        if (IsMoving)
+        public float Speed => _agent.speed;
+        public bool IsMoving { get; private set; } = true;
+        public Vector3 CurrentDirection { get; private set; }
+
+        private void Awake()
+        {
+            _agent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
+        }
+
+        public void SetInitialSpeed(float speed)
+        {
+            _initialSpeed = speed;
+            _agent.speed = _initialSpeed;
+        }
+
+        public void Move(Vector3 destination, Action callback = null)
+        {
+            if (IsMoving)
+            {
+                _agent.ResetPath();
+                _agent.SetDestination(destination);
+
+                if (_agent.velocity.magnitude > _minValueToRotation)
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(_agent.velocity.normalized, Vector3.up);
+
+                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * _agent.angularSpeed);
+                }
+
+                _animator.SetFloat(CharacterAnimatorParams.IsRunning, destination.normalized.magnitude);
+                CurrentDirection = destination - transform.position;
+
+                StartCoroutine(CheckingPathPanding(callback));
+            }
+        }
+
+        public void Enable()
+        {
+            IsMoving = true;
+        }
+
+        public void Disable()
         {
             _agent.ResetPath();
-            _agent.SetDestination(destination);
-
-            if (_agent.velocity.magnitude > _minValueToRotation)
-            {
-                Quaternion lookRotation = Quaternion.LookRotation(_agent.velocity.normalized, Vector3.up);
-
-                transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * _agent.angularSpeed);
-            }
-
-            _animator.SetFloat(CharacterAnimatorParams.IsRunning, destination.normalized.magnitude);
-            CurrentDirection = destination - transform.position;
-
-            StartCoroutine(CheckingPathPanding(callback));
+            _animator.SetFloat(CharacterAnimatorParams.IsRunning, 0);
+            IsMoving = false;
         }
-    }
 
-    public void Enable()
-    {
-        IsMoving = true;
-    }
+        public void Upgrade(float value)
+        {
+            StartCoroutine(TemporaryUpgrade(value));
+        }
 
-    public void Disable()
-    {
-        _agent.ResetPath();
-        _animator.SetFloat(CharacterAnimatorParams.IsRunning, 0);
-        IsMoving = false;
-    }
+        private IEnumerator TemporaryUpgrade(float value)
+        {
+            WaitForSeconds wait = new WaitForSeconds(5f);
 
-    public void Upgrade(float value)
-    {
-        StartCoroutine(TemporaryUpgrade(value));
-    }
+            _agent.speed += value;
 
-    private IEnumerator TemporaryUpgrade(float value)
-    {
-        WaitForSeconds wait = new(5f);
+            yield return wait;
 
-        _agent.speed += value;
+            _agent.speed = _initialSpeed;
+        }
 
-        yield return wait;
-
-        _agent.speed = _initialSpeed;
-    }
-
-    private IEnumerator CheckingPathPanding(Action callback)
-    {
-        yield return null;
-
-        while (_agent.hasPath || _agent.pathPending)
+        private IEnumerator CheckingPathPanding(Action callback)
         {
             yield return null;
-        }
 
-        callback?.Invoke();
+            while (_agent.hasPath || _agent.pathPending)
+            {
+                yield return null;
+            }
+
+            callback?.Invoke();
+        }
     }
 }

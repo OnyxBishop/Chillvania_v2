@@ -1,48 +1,52 @@
-using Ram.Chillvania.Model;
+using Ram.Chillvania.UI;
+using Ram.Chillvania.Upgrade;
 using UnityEngine;
 
-public class NPC : MonoBehaviour, ICharacter
+namespace Ram.Chillvania.Characters.NPC
 {
-    private TeamAura _teamAura;
-
-    public IMovable IMovable { get; private set; }
-    public NpcType Type { get; private set; }
-    public Inventory Inventory { get; private set; }
-    public BoostItemView BoostView { get; private set; }
-    public Interaction Interaction { get; private set; }
-
-    private void Awake()
+    public class NPC : MonoBehaviour, ICharacter
     {
-        IMovable = GetComponent<NPCMovement>();
-        Interaction = GetComponentInChildren<Interaction>();
-        BoostView = GetComponentInChildren<BoostItemView>();
-        _teamAura = GetComponentInChildren<TeamAura>();
-    }
+        private TeamAura _teamAura;
 
-    public void Upgrade(IUpgradeable upgradeable, float value)
-    {
-        if (upgradeable is Inventory)
-            Inventory.Upgrade(value);
-        if (upgradeable is Interaction)
-            Interaction.Upgrade(value);
-    }
+        public IMovable IMovable { get; private set; }
+        public NpcType Type { get; private set; }
+        public Inventory Inventory { get; private set; }
+        public BoostItemView BoostView { get; private set; }
+        public Interaction Interaction { get; private set; }
 
-    public void SetType(NpcType type)
-    {
-        Type = type;
-    }
+        private void Awake()
+        {
+            IMovable = GetComponent<NPCMovement>();
+            Interaction = GetComponentInChildren<Interaction>();
+            BoostView = GetComponentInChildren<BoostItemView>();
+            _teamAura = GetComponentInChildren<TeamAura>();
+        }
 
-    public void SetAuraColor(NpcType type)
-    {
-        _teamAura.SetColor(type);
-    }
+        public void Upgrade(IUpgradeable upgradeable, float value)
+        {
+            if (upgradeable is Inventory)
+                Inventory.Upgrade(value);
+            if (upgradeable is Interaction)
+                Interaction.Upgrade(value);
+        }
 
-    public void SetConfiguration(StatsConfig statsConfig)
-    {
-        BotConfig config = statsConfig.NewBot;
+        public void SetType(NpcType type)
+        {
+            Type = type;
+        }
 
-        Inventory = new Inventory(config.InventoryCount);
-        Interaction.Init(config.Strenght, Inventory);
-        IMovable.SetInitialSpeed(config.Speed);
+        public void SetAuraColor(NpcType type)
+        {
+            _teamAura.SetColor(type);
+        }
+
+        public void SetConfiguration(StatsConfig statsConfig)
+        {
+            BotConfig config = statsConfig.NewBot;
+
+            Inventory = new Inventory(config.InventoryCount);
+            Interaction.Init(config.Strenght, Inventory);
+            IMovable.SetInitialSpeed(config.Speed);
+        }
     }
 }

@@ -1,23 +1,27 @@
-using Ram.Chillvania.UI.Common;
+using Ram.Chillvania.MainObjects;
+using Ram.Chillvania.UI;
 using UnityEngine;
 
-public class UiInitialiser : MonoBehaviour
+namespace Ram.Chillvania.Boot
 {
-    [SerializeField] private BuildProgress _allyBuildProgress;
-    [SerializeField] private BuildProgress _enemyBuildProgress;
-
-    public void InitAll(Map map)
+    public class UiInitialiser : MonoBehaviour
     {
-        ModelBuilder allyModel = map.ModelSpawner.Ally;
-        ModelBuilder enemyModel = map.ModelSpawner.Enemy;
+        [SerializeField] private BuildProgress _allyBuildProgress;
+        [SerializeField] private BuildProgress _enemyBuildProgress;
 
-        Activate(_allyBuildProgress, allyModel);
-        Activate(_enemyBuildProgress, enemyModel);
-    }
+        public void InitAll(Map map)
+        {
+            ModelBuilder allyModel = map.ModelSpawner.Ally;
+            ModelBuilder enemyModel = map.ModelSpawner.Enemy;
 
-    private void Activate(BuildProgress bar, ModelBuilder model)
-    {
-        bar.Init(model);
-        bar.gameObject.SetActive(true);
+            Activate(_allyBuildProgress, allyModel);
+            Activate(_enemyBuildProgress, enemyModel);
+        }
+
+        private void Activate(BuildProgress bar, ModelBuilder model)
+        {
+            bar.Init(model);
+            bar.gameObject.SetActive(true);
+        }
     }
 }

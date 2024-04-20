@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Ram.Chillvania.StatesMachine.States;
 
-namespace Ram.Chillvania.StateMachine
+namespace Ram.Chillvania.StatesMachine
 {
     public class StateMachine
     {

@@ -1,7 +1,10 @@
-public enum StatsType
+namespace Ram.Chillvania.Upgrade
 {
-    Strenght,
-    Capacity,
-    TeamCount,
-    Speed
+    public enum StatsType
+    {
+        Strenght,
+        Capacity,
+        TeamCount,
+        Speed
+    }
 }

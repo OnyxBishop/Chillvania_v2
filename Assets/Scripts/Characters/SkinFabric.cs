@@ -1,4 +1,5 @@
 using System;
+using Ram.Chillvania.Shop;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CharacterSkinFabric", menuName = "CharacterSkins", order = 51)]

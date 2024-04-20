@@ -1,61 +1,64 @@
 using System.Collections;
-using Ram.Chillvania.Model;
-using Ram.Chillvania.UI.Common;
+using Ram.Chillvania.Characters;
+using Ram.Chillvania.Items;
 using TMPro;
 using UnityEngine;
 
-public class InventoryView : MonoBehaviour
+namespace Ram.Chillvania.UI
 {
-    private TMP_Text _aboveCharacterText;
-    private Inventory _inventory;
-    private CanvasGroup _canvasGroup;
-    private FadeAnimation _fadeAnimation;
-    private WaitForSeconds _waitForSeconds = new(1f);
-    private Coroutine _fadeCoroutine;
-
-    private void OnEnable()
+    public class InventoryView : MonoBehaviour
     {
-        _inventory.ItemAdded += OnItemCountChanged;
-        _inventory.ItemRemoved += OnItemCountChanged;
-    }
+        private TMP_Text _aboveCharacterText;
+        private Inventory _inventory;
+        private CanvasGroup _canvasGroup;
+        private FadeAnimation _fadeAnimation;
+        private WaitForSeconds _waitForSeconds = new WaitForSeconds(1f);
+        private Coroutine _fadeCoroutine;
 
-    private void OnDisable()
-    {
-        _inventory.ItemAdded -= OnItemCountChanged;
-        _inventory.ItemRemoved -= OnItemCountChanged;
-    }
+        private void OnEnable()
+        {
+            _inventory.ItemAdded += OnItemCountChanged;
+            _inventory.ItemRemoved += OnItemCountChanged;
+        }
 
-    public void Init(Inventory inventory)
-    {
-        _inventory = inventory;
-        _canvasGroup = GetComponentInChildren<CanvasGroup>();
-        _aboveCharacterText = _canvasGroup.GetComponentInChildren<TMP_Text>();
-        _fadeAnimation = new FadeAnimation(_canvasGroup);
+        private void OnDisable()
+        {
+            _inventory.ItemAdded -= OnItemCountChanged;
+            _inventory.ItemRemoved -= OnItemCountChanged;
+        }
 
-        _fadeAnimation.Disable(0);
-        gameObject.SetActive(true);
-    }
+        public void Init(Inventory inventory)
+        {
+            _inventory = inventory;
+            _canvasGroup = GetComponentInChildren<CanvasGroup>();
+            _aboveCharacterText = _canvasGroup.GetComponentInChildren<TMP_Text>();
+            _fadeAnimation = new FadeAnimation(_canvasGroup);
 
-    private void OnItemCountChanged(SelectableType type)
-    {
-        int count = _inventory.CalculateCount(type);
-        int capacity = _inventory.Cells.Count;
+            _fadeAnimation.Disable(0);
+            gameObject.SetActive(true);
+        }
 
-        _aboveCharacterText.text = string.Format($"{count} / {capacity}");
-        _aboveCharacterText.gameObject.SetActive(true);
+        private void OnItemCountChanged(SelectableType type)
+        {
+            int count = _inventory.CalculateCount(type);
+            int capacity = _inventory.Cells.Count;
 
-        if (_fadeCoroutine != null)
-            StopCoroutine(_fadeCoroutine);
+            _aboveCharacterText.text = string.Format($"{count} / {capacity}");
+            _aboveCharacterText.gameObject.SetActive(true);
 
-        _fadeCoroutine = StartCoroutine(TemporaryFade());
-    }
+            if (_fadeCoroutine != null)
+                StopCoroutine(_fadeCoroutine);
 
-    private IEnumerator TemporaryFade()
-    {
-        _fadeAnimation.Enable(1);
+            _fadeCoroutine = StartCoroutine(TemporaryFade());
+        }
 
-        yield return _waitForSeconds;
+        private IEnumerator TemporaryFade()
+        {
+            _fadeAnimation.Enable(1);
 
-        _fadeAnimation.Disable(1);
+            yield return _waitForSeconds;
+
+            _fadeAnimation.Disable(1);
+        }
     }
 }

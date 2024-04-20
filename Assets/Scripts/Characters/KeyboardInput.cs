@@ -1,54 +1,56 @@
-using Ram.Chillvania.Model;
 using UnityEngine;
 
-public class KeyboardInput : MonoBehaviour, IInput
+namespace Ram.Chillvania.Characters
 {
-    private Movement _movement;
-    private Vector3 _direction;
-
-    public bool HasDirection => _direction != Vector3.zero;
-
-    private void OnDisable()
+    public class KeyboardInput : MonoBehaviour, IInput
     {
-        _movement?.Disable();
-    }
+        private Movement _movement;
+        private Vector3 _direction;
 
-    private void Update()
-    {
-        GetDirection();
-    }
+        public bool HasDirection => _direction != Vector3.zero;
 
-    private void FixedUpdate()
-    {
-        if (!HasDirection)
+        private void OnDisable()
         {
-            _movement.Disable();
-            return;
+            _movement?.Disable();
         }
 
-        _movement.Move(_direction);
-    }
+        private void Update()
+        {
+            GetDirection();
+        }
 
-    public void GetDirection()
-    {
-        float x = (Input.GetKey(KeyCode.D) ? 1 : 0) - (Input.GetKey(KeyCode.A) ? 1 : 0);
-        float z = (Input.GetKey(KeyCode.W) ? 1 : 0) - (Input.GetKey(KeyCode.S) ? 1 : 0);
+        private void FixedUpdate()
+        {
+            if (!HasDirection)
+            {
+                _movement.Disable();
+                return;
+            }
 
-        _direction = new Vector3(x, 0, z).normalized;
-    }
+            _movement.Move(_direction);
+        }
 
-    public void ChainWithCharacter(Character character)
-    {
-        _movement = (Movement)character.IMovable;
-    }
+        public void GetDirection()
+        {
+            float x = (Input.GetKey(KeyCode.D) ? 1 : 0) - (Input.GetKey(KeyCode.A) ? 1 : 0);
+            float z = (Input.GetKey(KeyCode.W) ? 1 : 0) - (Input.GetKey(KeyCode.S) ? 1 : 0);
 
-    public void Enable()
-    {
-        gameObject.SetActive(true);
-    }
+            _direction = new Vector3(x, 0, z).normalized;
+        }
 
-    public void Disable()
-    {
-        gameObject.SetActive(false);
+        public void ChainWithCharacter(Character character)
+        {
+            _movement = (Movement)character.IMovable;
+        }
+
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -1,94 +1,98 @@
 using System;
 using System.Collections.Generic;
+using Ram.Chillvania.Characters.NPC;
+using Ram.Chillvania.Fabrics;
 using Ram.Chillvania.Items;
-using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine;
 
-public class SnowballSpawner : MonoBehaviour
+namespace Ram.Chillvania.MainObjects
 {
-    [SerializeField] private SnowballFabric _fabric;
-    [SerializeField] private Transform _path;
-    [SerializeField][Range(0, 28)] private int _count;
-    [SerializeField] private LayerMask _layerMask;
-
-    private Transform[] _spawnPoints;
-    private List<Snowball> _createdSnowballs;
-
-    private float _overlapRadius = 0.1f;
-    private float _elapsedTime;
-    private float _delay = 1f;
-
-    private void Start()
+    public class SnowballSpawner : MonoBehaviour
     {
-        _createdSnowballs = new List<Snowball>();
-        _spawnPoints = new Transform[_path.childCount];
+        [SerializeField] private SnowballFabric _fabric;
+        [SerializeField] private Transform _path;
+        [SerializeField][Range(0, 28)] private int _count;
+        [SerializeField] private LayerMask _layerMask;
 
-        for (int i = 0; i < _path.childCount; i++)
+        private Transform[] _spawnPoints;
+        private List<Snowball> _createdSnowballs;
+
+        private float _overlapRadius = 0.1f;
+        private float _elapsedTime;
+        private float _delay = 1f;
+
+        private void Start()
         {
-            _spawnPoints[i] = _path.GetChild(i);
-        }
-    }
+            _createdSnowballs = new List<Snowball>();
+            _spawnPoints = new Transform[_path.childCount];
 
-    private void Update()
-    {
-        if (_createdSnowballs.Count == _count)
-            return;
-
-        _elapsedTime += Time.deltaTime;
-
-        if (_elapsedTime >= _delay)
-        {
-            _elapsedTime = 0;
-
-            Spawn();
-        }
-    }
-
-    public Snowball GetClosestSnowball(NPC npc)
-    {
-        float closestDistance = float.MaxValue;
-        Snowball closestSnowball = null;
-
-        foreach (Snowball snowball in _createdSnowballs)
-        {
-            float distance = (npc.transform.position - snowball.transform.position).sqrMagnitude;
-
-            if (distance < closestDistance)
+            for (int i = 0; i < _path.childCount; i++)
             {
-                closestDistance = distance;
-                closestSnowball = snowball;
+                _spawnPoints[i] = _path.GetChild(i);
             }
         }
 
-
-        return closestSnowball;
-    }
-
-    private void Spawn()
-    {
-        Transform spawnPoint = null;
-        Collider[] colliders = new Collider[1];
-        bool isSuccess = false;
-
-        while (!isSuccess)
+        private void Update()
         {
-            spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-            int collidersCount = Physics.OverlapSphereNonAlloc(spawnPoint.position, _overlapRadius, colliders, _layerMask);
+            if (_createdSnowballs.Count == _count)
+                return;
 
-            if (collidersCount == 0)
+            _elapsedTime += Time.deltaTime;
+
+            if (_elapsedTime >= _delay)
             {
-                isSuccess = true;
+                _elapsedTime = 0;
+
+                Spawn();
             }
         }
 
-        Snowball snowball = _fabric.Create(spawnPoint);
-        snowball.InteractStarting += OnInteractStarting;
-        _createdSnowballs.Add(snowball);
-    }
+        public Snowball GetClosestSnowball(NPC npc)
+        {
+            float closestDistance = float.MaxValue;
+            Snowball closestSnowball = null;
 
-    private void OnInteractStarting(Snowball snowball)
-    {
-        snowball.InteractStarting -= OnInteractStarting;
-        _createdSnowballs.Remove(snowball);
+            foreach (Snowball snowball in _createdSnowballs)
+            {
+                float distance = (npc.transform.position - snowball.transform.position).sqrMagnitude;
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestSnowball = snowball;
+                }
+            }
+
+            return closestSnowball;
+        }
+
+        private void Spawn()
+        {
+            Transform spawnPoint = null;
+            Collider[] colliders = new Collider[1];
+            bool isSuccess = false;
+
+            while (!isSuccess)
+            {
+                spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
+                int collidersCount = Physics.OverlapSphereNonAlloc(spawnPoint.position, _overlapRadius, colliders, _layerMask);
+
+                if (collidersCount == 0)
+                {
+                    isSuccess = true;
+                }
+            }
+
+            Snowball snowball = _fabric.Create(spawnPoint);
+            snowball.InteractStarting += OnInteractStarting;
+            _createdSnowballs.Add(snowball);
+        }
+
+        private void OnInteractStarting(Snowball snowball)
+        {
+            snowball.InteractStarting -= OnInteractStarting;
+            _createdSnowballs.Remove(snowball);
+        }
     }
 }

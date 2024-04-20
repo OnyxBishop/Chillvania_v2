@@ -1,14 +1,17 @@
 using UnityEngine.UI;
 
-public class RaycastTarget : Graphic
+namespace Ram.Chillvania.Common
 {
-    public override void SetMaterialDirty()
+    public class RaycastTarget : Graphic
     {
-        return;
-    }
+        public override void SetMaterialDirty()
+        {
+            return;
+        }
 
-    public override void SetVerticesDirty()
-    {
-        return;
+        public override void SetVerticesDirty()
+        {
+            return;
+        }
     }
 }

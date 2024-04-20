@@ -1,3 +1,5 @@
+using Ram.Chillvania.Shop.Visitors;
+using Ram.Chillvania.Upgrade;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StatsItemData", menuName = "ShopItem/StatsItem", order = 51)]

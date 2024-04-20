@@ -1,40 +1,45 @@
-using Ram.Chillvania.Shop;
+using Ram.Chillvania.Boot;
+using Ram.Chillvania.Shop.Visitors;
+using Ram.Chillvania.UI.Shop;
 using UnityEngine;
 
-public class ShopBootstrap : MonoBehaviour
+namespace Ram.Chillvania.Shop
 {
-    [SerializeField] private Shop _shop;
-    [SerializeField] private ShopStatsView _shopStatsView;
-
-    private JsonSaver _saver;
-    private IPersistantData _persistentData;
-
-    public bool IsInit { get; private set; } = false;
-
-    public void Init()
+    public class ShopBootstrap : MonoBehaviour
     {
-        InitData();
+        [SerializeField] private Shop _shop;
+        [SerializeField] private ShopStatsView _shopStatsView;
 
-        InitShop();
+        private JsonSaver _saver;
+        private IPersistantData _persistentData;
 
-        IsInit = true;
-    }
+        public bool IsInit { get; private set; } = false;
 
-    private void InitData()
-    {
-        _persistentData = new PersistentData();
-        _saver = new (_persistentData);
-        _saver.Load();
-    }
+        public void Init()
+        {
+            InitData();
 
-    private void InitShop()
-    {
-        OpenItemsChecker openSkinsChecker = new (_persistentData);
-        SelectedSkinChecker selectedSkinChecker = new (_persistentData);
-        SkinSelector skinSelector = new (_persistentData);
-        ItemUnlocker skinUnlocker = new (_persistentData);
+            InitShop();
 
-        _shop.Init(_saver, skinSelector, skinUnlocker, openSkinsChecker, selectedSkinChecker);
-        _shopStatsView.Init(_persistentData.PlayerData);
+            IsInit = true;
+        }
+
+        private void InitData()
+        {
+            _persistentData = new PersistentData();
+            _saver = new(_persistentData);
+            _saver.Load();
+        }
+
+        private void InitShop()
+        {
+            OpenItemsChecker openSkinsChecker = new(_persistentData);
+            SelectedSkinChecker selectedSkinChecker = new(_persistentData);
+            SkinSelector skinSelector = new(_persistentData);
+            ItemUnlocker skinUnlocker = new(_persistentData);
+
+            _shop.Init(_saver, skinSelector, skinUnlocker, openSkinsChecker, selectedSkinChecker);
+            _shopStatsView.Init(_persistentData.PlayerData);
+        }
     }
 }

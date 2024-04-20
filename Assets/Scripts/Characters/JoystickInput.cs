@@ -1,58 +1,60 @@
-using Ram.Chillvania.Model;
 using UnityEngine;
 
-public class JoystickInput : MonoBehaviour, IInput
+namespace Ram.Chillvania.Characters
 {
-    [SerializeField] private Joystick _joystick;
-
-    private Movement _movement;
-    private Vector3 _direction;
-
-    public bool HasDirection => _joystick.Direction != Vector2.zero;
-
-    private void Awake()
+    public class JoystickInput : MonoBehaviour, IInput
     {
-        Input.multiTouchEnabled = false;
-    }
+        [SerializeField] private Joystick _joystick;
 
-    private void OnDisable()
-    {
-        _movement?.Disable();
-    }
+        private Movement _movement;
+        private Vector3 _direction;
 
-    private void Update()
-    {
-        GetDirection();
-    }
+        public bool HasDirection => _joystick.Direction != Vector2.zero;
 
-    private void FixedUpdate()
-    {
-        if (!HasDirection)
+        private void Awake()
         {
-            _movement.Disable();
-            return;
+            Input.multiTouchEnabled = false;
         }
 
-        _movement.Move(_direction);
-    }
+        private void OnDisable()
+        {
+            _movement?.Disable();
+        }
 
-    public void GetDirection()
-    {
-        _direction = new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y);
-    }
+        private void Update()
+        {
+            GetDirection();
+        }
 
-    public void ChainWithCharacter(Character character)
-    {
-        _movement = (Movement)character.IMovable;
-    }
+        private void FixedUpdate()
+        {
+            if (!HasDirection)
+            {
+                _movement.Disable();
+                return;
+            }
 
-    public void Enable()
-    {
-        gameObject.SetActive(true);
-    }
+            _movement.Move(_direction);
+        }
 
-    public void Disable()
-    {
-        gameObject.SetActive(false);
+        public void GetDirection()
+        {
+            _direction = new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y);
+        }
+
+        public void ChainWithCharacter(Character character)
+        {
+            _movement = (Movement)character.IMovable;
+        }
+
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -1,27 +1,31 @@
-using Ram.Chillvania.Model;
+using Ram.Chillvania.Boot;
+using Ram.Chillvania.Characters;
 using UnityEngine;
 
-public class PlayerFabric : MonoBehaviour
+namespace Ram.Chillvania.Fabrics
 {
-    [SerializeField] private Character _characterPrefab;
-
-    private IPersistantData _persistentData;
-    private JsonSaver _jsonSaver;
-
-    public Character Create()
+    public class PlayerFabric : MonoBehaviour
     {
-        InitData();
+        [SerializeField] private Character _characterPrefab;
 
-        Character character = Instantiate(_characterPrefab);
-        character.SetConfiguration(_persistentData);
+        private IPersistantData _persistentData;
+        private JsonSaver _jsonSaver;
 
-        return character;
-    }
+        public Character Create()
+        {
+            InitData();
 
-    private void InitData()
-    {
-        _persistentData = new PersistentData();
-        _jsonSaver = new (_persistentData);
-        _jsonSaver.Load();
+            Character character = Instantiate(_characterPrefab);
+            character.SetConfiguration(_persistentData);
+
+            return character;
+        }
+
+        private void InitData()
+        {
+            _persistentData = new PersistentData();
+            _jsonSaver = new(_persistentData);
+            _jsonSaver.Load();
+        }
     }
 }

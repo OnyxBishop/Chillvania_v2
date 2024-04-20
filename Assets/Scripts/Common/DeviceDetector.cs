@@ -2,19 +2,22 @@ using System.Runtime.InteropServices;
 using Agava.WebUtility;
 using UnityEngine;
 
-public static class DeviceDetector
+namespace Ram.Chillvania.Common
 {
-    public static bool IsMobile
+    public static class DeviceDetector
     {
-        get
+        public static bool IsMobile
         {
-            if (WebApplication.IsRunningOnWebGL)
-                return GetDeviceIsMobile();
+            get
+            {
+                if (WebApplication.IsRunningOnWebGL)
+                    return GetDeviceIsMobile();
 
-            return SystemInfo.deviceType == DeviceType.Handheld;
+                return SystemInfo.deviceType == DeviceType.Handheld;
+            }
         }
-    }
 
-    [DllImport("__Internal")]
-    private static extern bool GetDeviceIsMobile();
+        [DllImport("__Internal")]
+        private static extern bool GetDeviceIsMobile();
+    }
 }

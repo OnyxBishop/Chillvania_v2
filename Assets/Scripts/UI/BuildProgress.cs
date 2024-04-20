@@ -1,7 +1,8 @@
+using Ram.Chillvania.MainObjects;
 using TMPro;
 using UnityEngine;
 
-namespace Ram.Chillvania.UI.Common
+namespace Ram.Chillvania.UI
 {
     public class BuildProgress : MonoBehaviour
     {

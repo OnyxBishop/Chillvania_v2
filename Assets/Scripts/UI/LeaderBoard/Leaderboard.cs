@@ -2,17 +2,19 @@ using System.Collections.Generic;
 using Agava.YandexGames;
 using UnityEngine;
 
-public class Leaderboard : MonoBehaviour
+namespace Ram.Chillvania.UI.Leaderboard
 {
-    private const string AnonymousName = "Anonymous";
-    private const string LeaderboardName = "Leaderboard";
-
-    private readonly List<LeaderboardPlayer> _players = new();
-
-    [SerializeField] private LeaderboardView _view;
-
-    public void SetPlayer(int score)
+    public class Leaderboard : MonoBehaviour
     {
+        private const string AnonymousName = "Anonymous";
+        private const string LeaderboardName = "Leaderboard";
+
+        private readonly List<LeaderboardPlayer> _players = new List<LeaderboardPlayer>();
+
+        [SerializeField] private LeaderboardView _view;
+
+        public void SetPlayer(int score)
+        {
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized == false)
             return;
@@ -23,10 +25,10 @@ public class Leaderboard : MonoBehaviour
                 Agava.YandexGames.Leaderboard.SetScore(LeaderboardName, score);
         });
 #endif
-    }
+        }
 
-    public void Fill()
-    {
+        public void Fill()
+        {
 #if UNITY_WEBGL && !UNITY_EDITOR
 
         _players.Clear();
@@ -51,5 +53,6 @@ public class Leaderboard : MonoBehaviour
             _view.Construct(_players);
         });
 #endif
+        }
     }
 }

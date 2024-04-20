@@ -1,6 +1,10 @@
+using Ram.Chillvania.Boot;
+using Ram.Chillvania.Shop;
+using Ram.Chillvania.UI;
+using Ram.Chillvania.Upgrade;
 using UnityEngine;
 
-namespace Ram.Chillvania.Model
+namespace Ram.Chillvania.Characters
 {
     [RequireComponent(typeof(Movement))]
     public class Character : MonoBehaviour, ICharacter

@@ -1,31 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderboardView : MonoBehaviour
+namespace Ram.Chillvania.UI.Leaderboard
 {
-    [SerializeField] private Transform _container;
-    [SerializeField] private LeaderboardElement _elementPrefab;
-
-    private List<LeaderboardElement> _spawnedElements = new ();
-
-    public void Construct(List<LeaderboardPlayer> players)
+    public class LeaderboardView : MonoBehaviour
     {
-        Clear();
+        [SerializeField] private Transform _container;
+        [SerializeField] private LeaderboardElement _elementPrefab;
 
-        foreach (LeaderboardPlayer player in players)
+        private List<LeaderboardElement> _spawnedElements = new();
+
+        public void Construct(List<LeaderboardPlayer> players)
         {
-            LeaderboardElement elementInstance = Instantiate(_elementPrefab, _container);
-            elementInstance.Initialise(player.Rank, player.Name, player.Score);
+            Clear();
 
-            _spawnedElements.Add(elementInstance);
+            foreach (LeaderboardPlayer player in players)
+            {
+                LeaderboardElement elementInstance = Instantiate(_elementPrefab, _container);
+                elementInstance.Initialise(player.Rank, player.Name, player.Score);
+
+                _spawnedElements.Add(elementInstance);
+            }
         }
-    }
 
-    private void Clear()
-    {
-        foreach (var element in _spawnedElements)
-            Destroy(element.gameObject);
+        private void Clear()
+        {
+            foreach (var element in _spawnedElements)
+                Destroy(element.gameObject);
 
-        _spawnedElements = new List<LeaderboardElement>();
+            _spawnedElements = new List<LeaderboardElement>();
+        }
     }
 }

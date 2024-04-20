@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Ram.Chillvania.UI.Common
+namespace Ram.Chillvania.UI
 {
     public class FadeAnimation
     {

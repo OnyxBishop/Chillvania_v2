@@ -13,7 +13,7 @@ namespace Ram.Chillvania.UI.Common
 
         private void Awake()
         {
-            _animation = new(_image, this);
+            _animation = new BlackScreenAnimation(_image, this);
             _image.fillAmount = 0;
         }
 

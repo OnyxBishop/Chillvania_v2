@@ -1,20 +1,25 @@
-public class SkinSelector : IShopItemVisitor
+using Ram.Chillvania.Boot;
+
+namespace Ram.Chillvania.Shop.Visitors
 {
-    private IPersistantData _data;
-
-    public SkinSelector(IPersistantData data) => _data = data;
-
-    public void Visit(ShopItem item)
+    public class SkinSelector : IShopItemVisitor
     {
-        item.Accept(this);
-    }
+        private IPersistantData _data;
 
-    public void Visit(CharacterStatsItem item) 
-    { 
-    }
+        public SkinSelector(IPersistantData data) => _data = data;
 
-    public void Visit(EquippableItem item)
-    {
-        _data.PlayerData.SelectedSkin = item.SkinsType;
+        public void Visit(ShopItem item)
+        {
+            item.Accept(this);
+        }
+
+        public void Visit(CharacterStatsItem item)
+        {
+        }
+
+        public void Visit(EquippableItem item)
+        {
+            _data.PlayerData.SelectedSkin = item.SkinsType;
+        }
     }
 }

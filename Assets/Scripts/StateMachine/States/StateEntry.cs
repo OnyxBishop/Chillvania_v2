@@ -1,20 +1,21 @@
-using Ram.Chillvania.StateMachine;
-
-public class StateEntry : State
+namespace Ram.Chillvania.StatesMachine.States
 {
-    private StateMachine _machine;
-    private float _delay = 2.5f;
-
-    public StateEntry(StateMachine machine)
+    public class StateEntry : State
     {
-        _machine = machine;
-    }
+        private StateMachine _machine;
+        private float _delay = 2.5f;
 
-    public override void Update(float elapsedTime)
-    {
-        _delay -= elapsedTime;
+        public StateEntry(StateMachine machine)
+        {
+            _machine = machine;
+        }
 
-        if (_delay <= 0)
-            _machine.SetState<StateReachSnowball>();
+        public override void Update(float elapsedTime)
+        {
+            _delay -= elapsedTime;
+
+            if (_delay <= 0)
+                _machine.SetState<StateReachSnowball>();
+        }
     }
 }

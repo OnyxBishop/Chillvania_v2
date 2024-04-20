@@ -1,43 +1,47 @@
+using Ram.Chillvania.Upgrade;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeCard : MonoBehaviour
+namespace Ram.Chillvania.UI
 {
-    [SerializeField] private UpgradeSystem _upgradeSystem;
-    [SerializeField] private StatsType _statType;
-    [SerializeField] private Button _button;
-    [SerializeField] private Image _lockImage;
-    [SerializeField] private TMP_Text _costText;
-    [SerializeField] private int _cost;
-
-    public int Cost => _cost;
-
-    private void OnEnable()
+    public class UpgradeCard : MonoBehaviour
     {
-        _button.onClick.AddListener(OnButtonClicked);
-    }
+        [SerializeField] private UpgradeSystem _upgradeSystem;
+        [SerializeField] private StatsType _statType;
+        [SerializeField] private Button _button;
+        [SerializeField] private Image _lockImage;
+        [SerializeField] private TMP_Text _costText;
+        [SerializeField] private int _cost;
 
-    private void OnDisable()
-    {
-        _button.onClick.RemoveListener(OnButtonClicked);
-    }
+        public int Cost => _cost;
 
-    public void Unlock()
-    {
-        _lockImage.gameObject.SetActive(false);
-        _button.interactable = true;
-    }
+        private void OnEnable()
+        {
+            _button.onClick.AddListener(OnButtonClicked);
+        }
 
-    public void Lock()
-    {
-        _lockImage.gameObject.SetActive(true);
-        _costText.text = _cost.ToString();
-        _button.interactable = false;
-    }
+        private void OnDisable()
+        {
+            _button.onClick.RemoveListener(OnButtonClicked);
+        }
 
-    private void OnButtonClicked()
-    {
-        _upgradeSystem.IncreaseStat(_statType, _cost);
+        public void Unlock()
+        {
+            _lockImage.gameObject.SetActive(false);
+            _button.interactable = true;
+        }
+
+        public void Lock()
+        {
+            _lockImage.gameObject.SetActive(true);
+            _costText.text = _cost.ToString();
+            _button.interactable = false;
+        }
+
+        private void OnButtonClicked()
+        {
+            _upgradeSystem.IncreaseStat(_statType, _cost);
+        }
     }
 }

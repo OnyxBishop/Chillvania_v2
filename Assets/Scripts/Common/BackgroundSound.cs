@@ -1,24 +1,27 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class BackgroundSound : MonoBehaviour
+namespace Ram.Chillvania.Common
 {
-    public static BackgroundSound Instance;
-
-    [SerializeField] private AudioSource _audioSource;
-
-    public AudioSource AudioSource => _audioSource;
-
-    private void Awake()
+    [RequireComponent(typeof(AudioSource))]
+    public class BackgroundSound : MonoBehaviour
     {
-        if (Instance == null)
+        public static BackgroundSound Instance;
+
+        [SerializeField] private AudioSource _audioSource;
+
+        public AudioSource AudioSource => _audioSource;
+
+        private void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

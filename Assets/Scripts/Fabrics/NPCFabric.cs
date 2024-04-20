@@ -1,18 +1,23 @@
+using Ram.Chillvania.Characters;
+using Ram.Chillvania.Characters.NPC;
 using UnityEngine;
 
-public class NPCFabric : MonoBehaviour
+namespace Ram.Chillvania.Fabrics
 {
-    [SerializeField] private NPC _enemyPrefab;
-    [SerializeField] private NPC _allyPrefab;
-    [SerializeField] private StatsConfig _statsConfig;
-
-    public NPC Create(NpcType type)
+    public class NPCFabric : MonoBehaviour
     {
-        NPC npc = Instantiate(_allyPrefab);
+        [SerializeField] private NPC _enemyPrefab;
+        [SerializeField] private NPC _allyPrefab;
+        [SerializeField] private StatsConfig _statsConfig;
 
-        npc.SetType(type);
-        npc.SetAuraColor(type);
-        npc.SetConfiguration(_statsConfig);
-        return npc;
+        public NPC Create(NpcType type)
+        {
+            NPC npc = Instantiate(_allyPrefab);
+
+            npc.SetType(type);
+            npc.SetAuraColor(type);
+            npc.SetConfiguration(_statsConfig);
+            return npc;
+        }
     }
 }

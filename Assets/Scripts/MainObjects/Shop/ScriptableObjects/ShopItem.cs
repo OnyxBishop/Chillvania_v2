@@ -1,3 +1,4 @@
+using Ram.Chillvania.Shop.Visitors;
 using UnityEngine;
 
 public abstract class ShopItem : ScriptableObject

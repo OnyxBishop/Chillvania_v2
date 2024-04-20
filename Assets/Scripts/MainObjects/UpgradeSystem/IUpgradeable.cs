@@ -1,7 +1,10 @@
 using System;
 
-public interface IUpgradeable
+namespace Ram.Chillvania.Upgrade
 {
-    public event Action<float> Upgraded;
-    public void Upgrade(float value);
+    public interface IUpgradeable
+    {
+        public event Action<float> Upgraded;
+        public void Upgrade(float value);
+    }
 }

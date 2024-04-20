@@ -1,20 +1,24 @@
 using System;
+using Ram.Chillvania.Characters;
 using UnityEngine;
 
-public class InputFabric : MonoBehaviour
+namespace Ram.Chillvania.Fabrics
 {
-    [SerializeField] private JoystickInput _joystickInput;
-    [SerializeField] private KeyboardInput _keyboardInput;
-    [SerializeField] private Transform _container;
-
-    public IInput Create(DeviceType type)
+    public class InputFabric : MonoBehaviour
     {
-        if (type == DeviceType.Handheld)
-            return Instantiate(_joystickInput, _container);
+        [SerializeField] private JoystickInput _joystickInput;
+        [SerializeField] private KeyboardInput _keyboardInput;
+        [SerializeField] private Transform _container;
 
-        if (type == DeviceType.Desktop)
-            return Instantiate(_keyboardInput, _container);
+        public IInput Create(DeviceType type)
+        {
+            if (type == DeviceType.Handheld)
+                return Instantiate(_joystickInput, _container);
 
-        throw new ArgumentNullException();
+            if (type == DeviceType.Desktop)
+                return Instantiate(_keyboardInput, _container);
+
+            throw new ArgumentNullException();
+        }
     }
 }

@@ -1,22 +1,27 @@
-public class ItemUnlocker : IShopItemVisitor
+using Ram.Chillvania.Boot;
+
+namespace Ram.Chillvania.Shop.Visitors
 {
-    private IPersistantData _data;
-
-    public ItemUnlocker(IPersistantData data) =>
-        _data = data;
-
-    public void Visit(ShopItem item)
+    public class ItemUnlocker : IShopItemVisitor
     {
-        item.Accept(this);
-    }
+        private IPersistantData _data;
 
-    public void Visit(CharacterStatsItem item)
-    {
-        _data.PlayerData.IncreaseStats(item.StatsType, item.IncreseValue);
-    }
+        public ItemUnlocker(IPersistantData data) =>
+            _data = data;
 
-    public void Visit(EquippableItem item)
-    {
-        _data.PlayerData.OpenSkin(item.SkinsType);
+        public void Visit(ShopItem item)
+        {
+            item.Accept(this);
+        }
+
+        public void Visit(CharacterStatsItem item)
+        {
+            _data.PlayerData.IncreaseStats(item.StatsType, item.IncreseValue);
+        }
+
+        public void Visit(EquippableItem item)
+        {
+            _data.PlayerData.OpenSkin(item.SkinsType);
+        }
     }
 }

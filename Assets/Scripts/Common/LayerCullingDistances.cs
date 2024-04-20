@@ -1,22 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-public class LayerCullingDistances : MonoBehaviour
+namespace Ram.Chillvania.Common
 {
-    [SerializeField] private float[] _cullingDistances = new float[32];
-
-    private void Awake()
+    [RequireComponent(typeof(Camera))]
+    public class LayerCullingDistances : MonoBehaviour
     {
-        SetCullingDistances();
-    }
+        [SerializeField] private float[] _cullingDistances = new float[32];
 
-    private void OnValidate()
-    {
-        SetCullingDistances();
-    }
+        private void Awake()
+        {
+            SetCullingDistances();
+        }
 
-    private void SetCullingDistances()
-    {
-        GetComponent<Camera>().layerCullDistances = _cullingDistances;
+        private void OnValidate()
+        {
+            SetCullingDistances();
+        }
+
+        private void SetCullingDistances()
+        {
+            GetComponent<Camera>().layerCullDistances = _cullingDistances;
+        }
     }
 }

@@ -1,24 +1,27 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Pointer : MonoBehaviour
+namespace Ram.Chillvania.GameHints
 {
-    private Tween moveY;
-
-    public void SetPosition(Vector3 targetPosition)
+    public class Pointer : MonoBehaviour
     {
-        float y = targetPosition.y + 2f;
-        transform.position = new Vector3(targetPosition.x, y, targetPosition.z);
-    }
+        private Tween moveY;
 
-    public void PlayAnimation()
-    {
-        moveY = transform.DOMoveY(transform.position.y + 0.4f, 1).SetLoops(-1, LoopType.Yoyo).OnKill(() => moveY = null);
-    }
+        public void SetPosition(Vector3 targetPosition)
+        {
+            float y = targetPosition.y + 2f;
+            transform.position = new Vector3(targetPosition.x, y, targetPosition.z);
+        }
 
-    public void StopAnimation()
-    {
-        if (moveY.IsActive())
-            moveY.Kill();
+        public void PlayAnimation()
+        {
+            moveY = transform.DOMoveY(transform.position.y + 0.4f, 1).SetLoops(-1, LoopType.Yoyo).OnKill(() => moveY = null);
+        }
+
+        public void StopAnimation()
+        {
+            if (moveY.IsActive())
+                moveY.Kill();
+        }
     }
 }

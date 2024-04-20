@@ -1,23 +1,27 @@
 using System;
+using Ram.Chillvania.Common;
 using UnityEngine;
 
-public class VideoAd : MonoBehaviour
+namespace Ram.Chillvania.SDK
 {
-    [SerializeField] private PauseControl _pauseControl;
-
-    public void ShowInterstitial(Action<bool> onCloseCallback) =>
-        Agava.YandexGames.InterstitialAd.Show(OnOpenCallback, onCloseCallback);
-
-    public void ShowRewarded(Action onRewardedCallback) =>
-        Agava.YandexGames.VideoAd.Show(OnOpenCallback, onRewardedCallback, OnCloseCallback);
-
-    private void OnOpenCallback()
+    public class VideoAd : MonoBehaviour
     {
-        _pauseControl.SetPauseOnUI(true);
-    }
+        [SerializeField] private PauseControl _pauseControl;
 
-    private void OnCloseCallback()
-    {
-        _pauseControl.SetPauseOnUI(false);
+        public void ShowInterstitial(Action<bool> onCloseCallback) =>
+            Agava.YandexGames.InterstitialAd.Show(OnOpenCallback, onCloseCallback);
+
+        public void ShowRewarded(Action onRewardedCallback) =>
+            Agava.YandexGames.VideoAd.Show(OnOpenCallback, onRewardedCallback, OnCloseCallback);
+
+        private void OnOpenCallback()
+        {
+            _pauseControl.SetPauseOnUI(true);
+        }
+
+        private void OnCloseCallback()
+        {
+            _pauseControl.SetPauseOnUI(false);
+        }
     }
 }

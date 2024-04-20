@@ -1,70 +1,75 @@
 using System;
 using System.Collections.Generic;
+using Ram.Chillvania.Shop;
+using Ram.Chillvania.Upgrade;
 
-[Serializable]
-public class PlayerData
+namespace Ram.Chillvania.Boot
 {
-    public PlayerConfig Config;
-    public SkinsType SelectedSkin;
-
-    public List<SkinsType> OpenedSkins;
-
-    private int _maxInitialStrenght = 7;
-    private float _maxInitialSpeed = 4f;
-    private int _maxInitialTeam = 1;
-
-    public PlayerData()
+    [Serializable]
+    public class PlayerData
     {
-        Config = new PlayerConfig(3, 2.5f, 3, 0);
-        OpenedSkins = new ();
-        SelectedSkin = SkinsType.Default;
-    }
+        public PlayerConfig Config;
+        public SkinsType SelectedSkin;
 
-    public event Action<StatsType> StatsChanged;
+        public List<SkinsType> OpenedSkins;
 
-    public int MaxInitialStrenght => _maxInitialStrenght;
-    public float MaxInitialSpeed => _maxInitialSpeed;
-    public int MaxInitialTeam => _maxInitialTeam;    
+        private int _maxInitialStrenght = 7;
+        private float _maxInitialSpeed = 4f;
+        private int _maxInitialTeam = 1;
 
-    public void OpenSkin(SkinsType type)
-    {
-        if (OpenedSkins.Contains(type))
-            throw new ArgumentException($"Skin {type} is already open");
+        public PlayerData()
+        {
+            Config = new PlayerConfig(3, 2.5f, 3, 0);
+            OpenedSkins = new();
+            SelectedSkin = SkinsType.Default;
+        }
 
-        OpenedSkins.Add(type);
-    }
+        public event Action<StatsType> StatsChanged;
 
-    public void IncreaseStats(StatsType type, float value)
-    {
-        if (value < 0)
-            throw new ArgumentException("Value cannot be smaller than 0");
+        public int MaxInitialStrenght => _maxInitialStrenght;
+        public float MaxInitialSpeed => _maxInitialSpeed;
+        public int MaxInitialTeam => _maxInitialTeam;
 
-        if (type == StatsType.Strenght)
-            Config.Strenght += (int)value;
+        public void OpenSkin(SkinsType type)
+        {
+            if (OpenedSkins.Contains(type))
+                throw new ArgumentException($"Skin {type} is already open");
 
-        if (type == StatsType.Speed)
-            Config.Speed = MathF.Round((Config.Speed + value) * 10) / 10f;
+            OpenedSkins.Add(type);
+        }
 
-        if (type == StatsType.TeamCount)
-            Config.TeamCount += (int)value;
+        public void IncreaseStats(StatsType type, float value)
+        {
+            if (value < 0)
+                throw new ArgumentException("Value cannot be smaller than 0");
 
-        StatsChanged?.Invoke(type);
-    }
+            if (type == StatsType.Strenght)
+                Config.Strenght += (int)value;
 
-    public bool CanIncrease(StatsType type, float value)
-    {
-        if (type == StatsType.Strenght)
-            if (Config.Strenght + value > _maxInitialStrenght)
-                return false;
+            if (type == StatsType.Speed)
+                Config.Speed = MathF.Round((Config.Speed + value) * 10) / 10f;
 
-        if (type == StatsType.Speed)
-            if ((Config.Speed + value) - _maxInitialSpeed >= 0.1f)
-                return false;
+            if (type == StatsType.TeamCount)
+                Config.TeamCount += (int)value;
 
-        if (type == StatsType.TeamCount)
-            if (Config.TeamCount + value > _maxInitialTeam)
-                return false;
+            StatsChanged?.Invoke(type);
+        }
 
-        return true;
+        public bool CanIncrease(StatsType type, float value)
+        {
+            if (type == StatsType.Strenght)
+                if (Config.Strenght + value > _maxInitialStrenght)
+                    return false;
+
+            if (type == StatsType.Speed)
+                if ((Config.Speed + value) - _maxInitialSpeed >= 0.1f)
+                    return false;
+
+            if (type == StatsType.TeamCount)
+                if (Config.TeamCount + value > _maxInitialTeam)
+                    return false;
+
+            return true;
+        }
     }
 }

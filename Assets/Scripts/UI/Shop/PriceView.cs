@@ -1,18 +1,21 @@
 using TMPro;
 using UnityEngine;
 
-public class PriceView : MonoBehaviour
+namespace Ram.Chillvania.UI.Shop
 {
-    [SerializeField] private TMP_Text _text;
-
-    public void Show(int value)
+    public class PriceView : MonoBehaviour
     {
-        gameObject.SetActive(true);
-        _text.text = value.ToString();
-    }
+        [SerializeField] private TMP_Text _text;
 
-    public void Hide()
-    {
-        gameObject.SetActive(false);
+        public void Show(int value)
+        {
+            gameObject.SetActive(true);
+            _text.text = value.ToString();
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

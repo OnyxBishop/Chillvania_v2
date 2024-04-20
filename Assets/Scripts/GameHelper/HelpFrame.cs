@@ -1,59 +1,63 @@
 using Lean.Localization;
+using Ram.Chillvania.UI;
 using TMPro;
 using UnityEngine;
 
-public class HelpFrame : MonoBehaviour
+namespace Ram.Chillvania.GameHints
 {
-    private const string ReachSnowball = nameof(ReachSnowball);
-    private const string RollSnowball = nameof(RollSnowball);
-    private const string DeliverSnowball = nameof(DeliverSnowball);
-    private const string BuildModel = nameof(BuildModel);
-    private const string UpgradeSystem = nameof(UpgradeSystem);
-    private const string GetUpgrade = nameof(GetUpgrade);
-    private const string EndTask = nameof(EndTask);
-
-    [SerializeField] private TMP_Text _mainText;
-    [SerializeField] private UpgradeBar _upgradeBar;
-
-    private void Start()
+    public class HelpFrame : MonoBehaviour
     {
-        string text = LeanLocalization.GetTranslationText(ReachSnowball);
-        _mainText.text = text;
-    }
+        private const string ReachSnowball = nameof(ReachSnowball);
+        private const string RollSnowball = nameof(RollSnowball);
+        private const string DeliverSnowball = nameof(DeliverSnowball);
+        private const string BuildModel = nameof(BuildModel);
+        private const string UpgradeSystem = nameof(UpgradeSystem);
+        private const string GetUpgrade = nameof(GetUpgrade);
+        private const string EndTask = nameof(EndTask);
 
-    public void Enable()
-    {
-        gameObject.SetActive(true);
-    }
+        [SerializeField] private TMP_Text _mainText;
+        [SerializeField] private UpgradeBar _upgradeBar;
 
-    public void Disable()
-    {
-        gameObject?.SetActive(false);
-    }
+        private void Start()
+        {
+            string text = LeanLocalization.GetTranslationText(ReachSnowball);
+            _mainText.text = text;
+        }
 
-    public void SwitchToRoll()
-    {
-        _mainText.text = LeanLocalization.GetTranslationText(RollSnowball);
-    }
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+        }
 
-    public void SwitchToDeliver()
-    {
-        _mainText.text = LeanLocalization.GetTranslationText(DeliverSnowball);
-    }
+        public void Disable()
+        {
+            gameObject?.SetActive(false);
+        }
 
-    public void SwitchToBuild()
-    {
-        _mainText.text = LeanLocalization.GetTranslationText(BuildModel);
-        _upgradeBar.gameObject.SetActive(true);
-    }
+        public void SwitchToRoll()
+        {
+            _mainText.text = LeanLocalization.GetTranslationText(RollSnowball);
+        }
 
-    public void SwitchToGetUpgrade()
-    {
-        _mainText.text = LeanLocalization.GetTranslationText(GetUpgrade);
-    }
+        public void SwitchToDeliver()
+        {
+            _mainText.text = LeanLocalization.GetTranslationText(DeliverSnowball);
+        }
 
-    public void ShowEnd()
-    {
-        _mainText.text = LeanLocalization.GetTranslationText(EndTask);
+        public void SwitchToBuild()
+        {
+            _mainText.text = LeanLocalization.GetTranslationText(BuildModel);
+            _upgradeBar.gameObject.SetActive(true);
+        }
+
+        public void SwitchToGetUpgrade()
+        {
+            _mainText.text = LeanLocalization.GetTranslationText(GetUpgrade);
+        }
+
+        public void ShowEnd()
+        {
+            _mainText.text = LeanLocalization.GetTranslationText(EndTask);
+        }
     }
 }

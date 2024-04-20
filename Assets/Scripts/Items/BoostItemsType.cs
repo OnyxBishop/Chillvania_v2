@@ -1,5 +1,8 @@
-public enum BoostItemType
+namespace Ram.Chillvania.Items.BoostItems
 {
-    Bomb,
-    Skates
+    public enum BoostItemType
+    {
+        Bomb,
+        Skates
+    }
 }

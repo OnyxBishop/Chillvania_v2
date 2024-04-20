@@ -1,48 +1,51 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RulesPanel : MonoBehaviour
+namespace Ram.Chillvania.UI
 {
-    [SerializeField] private RuleView _view;
-    [SerializeField] private Button _nextButton;
-    [SerializeField] private Button _previousButton;
-    [SerializeField] private Button _exitButton;
-
-    private int _currentIndex = 0;
-
-    private void OnEnable()
+    public class RulesPanel : MonoBehaviour
     {
-        _nextButton.onClick.AddListener(OnNextClicked);
-        _previousButton.onClick.AddListener(OnPreviousClicked);
-        _exitButton.onClick.AddListener(OnExitClicked);
+        [SerializeField] private RuleView _view;
+        [SerializeField] private Button _nextButton;
+        [SerializeField] private Button _previousButton;
+        [SerializeField] private Button _exitButton;
 
-        _view.SetLanguage();
-        _view.Render(ref _currentIndex);
-    }
+        private int _currentIndex = 0;
 
-    private void OnDisable()
-    {
-        _nextButton.onClick.RemoveListener(OnNextClicked);
-        _previousButton.onClick.RemoveListener(OnPreviousClicked);
-        _exitButton.onClick.RemoveListener(OnExitClicked);
+        private void OnEnable()
+        {
+            _nextButton.onClick.AddListener(OnNextClicked);
+            _previousButton.onClick.AddListener(OnPreviousClicked);
+            _exitButton.onClick.AddListener(OnExitClicked);
 
-        _currentIndex = 0;
-    }
+            _view.SetLanguage();
+            _view.Render(ref _currentIndex);
+        }
 
-    private void OnNextClicked()
-    {
-        _currentIndex++;
-        _view.Render(ref _currentIndex);
-    }
+        private void OnDisable()
+        {
+            _nextButton.onClick.RemoveListener(OnNextClicked);
+            _previousButton.onClick.RemoveListener(OnPreviousClicked);
+            _exitButton.onClick.RemoveListener(OnExitClicked);
 
-    private void OnPreviousClicked()
-    {
-        _currentIndex--;
-        _view.Render(ref _currentIndex);
-    }
+            _currentIndex = 0;
+        }
 
-    private void OnExitClicked()
-    {
-        gameObject.SetActive(false);
+        private void OnNextClicked()
+        {
+            _currentIndex++;
+            _view.Render(ref _currentIndex);
+        }
+
+        private void OnPreviousClicked()
+        {
+            _currentIndex--;
+            _view.Render(ref _currentIndex);
+        }
+
+        private void OnExitClicked()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

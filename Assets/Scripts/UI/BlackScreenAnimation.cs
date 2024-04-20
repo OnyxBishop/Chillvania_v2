@@ -4,44 +4,47 @@ using Ram.Chillvania.UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BlackScreenAnimation
+namespace Ram.Chillvania.UI
 {
-    private Image _image;
-    private BlackScreen _coroutineObject;
-
-    public BlackScreenAnimation(Image image, BlackScreen coroutineObject)
+    public class BlackScreenAnimation
     {
-        _image = image;
-        _coroutineObject = coroutineObject;
-    }
+        private Image _image;
+        private BlackScreen _coroutineObject;
 
-    public void Enable(float duration, Action callback = null)
-    {
-        _coroutineObject.StartCoroutine(Fade(1, duration, callback));
-    }
-
-    public void Disable(float duration, Action callback = null)
-    {
-        _coroutineObject.StartCoroutine(Fade(0, duration, callback));
-    }
-
-    private IEnumerator Fade(float to, float duration, Action callback)
-    {
-        float elapsedTime = 0f;
-        float from = _image.fillAmount;
-        float delta;
-
-        while (elapsedTime < duration)
+        public BlackScreenAnimation(Image image, BlackScreen coroutineObject)
         {
-            elapsedTime += Time.deltaTime;
-
-            delta = elapsedTime / duration;
-            _image.fillAmount = Mathf.MoveTowards(from, to, delta);
-
-            yield return null;
+            _image = image;
+            _coroutineObject = coroutineObject;
         }
 
-        _image.fillAmount = to;
-        callback?.Invoke();
+        public void Enable(float duration, Action callback = null)
+        {
+            _coroutineObject.StartCoroutine(Fade(1, duration, callback));
+        }
+
+        public void Disable(float duration, Action callback = null)
+        {
+            _coroutineObject.StartCoroutine(Fade(0, duration, callback));
+        }
+
+        private IEnumerator Fade(float to, float duration, Action callback)
+        {
+            float elapsedTime = 0f;
+            float from = _image.fillAmount;
+            float delta;
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+
+                delta = elapsedTime / duration;
+                _image.fillAmount = Mathf.MoveTowards(from, to, delta);
+
+                yield return null;
+            }
+
+            _image.fillAmount = to;
+            callback?.Invoke();
+        }
     }
 }

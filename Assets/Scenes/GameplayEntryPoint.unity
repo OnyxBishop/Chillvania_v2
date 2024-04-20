@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6531624, g: 0.63693994, b: 0.73814017, a: 1}
+  m_IndirectSpecularColor: {r: 0.65316075, g: 0.6369398, b: 0.7381392, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -946,6 +946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _difficulty: {fileID: 11400000, guid: 11227687735f5ab469cf9bc88d2f1803, type: 2}
+  _strenghtIncreaseValue: 1
+  _capacityIncreaseValue: 1
 --- !u!4 &181880304
 Transform:
   m_ObjectHideFlags: 0
@@ -17773,7 +17775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _countText: {fileID: 45877224}
-  _wallet: {fileID: 0}
+  _wallet: {fileID: 1032167152}
 --- !u!1 &1321897194
 GameObject:
   m_ObjectHideFlags: 0
@@ -20858,7 +20860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameEndView: {fileID: 1416966369}
   _resultsView: {fileID: 1489465477}
-  _wallet: {fileID: 0}
+  _wallet: {fileID: 1032167152}
   _victoryMoney: 50
   _loseMoney: 15
 --- !u!1 &1837437681
@@ -23461,6 +23463,10 @@ PrefabInstance:
       propertyPath: _upgradeAudioSource
       value: 
       objectReference: {fileID: 1678869916}
+    - target: {fileID: 8654709794255895298, guid: ec39b95f95e68884e8490e856bfcc9db, type: 3}
+      propertyPath: m_text
+      value: Points
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

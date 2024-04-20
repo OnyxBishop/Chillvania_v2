@@ -1,99 +1,106 @@
 using System;
 using System.Collections;
-using Ram.Chillvania.Shop;
-using UnityEngine;
 using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
+using Ram.Chillvania.CameraLogic;
+using Ram.Chillvania.Characters.NPC;
+using Ram.Chillvania.Shop;
+using Ram.Chillvania.UI;
+using UnityEngine;
 
-public class LevelEnder : MonoBehaviour
+namespace Ram.Chillvania.MainObjects
 {
-    [SerializeField] private GameEndView _gameEndView;
-    [SerializeField] private ResultsView _resultsView;
-    [SerializeField] private Wallet _wallet;
-    [SerializeField] private int _victoryMoney;
-    [SerializeField] private int _loseMoney;
-
-    private ModelBuilder _allyModel;
-    private ModelBuilder _enemyModel;
-    private CameraSwitcher _cameraSwitcher;
-
-    private float _delay = 6f;
-    private bool _isFirstWinner;
-
-    public event Action GameEnded;
-    public event Action CameraAnimationEnded;
-    public event Action OnNextButtonClicked;
-
-    private void OnEnable()
+    public class LevelEnder : MonoBehaviour
     {
-        _allyModel.BuildEnded += OnBuildEnded;
-        _enemyModel.BuildEnded += OnBuildEnded;
+        [SerializeField] private GameEndView _gameEndView;
+        [SerializeField] private ResultsView _resultsView;
+        [SerializeField] private Wallet _wallet;
+        [SerializeField] private int _victoryMoney;
+        [SerializeField] private int _loseMoney;
 
-        _gameEndView.OnNextButtonClicked += OnNextClicked;
-    }
+        private ModelBuilder _allyModel;
+        private ModelBuilder _enemyModel;
+        private CameraSwitcher _cameraSwitcher;
 
-    private void OnDisable()
-    {
-        _allyModel.BuildEnded -= OnBuildEnded;
-        _enemyModel.BuildEnded -= OnBuildEnded;
-    }
+        private float _delay = 6f;
+        private bool _isFirstWinner;
 
-    public void Init(
-        CameraSwitcher cameraSwitcher, ModelBuilder allyModel, ModelBuilder enemyModel)
-    {
-        _allyModel = allyModel;
-        _enemyModel = enemyModel;
-        _cameraSwitcher = cameraSwitcher;
+        public event Action GameEnded;
+        public event Action CameraAnimationEnded;
+        public event Action OnNextButtonClicked;
 
-        enabled = true;
-    }
-
-    public void Disable()
-    {
-        enabled = false;
-
-        _allyModel = null;
-        _enemyModel = null;
-        _cameraSwitcher = null;
-        _isFirstWinner = false;
-    }
-
-    private void OnBuildEnded(ModelBuilder model)
-    {
-        if (model.Equals(_allyModel))
-            _enemyModel.StopConstruction();
-        else if (model.Equals(_enemyModel))
-            _allyModel.StopConstruction();
-
-        if (_isFirstWinner == false)
+        private void OnEnable()
         {
-            _isFirstWinner = true;
-            FindFirstObjectByType<NPCSpawner>().DisableAllNPC();
-            _cameraSwitcher.LookToModel(model.transform);
-            CalculateResults(model);
+            _allyModel.BuildEnded += OnBuildEnded;
+            _enemyModel.BuildEnded += OnBuildEnded;
 
-            GameEnded?.Invoke();
-
-            StartCoroutine(ShowModel());
+            _gameEndView.OnNextButtonClicked += OnNextClicked;
         }
-    }
 
-    private IEnumerator ShowModel()
-    {
-        yield return new WaitForSeconds(_delay);
-
-        CameraAnimationEnded?.Invoke();
-    }
-
-    private void CalculateResults(ModelBuilder model)
-    {
-        bool isVictory;
-
-        isVictory = model == _allyModel;
-
-        if (isVictory)
+        private void OnDisable()
         {
-            _wallet.AddMoney(_victoryMoney);
-            _resultsView.Render(isVictory, _victoryMoney);
+            _allyModel.BuildEnded -= OnBuildEnded;
+            _enemyModel.BuildEnded -= OnBuildEnded;
+        }
+
+        public void Init(
+            CameraSwitcher cameraSwitcher, 
+            ModelBuilder allyModel, 
+            ModelBuilder enemyModel)
+        {
+            _allyModel = allyModel;
+            _enemyModel = enemyModel;
+            _cameraSwitcher = cameraSwitcher;
+
+            enabled = true;
+        }
+
+        public void Disable()
+        {
+            enabled = false;
+
+            _allyModel = null;
+            _enemyModel = null;
+            _cameraSwitcher = null;
+            _isFirstWinner = false;
+        }
+
+        private void OnBuildEnded(ModelBuilder model)
+        {
+            if (model.Equals(_allyModel))
+                _enemyModel.StopConstruction();
+            else if (model.Equals(_enemyModel))
+                _allyModel.StopConstruction();
+
+            if (_isFirstWinner == false)
+            {
+                _isFirstWinner = true;
+                FindFirstObjectByType<NPCSpawner>().DisableAllNPC();
+                _cameraSwitcher.LookToModel(model.transform);
+                CalculateResults(model);
+
+                GameEnded?.Invoke();
+
+                StartCoroutine(ShowModel());
+            }
+        }
+
+        private IEnumerator ShowModel()
+        {
+            yield return new WaitForSeconds(_delay);
+
+            CameraAnimationEnded?.Invoke();
+        }
+
+        private void CalculateResults(ModelBuilder model)
+        {
+            bool isVictory;
+
+            isVictory = model == _allyModel;
+
+            if (isVictory)
+            {
+                _wallet.AddMoney(_victoryMoney);
+                _resultsView.Render(isVictory, _victoryMoney);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             int modelsProgress = PlayerPrefs.GetInt(PrefsSaveKeys.ModelsCount);
@@ -101,15 +108,16 @@ public class LevelEnder : MonoBehaviour
             PlayerPrefs.SetInt(PrefsSaveKeys.ModelsCount, modelsProgress);
             PlayerPrefs.Save();
 #endif
-            return;
+                return;
+            }
+
+            _wallet.AddMoney(_loseMoney);
+            _resultsView.Render(isVictory, _loseMoney);
         }
 
-        _wallet.AddMoney(_loseMoney);
-        _resultsView.Render(isVictory, _loseMoney);
-    }
-
-    private void OnNextClicked()
-    {
-        OnNextButtonClicked?.Invoke();
+        private void OnNextClicked()
+        {
+            OnNextButtonClicked?.Invoke();
+        }
     }
 }

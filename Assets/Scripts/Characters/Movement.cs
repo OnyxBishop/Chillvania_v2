@@ -1,88 +1,92 @@
 using System;
 using System.Collections;
+using Ram.Chillvania.Upgrade;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Movement : MonoBehaviour, IMovable, IUpgradeable
+namespace Ram.Chillvania.Characters
 {
-    [SerializeField] private Transform _playerModel;
-    [SerializeField] private AudioSource _audio;
-
-    private Animator _animator;
-    private Rigidbody _rigidbody;
-    private Coroutine _upgradeCoroutine;
-
-    private float _initialSpeed;
-    private float _currentSpeed;
-    private float _rotationSpeed = 6.5f;
-
-    public event Action<float> Upgraded;
-
-    public bool IsMoving { get; private set; }
-    public Vector3 CurrentDirection { get; private set; }
-
-    public float Speed => _currentSpeed;
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    public class Movement : MonoBehaviour, IMovable, IUpgradeable
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        _animator = GetComponentInChildren<Animator>();
-    }
+        [SerializeField] private Transform _playerModel;
+        [SerializeField] private AudioSource _audio;
 
-    public void SetInitialSpeed(float speed)
-    {
-        _initialSpeed = speed;
-        _currentSpeed = _initialSpeed;
-    }
+        private Animator _animator;
+        private Rigidbody _rigidbody;
+        private Coroutine _upgradeCoroutine;
 
-    public void Move(Vector3 direction, Action callback = null)
-    {
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        _playerModel.rotation = Quaternion.Slerp(_playerModel.rotation, lookRotation, _rotationSpeed * Time.deltaTime);
-        _rigidbody.velocity = direction * _currentSpeed;
+        private float _initialSpeed;
+        private float _currentSpeed;
+        private float _rotationSpeed = 6.5f;
 
-        IsMoving = true;
-        _animator.SetFloat(CharacterAnimatorParams.IsRunning, direction.magnitude);
-        CurrentDirection = direction;
-    }
+        public event Action<float> Upgraded;
 
-    public void Enable()
-    {
-        _rigidbody.isKinematic = false;
-    }
+        public bool IsMoving { get; private set; }
+        public Vector3 CurrentDirection { get; private set; }
 
-    public void Disable()
-    {
-        if (_rigidbody != null)
+        public float Speed => _currentSpeed;
+
+        private void Awake()
         {
-            _rigidbody.velocity = Vector3.zero;
-            _animator.SetFloat(CharacterAnimatorParams.IsRunning, 0);
+            _rigidbody = GetComponent<Rigidbody>();
+            _animator = GetComponentInChildren<Animator>();
         }
 
-        IsMoving = false;
-    }
+        public void SetInitialSpeed(float speed)
+        {
+            _initialSpeed = speed;
+            _currentSpeed = _initialSpeed;
+        }
 
-    public void Upgrade(float value)
-    {
-        if (_upgradeCoroutine != null)
-            StopCoroutine(_upgradeCoroutine);
+        public void Move(Vector3 direction, Action callback = null)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            _playerModel.rotation = Quaternion.Slerp(_playerModel.rotation, lookRotation, _rotationSpeed * Time.deltaTime);
+            _rigidbody.velocity = direction * _currentSpeed;
 
-        _upgradeCoroutine = StartCoroutine(TemporaryUpgrade(value));
-    }
+            IsMoving = true;
+            _animator.SetFloat(CharacterAnimatorParams.IsRunning, direction.magnitude);
+            CurrentDirection = direction;
+        }
 
-    public void OnMove()
-    {
-        _audio.Play();
-    }
+        public void Enable()
+        {
+            _rigidbody.isKinematic = false;
+        }
 
-    private IEnumerator TemporaryUpgrade(float value)
-    {
-        WaitForSeconds wait = new (5f);
+        public void Disable()
+        {
+            if (_rigidbody != null)
+            {
+                _rigidbody.velocity = Vector3.zero;
+                _animator.SetFloat(CharacterAnimatorParams.IsRunning, 0);
+            }
 
-        _currentSpeed += value;
+            IsMoving = false;
+        }
 
-        yield return wait;
+        public void Upgrade(float value)
+        {
+            if (_upgradeCoroutine != null)
+                StopCoroutine(_upgradeCoroutine);
 
-        _currentSpeed = _initialSpeed;
+            _upgradeCoroutine = StartCoroutine(TemporaryUpgrade(value));
+        }
+
+        public void OnMove()
+        {
+            _audio.Play();
+        }
+
+        private IEnumerator TemporaryUpgrade(float value)
+        {
+            WaitForSeconds wait = new(5f);
+
+            _currentSpeed += value;
+
+            yield return wait;
+
+            _currentSpeed = _initialSpeed;
+        }
     }
 }

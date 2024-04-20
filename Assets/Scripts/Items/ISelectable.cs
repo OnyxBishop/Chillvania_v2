@@ -1,10 +1,14 @@
 ﻿using System;
+using Ram.Chillvania.Characters;
 
-public interface ISelectable
+namespace Ram.Chillvania.Items
 {
-    public event Action InteractEnded;
-    public SelectableType Type { get; }
-    public void Interact(ICharacter player);
-    public void DestroySelf();
-    public void Disable();
+    public interface ISelectable
+    {
+        public event Action InteractEnded;
+        public SelectableType Type { get; }
+        public void Interact(ICharacter player);
+        public void DestroySelf();
+        public void Disable();
+    }
 }

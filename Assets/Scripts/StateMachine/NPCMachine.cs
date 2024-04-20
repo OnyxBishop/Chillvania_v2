@@ -1,35 +1,40 @@
-using Ram.Chillvania.StateMachine;
+using Ram.Chillvania.Characters.NPC;
+using Ram.Chillvania.MainObjects;
+using Ram.Chillvania.StatesMachine.States;
 using UnityEngine;
 
-public class NPCMachine : MonoBehaviour
+namespace Ram.Chillvania.StatesMachine
 {
-    private StateMachine _machine;
-    private NPC _bot;
-    private SnowballSpawner _spawner;
-    private AreaCollector _collectArea;
-
-    public void Init(SnowballSpawner spawner, AreaCollector collectArea)
+    public class NPCMachine : MonoBehaviour
     {
-        _spawner = spawner;
-        _collectArea = collectArea;
-    }
+        private StateMachine _machine;
+        private NPC _bot;
+        private SnowballSpawner _spawner;
+        private AreaCollector _collectArea;
 
-    private void Start()
-    {
-        _machine = new StateMachine();
-        _bot = GetComponent<NPC>();
+        public void Init(SnowballSpawner spawner, AreaCollector collectArea)
+        {
+            _spawner = spawner;
+            _collectArea = collectArea;
+        }
 
-        _machine.AddState(new StateEntry(_machine));
-        _machine.AddState(new StateReachSnowball(_machine, _bot, _spawner));
-        _machine.AddState(new StateRolling(_machine, _bot));
-        _machine.AddState(new StateChooseTask(_machine, _bot));
-        _machine.AddState(new StateCarryToSnowman(_machine, _bot, _collectArea, this));
+        private void Start()
+        {
+            _machine = new StateMachine();
+            _bot = GetComponent<NPC>();
 
-        _machine.SetState<StateEntry>();
-    }
+            _machine.AddState(new StateEntry(_machine));
+            _machine.AddState(new StateReachSnowball(_machine, _bot, _spawner));
+            _machine.AddState(new StateRolling(_machine, _bot));
+            _machine.AddState(new StateChooseTask(_machine, _bot));
+            _machine.AddState(new StateCarryToSnowman(_machine, _bot, _collectArea, this));
 
-    private void Update()
-    {
-        _machine.Update(Time.deltaTime);
+            _machine.SetState<StateEntry>();
+        }
+
+        private void Update()
+        {
+            _machine.Update(Time.deltaTime);
+        }
     }
 }
