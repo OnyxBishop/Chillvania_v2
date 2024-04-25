@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Ram.Chillvania.MainObjects;
+using Ram.Chillvania.ScriptableObjects;
 using Ram.Chillvania.Upgrade;
 using UnityEngine;
 
@@ -29,15 +30,15 @@ namespace Ram.Chillvania.Characters.NPC
         }
 
         public void Init(
-            ModelBuilder allyModel, 
-            UpgradeSystem upgradeArea, 
+            ModelBuilder allyModel,
+            UpgradeSystem upgradeArea,
             NPCSpawner spawner)
         {
             _allyModel = allyModel;
             _upgradeSystem = upgradeArea;
             _spawner = spawner;
-            _valueToAdd = new();
-            _spendedPoints = new();
+            _valueToAdd = new Queue<int>();
+            _spendedPoints = new Queue<int>();
 
             for (int i = 0; i < _difficulty.CollectedSnowToAddNpc.Count; i++)
                 _valueToAdd.Enqueue(_difficulty.CollectedSnowToAddNpc[i]);

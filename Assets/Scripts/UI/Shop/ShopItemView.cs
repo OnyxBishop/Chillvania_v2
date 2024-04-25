@@ -1,4 +1,5 @@
 using System;
+using Ram.Chillvania.Shop.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -80,7 +80,7 @@ namespace Ram.Chillvania.Characters
 
         private IEnumerator TemporaryUpgrade(float value)
         {
-            WaitForSeconds wait = new(5f);
+            WaitForSeconds wait = new WaitForSeconds(5f);
 
             _currentSpeed += value;
 

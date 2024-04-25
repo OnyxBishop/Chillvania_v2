@@ -24,7 +24,7 @@ namespace Ram.Chillvania.Fabrics
         private void InitData()
         {
             _persistentData = new PersistentData();
-            _jsonSaver = new(_persistentData);
+            _jsonSaver = new JsonSaver(_persistentData);
             _jsonSaver.Load();
         }
     }

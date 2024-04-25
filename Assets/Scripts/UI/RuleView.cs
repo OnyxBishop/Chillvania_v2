@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lean.Localization;
+using Ram.Chillvania.ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

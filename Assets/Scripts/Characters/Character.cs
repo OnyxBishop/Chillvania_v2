@@ -1,4 +1,5 @@
 using Ram.Chillvania.Boot;
+using Ram.Chillvania.ScriptableObjects;
 using Ram.Chillvania.Shop;
 using Ram.Chillvania.UI;
 using Ram.Chillvania.Upgrade;

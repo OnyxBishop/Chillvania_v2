@@ -1,4 +1,5 @@
 using Ram.Chillvania.Boot;
+using Ram.Chillvania.Shop.ScriptableObjects;
 
 namespace Ram.Chillvania.Shop.Visitors
 {

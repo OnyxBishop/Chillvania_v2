@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ram.Chillvania.Fabrics;
+using Ram.Chillvania.Shop.ScriptableObjects;
 using Ram.Chillvania.Shop.Visitors;
 using UnityEngine;
 

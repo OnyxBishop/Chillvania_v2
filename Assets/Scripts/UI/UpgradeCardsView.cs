@@ -13,7 +13,7 @@ namespace Ram.Chillvania.UI
         [SerializeField] private NextButton _nextButton;
         [SerializeField] private PauseControl _pauseControl;
 
-        private List<UpgradeCard> _cards = new();
+        private List<UpgradeCard> _cards = new List<UpgradeCard>();
         private FadeAnimation _fadeAnimation;
         private CanvasGroup _canvasGroup;
 

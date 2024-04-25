@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ram.Chillvania.Characters;
 using Ram.Chillvania.Characters.NPC;
 using Ram.Chillvania.MainObjects;
+using Ram.Chillvania.ScriptableObjects;
 using UnityEngine;
 
 namespace Ram.Chillvania.Upgrade

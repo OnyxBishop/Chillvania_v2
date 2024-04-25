@@ -1,5 +1,6 @@
 using Ram.Chillvania.Characters;
 using Ram.Chillvania.Characters.NPC;
+using Ram.Chillvania.ScriptableObjects;
 using UnityEngine;
 
 namespace Ram.Chillvania.Fabrics

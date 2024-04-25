@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Ram.Chillvania.Characters.NPC;
 using Ram.Chillvania.Fabrics;
 using Ram.Chillvania.Items;
-using Random = UnityEngine.Random;
 using UnityEngine;
 
 namespace Ram.Chillvania.MainObjects

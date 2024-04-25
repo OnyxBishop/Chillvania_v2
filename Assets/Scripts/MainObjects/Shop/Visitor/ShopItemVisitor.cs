@@ -1,3 +1,4 @@
+using Ram.Chillvania.Shop.ScriptableObjects;
 using Ram.Chillvania.UI.Shop;
 
 namespace Ram.Chillvania.Shop.Visitors

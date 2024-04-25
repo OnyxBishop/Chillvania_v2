@@ -1,3 +1,4 @@
+using Ram.Chillvania.ScriptableObjects;
 using Ram.Chillvania.UI;
 using Ram.Chillvania.Upgrade;
 using UnityEngine;

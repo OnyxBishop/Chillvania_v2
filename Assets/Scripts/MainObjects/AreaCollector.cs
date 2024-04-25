@@ -18,9 +18,9 @@ namespace Ram.Chillvania.MainObjects
         private Transform _allyModel;
         private Transform _enemyModel;
 
-        private Dictionary<ICharacter, Coroutine> _animateCoroutines = new();
+        private Dictionary<ICharacter, Coroutine> _animateCoroutines = new Dictionary<ICharacter, Coroutine>();
         private Coroutine _animateCoroutine;
-        private WaitForSeconds _delay = new(0.3f);
+        private WaitForSeconds _delay = new WaitForSeconds(0.3f);
 
         public Collider Zone { get; private set; }
 

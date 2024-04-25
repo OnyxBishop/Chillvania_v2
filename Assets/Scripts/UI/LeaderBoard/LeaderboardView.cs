@@ -8,7 +8,7 @@ namespace Ram.Chillvania.UI.Leaderboard
         [SerializeField] private Transform _container;
         [SerializeField] private LeaderboardElement _elementPrefab;
 
-        private List<LeaderboardElement> _spawnedElements = new();
+        private List<LeaderboardElement> _spawnedElements = new List<LeaderboardElement>();
 
         public void Construct(List<LeaderboardPlayer> players)
         {

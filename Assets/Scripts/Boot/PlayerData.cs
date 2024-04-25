@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ram.Chillvania.ScriptableObjects;
 using Ram.Chillvania.Shop;
 using Ram.Chillvania.Upgrade;
 

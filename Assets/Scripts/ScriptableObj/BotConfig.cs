@@ -1,13 +1,16 @@
-﻿public class BotConfig
+﻿namespace Ram.Chillvania.ScriptableObjects
 {
-    public BotConfig(int strenght, int speed, int inventoryCount)
+    public class BotConfig
     {
-        Strenght = strenght;
-        Speed = speed;
-        InventoryCount = inventoryCount;
-    }
+        public BotConfig(int strenght, int speed, int inventoryCount)
+        {
+            Strenght = strenght;
+            Speed = speed;
+            InventoryCount = inventoryCount;
+        }
 
-    public int Strenght { get; private set; }
-    public int Speed { get; private set; }
-    public int InventoryCount { get; private set; }
+        public int Strenght { get; private set; }
+        public int Speed { get; private set; }
+        public int InventoryCount { get; private set; }
+    }
 }

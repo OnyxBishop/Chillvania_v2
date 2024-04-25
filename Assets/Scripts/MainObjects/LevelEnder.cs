@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 using Ram.Chillvania.CameraLogic;
 using Ram.Chillvania.Characters.NPC;
 using Ram.Chillvania.Shop;
 using Ram.Chillvania.UI;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 namespace Ram.Chillvania.MainObjects
 {
@@ -43,8 +43,8 @@ namespace Ram.Chillvania.MainObjects
         }
 
         public void Init(
-            CameraSwitcher cameraSwitcher, 
-            ModelBuilder allyModel, 
+            CameraSwitcher cameraSwitcher,
+            ModelBuilder allyModel,
             ModelBuilder enemyModel)
         {
             _allyModel = allyModel;

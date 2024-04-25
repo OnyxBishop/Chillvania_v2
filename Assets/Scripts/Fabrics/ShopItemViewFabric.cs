@@ -1,3 +1,4 @@
+using Ram.Chillvania.Shop.ScriptableObjects;
 using Ram.Chillvania.Shop.Visitors;
 using Ram.Chillvania.UI.Shop;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Ram.Chillvania.Fabrics
 
         public ShopItemView Create(ShopItem data, Transform parent)
         {
-            ShopItemVisitor shopItemVisitor = new(_skinViewPrefab, _statsViewPrefab);
+            ShopItemVisitor shopItemVisitor = new ShopItemVisitor(_skinViewPrefab, _statsViewPrefab);
             shopItemVisitor.Visit(data);
 
             ShopItemView created = Instantiate(shopItemVisitor.Prefab, parent);

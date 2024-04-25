@@ -1,6 +1,7 @@
 using Ram.Chillvania.Boot;
 using Ram.Chillvania.Characters;
 using Ram.Chillvania.Shop.Buttons;
+using Ram.Chillvania.Shop.ScriptableObjects;
 using Ram.Chillvania.Shop.Visitors;
 using Ram.Chillvania.UI.Shop;
 using UnityEngine;

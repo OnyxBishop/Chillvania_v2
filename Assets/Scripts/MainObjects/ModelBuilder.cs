@@ -1,8 +1,9 @@
 using System;
-using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 using Ram.Chillvania.Items;
 using Ram.Chillvania.Items.BoostItems;
+using Ram.Chillvania.ScriptableObjects;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 namespace Ram.Chillvania.MainObjects
 {

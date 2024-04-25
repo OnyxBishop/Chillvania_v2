@@ -1,3 +1,4 @@
+using Ram.Chillvania.Fabrics;
 using Ram.Chillvania.Shop;
 using UnityEngine;
 

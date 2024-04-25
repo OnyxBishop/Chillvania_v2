@@ -1,7 +1,7 @@
 using System.Collections;
-using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 namespace Agava.YandexGames
 {

@@ -1,8 +1,8 @@
 using Agava.YandexGames;
-using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 using Ram.Chillvania.Common;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 namespace Ram.Chillvania.UI.Leaderboard
 {

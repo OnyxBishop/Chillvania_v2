@@ -1,3 +1,5 @@
+using Ram.Chillvania.Shop.ScriptableObjects;
+
 namespace Ram.Chillvania.Shop.Visitors
 {
     public interface IShopItemVisitor

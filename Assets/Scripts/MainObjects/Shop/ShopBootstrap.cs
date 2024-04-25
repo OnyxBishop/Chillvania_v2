@@ -27,16 +27,16 @@ namespace Ram.Chillvania.Shop
         private void InitData()
         {
             _persistentData = new PersistentData();
-            _saver = new(_persistentData);
+            _saver = new JsonSaver(_persistentData);
             _saver.Load();
         }
 
         private void InitShop()
         {
-            OpenItemsChecker openSkinsChecker = new(_persistentData);
-            SelectedSkinChecker selectedSkinChecker = new(_persistentData);
-            SkinSelector skinSelector = new(_persistentData);
-            ItemUnlocker skinUnlocker = new(_persistentData);
+            OpenItemsChecker openSkinsChecker = new OpenItemsChecker(_persistentData);
+            SelectedSkinChecker selectedSkinChecker = new SelectedSkinChecker(_persistentData);
+            SkinSelector skinSelector = new SkinSelector(_persistentData);
+            ItemUnlocker skinUnlocker = new ItemUnlocker(_persistentData);
 
             _shop.Init(_saver, skinSelector, skinUnlocker, openSkinsChecker, selectedSkinChecker);
             _shopStatsView.Init(_persistentData.PlayerData);
